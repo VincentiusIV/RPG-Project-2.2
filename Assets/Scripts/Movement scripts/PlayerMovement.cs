@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
     [SerializeField] private Vector2 speed;
     [SerializeField] private GameObject bulletPreFab;
     [SerializeField] private GameObject bulletSpawnPoint;
@@ -11,7 +12,11 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 movement;
     private float shootTime = 0;
 
-    void Start() {
+    private GameObject invRef;
+
+    void Start()
+    {
+        invRef = GameObject.Find("Inventory_Panel");
         rig = transform.parent.GetComponent<Rigidbody2D>();
     }
 
@@ -28,7 +33,7 @@ public class PlayerMovement : MonoBehaviour {
         transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
         
         shootTime += 1f/60f;
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && invRef.activeInHierarchy == false) {
             if (shootTime >= firingSpeedPerSec) {
                 Shoot();
                 shootTime = 0f;
