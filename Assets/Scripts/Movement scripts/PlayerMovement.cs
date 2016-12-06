@@ -8,15 +8,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject bulletSpawnPoint;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float firingSpeedPerSec;
+    [SerializeField] private GameObject invRef;
+    [SerializeField] private GameObject menuRef;
+    [SerializeField] private ButtonFunctionality buttonScript;
     private Rigidbody2D rig;
     private Vector2 movement;
     private float shootTime = 0;
 
-    private GameObject invRef;
-
-    void Start()
-    {
-        invRef = GameObject.Find("Inventory_Panel");
+    void Start(){
         rig = transform.parent.GetComponent<Rigidbody2D>();
     }
 
@@ -33,21 +32,32 @@ public class PlayerMovement : MonoBehaviour
         transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
         
         shootTime += 1f/60f;
-        if (Input.GetMouseButtonDown(0) && invRef.activeInHierarchy == false) {
+        if (Input.GetMouseButtonDown(0) && invRef.activeInHierarchy == false && menuRef.activeInHierarchy == false) {
             if (shootTime >= firingSpeedPerSec) {
                 Shoot();
                 shootTime = 0f;
             }
         }
+        if (Input.GetKeyDown(KeyCode.I)) {
+            buttonScript.SwitchActive("Inventory_Panel");
+        }
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            buttonScript.SwitchActive("Menu_Panel");
+        }
     }
 
     void FixedUpdate() {
-        rig.velocity = movement;
+        if (menuRef.activeInHierarchy == false){
+            rig.velocity = movement;
+        }
+        else {
+            rig.velocity = Vector2.zero;
+        }
     }
 
     void Shoot() {
         GameObject BulletClone = (GameObject)Instantiate(bulletPreFab, bulletSpawnPoint.transform.position, transform.rotation);
         BulletClone.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
-        Destroy(BulletClone, 2f);
+        Destroy(BulletClone, 0.6f);
     }
 }
