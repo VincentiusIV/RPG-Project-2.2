@@ -11,15 +11,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject invRef;
     [SerializeField] private GameObject menuRef;
     [SerializeField] private ButtonFunctionality buttonScript;
+    [SerializeField] public int dmg;
+    [SerializeField] private int maxHP;
+    private float currentHP;
     private Rigidbody2D rig;
     private Vector2 movement;
     private float shootTime = 0;
+    private SpriteRenderer ren;
 
     void Start(){
         rig = transform.parent.GetComponent<Rigidbody2D>();
+        currentHP = maxHP;
+        ren = GetComponent<SpriteRenderer>();
     }
 
     void Update() {
+        //Movement
         float movX = Input.GetAxis("Horizontal");
         float movY = Input.GetAxis("Vertical");
         movement = new Vector2(speed.x * movX, speed.y * movY);
@@ -31,18 +38,30 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angleDeg);
         transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
         
-        shootTime += 1f/60f;
+        //Shooting
+        shootTime += ((1f / 60f) * 100) * firingSpeedPerSec;
         if (Input.GetMouseButtonDown(0) && invRef.activeInHierarchy == false && menuRef.activeInHierarchy == false) {
-            if (shootTime >= firingSpeedPerSec) {
+            if (shootTime >= 100) {
                 Shoot();
                 shootTime = 0f;
             }
         }
+
+        //Menus
         if (Input.GetKeyDown(KeyCode.I)) {
             buttonScript.SwitchActive("Inventory_Panel");
         }
         if (Input.GetKeyDown(KeyCode.Escape)){
             buttonScript.SwitchActive("Menu_Panel");
+        }
+
+        //HP
+        ren.color = Color.Lerp(Color.red, Color.green, currentHP / 100);
+        if (currentHP < 100 && currentHP > 0){
+            currentHP += 1 / 60f;
+        }
+        if (currentHP <= 0){
+            //Respawn?? End Game?? Lifes??
         }
     }
 
@@ -57,7 +76,25 @@ public class PlayerMovement : MonoBehaviour
 
     void Shoot() {
         GameObject BulletClone = (GameObject)Instantiate(bulletPreFab, bulletSpawnPoint.transform.position, transform.rotation);
+        BulletClone.transform.parent = transform;
         BulletClone.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
         Destroy(BulletClone, 0.6f);
+    }
+
+    public void doDmg(int damage){
+        currentHP -= damage;
+    }
+
+    void OnCollisionEnter2D(Collision2D coll) {
+        if (coll.transform.parent.name == "MeleeEnemy(Clone)") {
+            currentHP -= coll.transform.parent.GetComponent<EnemyScript>().dmg;
+        }
+        if (coll.gameObject.tag == "Teleporter") {
+            //reload lvl and move player to opposite side of the lvl
+            GeneratingDungeon gameManagerScript = FindObjectOfType<GeneratingDungeon>();
+            gameManagerScript.DestroyLevel();
+            gameManagerScript.GenerateLevel();
+            transform.parent.transform.position = new Vector2(0f, 0f);
+        }
     }
 }
