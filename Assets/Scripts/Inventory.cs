@@ -11,14 +11,13 @@ public class Inventory : MonoBehaviour
     public GameObject inventorySlot;
     public GameObject inventoryItem;
 
-    private int slotAmount;
+    [SerializeField]private int slotAmount;
     public List<Item> items = new List<Item>();
-    public List<GameObject> slots = new List<GameObject>();
+    [HideInInspector]public List<GameObject> slots = new List<GameObject>();
 
     void Start()
     {
         database = GetComponent<DatabaseHandler>();
-        slotAmount = 20;
         inventoryPanel = GameObject.Find("Inventory_Panel");
         slotPanel = inventoryPanel.transform.FindChild("Slot_Panel").gameObject;
 
@@ -32,7 +31,7 @@ public class Inventory : MonoBehaviour
 
         AddItem(0);
         AddItem(1);
-        inventoryPanel.active = false;
+        inventoryPanel.SetActive(false);
     }
 	
     public void AddItem(int id)
