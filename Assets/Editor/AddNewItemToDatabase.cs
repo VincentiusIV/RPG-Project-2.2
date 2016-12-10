@@ -9,8 +9,7 @@ public enum ItemType
 
 public class AddNewItemToDatabase : ScriptableWizard
 {
-    [Range(0.0f, 100.0f)]
-    public int ID = 0;
+    [Range(0.0f, 100.0f)] public int ID = 0;
     public string itemName = "defaultItem";
     public ItemType itemType;
     public int cost;
