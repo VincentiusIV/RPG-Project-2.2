@@ -25,10 +25,10 @@ public class AddNewItemToDatabase : ScriptableWizard
     private int currentID = 0;
     private DatabaseHandler db; 
 
-    [MenuItem ("Tools/Inventory/Add New Item To Database")]
+    [MenuItem ("Tools/Inventory/Database")]
     static void AddNewItemWizard()
     {
-        DisplayWizard<AddNewItemToDatabase>("Add New Item to Database", "Write To Database", "Save changes");
+        DisplayWizard<AddNewItemToDatabase>("Database", "Write To Database", "Save changes");
     }
 
     void Awake()

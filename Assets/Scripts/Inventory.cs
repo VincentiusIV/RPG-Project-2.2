@@ -37,10 +37,14 @@ public class Inventory : MonoBehaviour
     public void AddItem(int id)
     {
         Item itemToAdd = database.FetchItemByID(id);
-        if(itemToAdd == null)
+        if(itemToAdd == null && itemToAdd.Type == "Items")
         {
             Debug.Log("Item with ID: " + id + " does not exist");
             return;
+        }
+        else
+        {
+            Debug.Log("Item to add is not of type Items");
         }
         if(itemToAdd.Stackable && CheckIfItemIsInInventory(itemToAdd))
         {
