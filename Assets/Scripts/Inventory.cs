@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour
         database = GetComponent<DatabaseHandler>();
         inventoryPanel = GameObject.Find("Inventory_Panel");
         slotPanel = inventoryPanel.transform.FindChild("Slot_Panel").gameObject;
-
+        inventoryPanel.SetActive(true);
         for (int i = 0; i < slotAmount; i++)
         {
             items.Add(new Item());
