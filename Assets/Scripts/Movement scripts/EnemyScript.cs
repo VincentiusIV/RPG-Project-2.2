@@ -27,6 +27,13 @@ public class EnemyScript : MonoBehaviour {
     }
 
     void Update() {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right);
+        Debug.Log(hit.collider.gameObject.name);
+        if (hit.collider.gameObject.tag == "Player") {
+            seesPlayer = true;
+            inRange = true;
+            Debug.Log("HIttttt");
+        }
         //movement & combat
         if (seesPlayer && inRange && isRanged){
             //turning

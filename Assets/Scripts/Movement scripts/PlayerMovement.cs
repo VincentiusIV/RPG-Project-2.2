@@ -8,8 +8,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject bulletSpawnPoint;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float firingSpeedPerSec;
-    [SerializeField] private GameObject invRef;
-    [SerializeField] private GameObject menuRef;
     [SerializeField] private ButtonFunctionality buttonScript;
     [SerializeField] public int dmg;
     [SerializeField] private int maxHP;
@@ -18,11 +16,16 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movement;
     private float shootTime = 0;
     private SpriteRenderer ren;
+    private GameObject invRef;
+    private GameObject menuRef;
 
     void Start(){
         rig = transform.parent.GetComponent<Rigidbody2D>();
         currentHP = maxHP;
         ren = GetComponent<SpriteRenderer>();
+        invRef = GameObject.Find("Inventory_Panel");
+        menuRef = GameObject.Find("Menu_Panel");
+        menuRef.active = false;
     }
 
     void Update() {
