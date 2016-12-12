@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour
         database = GetComponent<DatabaseHandler>();
         inventoryPanel = GameObject.Find("Inventory_Panel");
         slotPanel = inventoryPanel.transform.FindChild("Slot_Panel").gameObject;
-
+        inventoryPanel.SetActive(true);
         for (int i = 0; i < slotAmount; i++)
         {
             items.Add(new Item());
@@ -37,11 +37,12 @@ public class Inventory : MonoBehaviour
     public void AddItem(int id)
     {
         Item itemToAdd = database.FetchItemByID(id);
-        if(itemToAdd == null)
+        if(itemToAdd == null || itemToAdd.Type != "Items")
         {
             Debug.Log("Item with ID: " + id + " does not exist");
             return;
         }
+
         if(itemToAdd.Stackable && CheckIfItemIsInInventory(itemToAdd))
         {
             for (int i = 0; i < items.Count; i++)
