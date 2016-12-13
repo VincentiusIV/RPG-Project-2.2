@@ -89,8 +89,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D coll) {
-        if (coll.transform.parent.name == "MeleeEnemy(Clone)") {
+        if (coll.transform.parent != null && coll.transform.parent.name == "MeleeEnemy(Clone)") {
             currentHP -= coll.transform.parent.GetComponent<EnemyScript>().dmg;
+        }
+        if (coll.transform.name == "Bullet(Clone)") {
+            currentHP -= coll.gameObject.GetComponent<BulletScript>().enemyScript.dmg;
         }
         if (coll.gameObject.tag == "Teleporter") {
             //reload lvl and move player to opposite side of the lvl
