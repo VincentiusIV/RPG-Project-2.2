@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         ren = GetComponent<SpriteRenderer>();
         invRef = GameObject.Find("Inventory_Panel");
         menuRef = GameObject.Find("Menu_Panel");
-        menuRef.active = false;
+        menuRef.SetActive(false);
     }
 
     void Update() {

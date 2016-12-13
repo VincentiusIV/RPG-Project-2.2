@@ -60,7 +60,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         UpdateInfo(eventData);
     }
 
-    void UpdateInfo(PointerEventData eventData)
+    public void UpdateInfo(PointerEventData eventData)
     {
         if(InfoPanel.activeInHierarchy == false)
             InfoPanel.SetActive(true);

@@ -7,20 +7,29 @@ public class Inventory : MonoBehaviour
 {
     GameObject inventoryPanel;
     GameObject slotPanel;
+
     DatabaseHandler database;
     public GameObject inventorySlot;
     public GameObject inventoryItem;
 
     [SerializeField]private int slotAmount;
+
     public List<Item> items = new List<Item>();
     [HideInInspector]public List<GameObject> slots = new List<GameObject>();
+
+    [HideInInspector]public int money;
 
     void Start()
     {
         database = GetComponent<DatabaseHandler>();
+
         inventoryPanel = GameObject.Find("Inventory_Panel");
+
         slotPanel = inventoryPanel.transform.FindChild("Slot_Panel").gameObject;
         inventoryPanel.SetActive(true);
+
+        UpdateWallet(1000);
+
         for (int i = 0; i < slotAmount; i++)
         {
             items.Add(new Item());
@@ -28,10 +37,6 @@ public class Inventory : MonoBehaviour
             slots[i].GetComponent<Slot>().id = i;
             slots[i].transform.SetParent(slotPanel.transform);
         }
-
-        AddItem(0);
-        AddItem(1);
-        inventoryPanel.SetActive(false);
     }
 	
     public void AddItem(int id)
@@ -87,5 +92,11 @@ public class Inventory : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    public void UpdateWallet(int change)
+    {
+        money += change;
+        inventoryPanel.transform.FindChild("Wallet").GetComponent<Text>().text = "Wallet: " + money;
     }
 }

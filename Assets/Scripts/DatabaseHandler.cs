@@ -59,7 +59,6 @@ public class DatabaseHandler : MonoBehaviour
         for (int i = 0; i < amountOfSpots; i++)
         {
             itemList.Add(new Item(itemList.Count));
-            Debug.Log("Added item of id: " + itemList.Count);
         }
         WriteToDatabase();
     }
@@ -101,7 +100,7 @@ public class DatabaseHandler : MonoBehaviour
     }
 }
 
-public class Item : IEquatable<Item>
+public class Item// : IEquatable<Item>
 {
     public int ID { get; set; }
     public string Type { get; set; }
