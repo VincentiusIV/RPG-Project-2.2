@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BulletScript : MonoBehaviour {
     private PlayerMovement playerScript;
-    private EnemyScript enemyScript;
+    public EnemyScript enemyScript;
 
     void Start() {
         if (transform.GetComponentInParent<PlayerMovement>() != null) {

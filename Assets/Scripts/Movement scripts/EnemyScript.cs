@@ -46,7 +46,7 @@ public class EnemyScript : MonoBehaviour {
             transform.rotation = Quaternion.Euler(0, 0, angleDeg);
             transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
             //moving
-            //transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime);
         }
 
         //HP
@@ -82,7 +82,7 @@ public class EnemyScript : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll){
         if (!isRanged && coll.gameObject.tag == player.tag){
-            StartCoroutine("Stab");
+            //StartCoroutine("Stab");
         }
     }
 
