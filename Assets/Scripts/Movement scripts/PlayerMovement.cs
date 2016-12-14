@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
         invRef = GameObject.Find("Inventory_Panel");
         menuRef = GameObject.Find("Menu_Panel");
         menuRef.SetActive(false);
+        invRef.SetActive(false);
+        GameObject.Find("Merchant_Inventory_Panel").SetActive(false);
     }
 
     void Update() {
@@ -52,10 +54,10 @@ public class PlayerMovement : MonoBehaviour
 
         //Menus
         if (Input.GetKeyDown(KeyCode.I)) {
-            buttonScript.SwitchActive("Inventory_Panel");
+            buttonScript.SwitchActive(invRef.name);
         }
         if (Input.GetKeyDown(KeyCode.Escape)){
-            buttonScript.SwitchActive("Menu_Panel");
+            buttonScript.SwitchActive(menuRef.name);
         }
 
         //HP
