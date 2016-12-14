@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (menuRef.activeInHierarchy == false){
+        if (menuRef != null && menuRef.activeInHierarchy == false){
             rig.velocity = movement;
         }
         else {
