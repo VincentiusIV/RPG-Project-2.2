@@ -14,14 +14,34 @@ public class WorldGenerator : MonoBehaviour
     public int AmountOfPerlinLayers;
     public float increasingAmplitudePerLayer;
     public float increasingFrequencyPerLayer;
-    
+
+    private float computeTime = 0f;
+    private bool generating = false;
+
     public void GenerateWorld()
     {
-        StartCoroutine(Generate());
+        int xChunkAmount = worldWidth / 10;
+        int yChunkAmount = worldHeight / 10;
+
+        for (int y = 0; y < yChunkAmount; y++)
+        {
+            for (int x = 0; x < xChunkAmount; x++)
+            {
+                StartCoroutine(GenerateChunk(x, y));
+            }
+        }
     }
 
-    IEnumerator Generate()
+    void Update()
     {
+        if (generating)
+            computeTime += Time.deltaTime;
+    }
+
+    IEnumerator GenerateChunk(float row, float column)
+    {
+        generating = true;
+
         worldHolder = new GameObject();
 
         Instantiate(worldHolder, new Vector3(0f, 0f, 0f), Quaternion.identity);
@@ -44,16 +64,17 @@ public class WorldGenerator : MonoBehaviour
 
                 for (int i = 0; i < AmountOfPerlinLayers; i++)
                 {
-                    float perlin = Mathf.PerlinNoise(x / scale * frequency, y / scale * frequency);
+                    float perlin = Mathf.PerlinNoise((x + row * worldWidth) / scale * frequency, (y + column * worldHeight) / scale * frequency) ;
                     height += perlin * amplitude;
 
                     amplitude *= increasingAmplitudePerLayer;
                     frequency *= increasingFrequencyPerLayer;
                 }
 
-                height -= 0.3f;
+                height -= 0.35f;
                 Debug.Log(height);
-                Vector2 position = new Vector2(x, y);
+
+                Vector2 position = new Vector2(x + (row * worldWidth) , y + (column * worldHeight));
 
                 for (int i = 0; i < terrainType.Count; i++)
                 {
@@ -65,10 +86,16 @@ public class WorldGenerator : MonoBehaviour
                         break;
                     }
                 }
+                
                 yield return new WaitForSeconds(0f);
             }
             
         }
+
+        Debug.Log("World Generation Finished and took: " + computeTime + " seconds");
+        generating = false;
+        computeTime = 0f;
+        
     }
 }
 
