@@ -7,21 +7,24 @@ public class WorldGenerator : MonoBehaviour
     public List<TerrainPrefab> terrainType = new List<TerrainPrefab>();
     private GameObject worldHolder;
 
-    public int worldHeight;
-    public int worldWidth;
+    public int chunkHeight;
+    public int chunkWidth;
+    public int xChunkAmount;
+    public int yChunkAmount;
 
     public float scale;
     public int AmountOfPerlinLayers;
     public float increasingAmplitudePerLayer;
     public float increasingFrequencyPerLayer;
+    public float manualHeightAdjustment;
 
     private float computeTime = 0f;
     private bool generating = false;
 
     public void GenerateWorld()
     {
-        int xChunkAmount = worldWidth / 10;
-        int yChunkAmount = worldHeight / 10;
+        //xChunkAmount = worldWidth / 10;
+        //yChunkAmount = worldHeight / 10;
 
         for (int y = 0; y < yChunkAmount; y++)
         {
@@ -43,19 +46,12 @@ public class WorldGenerator : MonoBehaviour
         generating = true;
 
         worldHolder = new GameObject();
-
         Instantiate(worldHolder, new Vector3(0f, 0f, 0f), Quaternion.identity);
-        // create noise
-        Debug.Log(worldHolder.transform.childCount);
-        for (int i = 0; i < worldHolder.transform.childCount; i++)
-        {
-            DestroyImmediate(worldHolder.transform.GetChild(i).gameObject);
-            Debug.Log("Destroyed");
-        }
+        worldHolder.name = "Chunk(" + row +"," + column + ")";
 
-        for (int y = 0; y < worldHeight; y++)
+        for (int y = 0; y < chunkHeight; y++)
         {
-            for (int x = 0; x < worldWidth; x++)
+            for (int x = 0; x < chunkWidth; x++)
             {
                 float frequency = 1;
                 float amplitude = 1;
@@ -64,17 +60,16 @@ public class WorldGenerator : MonoBehaviour
 
                 for (int i = 0; i < AmountOfPerlinLayers; i++)
                 {
-                    float perlin = Mathf.PerlinNoise((x + row * worldWidth) / scale * frequency, (y + column * worldHeight) / scale * frequency) ;
+                    float perlin = Mathf.PerlinNoise((x + row * chunkWidth) / scale * frequency, (y + column * chunkHeight) / scale * frequency) ;
                     height += perlin * amplitude;
 
                     amplitude *= increasingAmplitudePerLayer;
                     frequency *= increasingFrequencyPerLayer;
                 }
 
-                height -= 0.35f;
-                Debug.Log(height);
+                height -= manualHeightAdjustment;
 
-                Vector2 position = new Vector2(x + (row * worldWidth) , y + (column * worldHeight));
+                Vector2 position = new Vector2(x + (row * chunkWidth) , y + (column * chunkHeight));
 
                 for (int i = 0; i < terrainType.Count; i++)
                 {

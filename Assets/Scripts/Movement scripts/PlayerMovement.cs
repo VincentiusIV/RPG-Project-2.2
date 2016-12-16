@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject menuRef;
 
     void Start(){
-        rig = transform.parent.GetComponent<Rigidbody2D>();
+        rig = GetComponent<Rigidbody2D>();
         currentHP = maxHP;
         ren = GetComponent<SpriteRenderer>();
         invRef = GameObject.Find("Inventory_Panel");

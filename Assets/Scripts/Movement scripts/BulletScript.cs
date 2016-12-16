@@ -7,10 +7,10 @@ public class BulletScript : MonoBehaviour {
 
     void Start() {
         if (transform.GetComponentInParent<PlayerMovement>() != null) {
-            playerScript = transform.GetComponentInParent<PlayerMovement>();
+            playerScript = transform.GetComponent<PlayerMovement>();
         }
         if (transform.GetComponentInParent<EnemyScript>() != null) {
-            enemyScript = transform.GetComponentInParent<EnemyScript>();
+            enemyScript = transform.GetComponent<EnemyScript>();
         }
         transform.parent = null;
     }
