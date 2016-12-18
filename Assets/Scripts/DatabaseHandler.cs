@@ -9,7 +9,7 @@ using System.Text;
 public class DatabaseHandler : MonoBehaviour
 {
     public string dbName;
-    public int count;
+    [HideInInspector]public int count;
 
     private JsonData itemData;
     private List<Item> itemList = new List<Item>();

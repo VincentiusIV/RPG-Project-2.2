@@ -5,13 +5,12 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
-    GameObject inventoryPanel;
-    GameObject slotPanel;
+    private GameObject inventoryPanel;
+    private GameObject slotPanel;
 
-    DatabaseHandler database;
-    public GameObject inventorySlot;
-    public GameObject inventoryItem;
-
+    private DatabaseHandler database;
+    [SerializeField]private GameObject inventorySlot;
+    [SerializeField]private GameObject inventoryItem;
     [SerializeField]private int slotAmount;
 
     public List<Item> items = new List<Item>();

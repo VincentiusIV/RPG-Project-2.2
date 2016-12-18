@@ -4,14 +4,15 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Vector2 speed;
+
     [SerializeField] private GameObject bulletPreFab;
     [SerializeField] private GameObject bulletSpawnPoint;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float firingSpeedPerSec;
-    [SerializeField] private ButtonFunctionality buttonScript;
     [SerializeField] public int dmg;
     [SerializeField] private int maxHP;
     private float currentHP;
+
     private Rigidbody2D rig;
     private Vector2 movement;
     private float shootTime = 0;
@@ -115,4 +116,18 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }*/
+}
+
+public class PlayerStats
+{
+    int Power { get; set; }
+    int Defence { get; set; }
+    int HP { get; set; }
+
+    public PlayerStats(int pow, int def, int hp)
+    {
+        this.Power = pow;
+        this.Defence = def;
+        this.HP = hp;
+    }
 }
