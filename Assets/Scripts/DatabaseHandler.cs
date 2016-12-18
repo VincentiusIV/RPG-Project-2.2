@@ -114,6 +114,9 @@ public class Item// : IEquatable<Item>
     public int Rarity { get; set; }
     public string Slug { get; set; }
 
+    private WeaponType wepType;
+    public float attackRange;
+
     public Item(int id, string title, string type, int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug)
     {
         ID = id;
@@ -143,6 +146,7 @@ public class Item// : IEquatable<Item>
         Rarity = 0;
         Slug = "default_slug";
     }
+
     public Item()
     {
         ID = -1;
@@ -159,4 +163,29 @@ public class Item// : IEquatable<Item>
             return (Title.Equals(other.Title));
         }
     }
+
+
 } 
+
+[Serializable]
+public enum WeaponType
+{
+    Melee,
+    Ranged,
+}
+/*
+[Serializable]
+public enum MagicType
+{
+    Fire,
+    Earth,
+    Water,
+    Ice,
+}
+
+[Serializable]
+public struct Magic
+{
+    MagicType thisType;
+    MagicType[] goodAgainst;
+}*/

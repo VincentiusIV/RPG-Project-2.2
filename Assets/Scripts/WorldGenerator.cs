@@ -55,12 +55,14 @@ public class WorldGenerator : MonoBehaviour
             {
                 float frequency = 1;
                 float amplitude = 1;
-
                 float height = 0;
+
+                float xValue = x + row * chunkWidth;
+                float yValue = y + column * chunkHeight;
 
                 for (int i = 0; i < AmountOfPerlinLayers; i++)
                 {
-                    float perlin = Mathf.PerlinNoise((x + row * chunkWidth) / scale * frequency, (y + column * chunkHeight) / scale * frequency) ;
+                    float perlin = Mathf.PerlinNoise( xValue / scale * frequency, yValue / scale * frequency) ;
                     height += perlin * amplitude;
 
                     amplitude *= increasingAmplitudePerLayer;
@@ -69,7 +71,7 @@ public class WorldGenerator : MonoBehaviour
 
                 height -= manualHeightAdjustment;
 
-                Vector2 position = new Vector2(x + (row * chunkWidth) , y + (column * chunkHeight));
+                Vector2 position = new Vector2( xValue , yValue);
 
                 for (int i = 0; i < terrainType.Count; i++)
                 {
@@ -81,16 +83,13 @@ public class WorldGenerator : MonoBehaviour
                         break;
                     }
                 }
-                
                 yield return new WaitForSeconds(0f);
             }
-            
         }
 
         Debug.Log("World Generation Finished and took: " + computeTime + " seconds");
         generating = false;
         computeTime = 0f;
-        
     }
 }
 

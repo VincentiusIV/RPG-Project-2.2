@@ -16,18 +16,14 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movement;
     private float shootTime = 0;
     private SpriteRenderer ren;
-    private GameObject invRef;
-    private GameObject menuRef;
 
-    void Start(){
+    public bool canPlay;
+
+    void Start()
+    {
         rig = GetComponent<Rigidbody2D>();
         currentHP = maxHP;
         ren = GetComponent<SpriteRenderer>();
-        invRef = GameObject.Find("Inventory_Panel");
-        menuRef = GameObject.Find("Menu_Panel");
-        //menuRef.SetActive(false);
-        //invRef.SetActive(false);
-        GameObject.Find("Merchant_Inventory_Panel").SetActive(false);
     }
 
     void Update() {
@@ -45,20 +41,14 @@ public class PlayerMovement : MonoBehaviour
         
         //Shooting
         shootTime += ((1f / 60f) * 100) * firingSpeedPerSec;
-        if (Input.GetMouseButtonDown(0) && invRef.activeInHierarchy == false && menuRef.activeInHierarchy == false) {
+        if (Input.GetMouseButtonDown(0) && canPlay) {
             if (shootTime >= 100) {
                 Shoot();
                 shootTime = 0f;
             }
         }
 
-        //Menus
-        if (Input.GetKeyDown(KeyCode.I)) {
-            buttonScript.SwitchActive(invRef.name);
-        }
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            buttonScript.SwitchActive(menuRef.name);
-        }
+        // Menu buttons were moved to ButtonFunctionality script
 
         //HP
         ren.color = Color.Lerp(Color.red, Color.green, currentHP / 100);
@@ -71,33 +61,41 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (menuRef != null && menuRef.activeInHierarchy == false){
+        if (canPlay)
+        {
             rig.velocity = movement;
         }
-        else {
+        else
+        {
             rig.velocity = Vector2.zero;
         }
     }
 
-    void Shoot() {
+    void Shoot()
+    {
         GameObject BulletClone = (GameObject)Instantiate(bulletPreFab, bulletSpawnPoint.transform.position, transform.rotation);
         BulletClone.transform.parent = transform;
         BulletClone.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
         Destroy(BulletClone, 0.6f);
     }
 
-    public void doDmg(int damage){
+    public void doDmg(int damage)
+    {
         currentHP -= damage;
     }
 
-    void OnCollisionEnter2D(Collision2D coll) {
-        if (coll.transform.parent != null && coll.transform.parent.name == "MeleeEnemy(Clone)") {
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.transform.parent != null && coll.transform.parent.name == "MeleeEnemy(Clone)")
+        {
             currentHP -= coll.transform.parent.GetComponent<EnemyScript>().dmg;
         }
-        if (coll.transform.name == "Bullet(Clone)") {
+        if (coll.transform.name == "Bullet(Clone)")
+        {
             currentHP -= coll.gameObject.GetComponent<BulletScript>().enemyScript.dmg;
         }
-        if (coll.gameObject.tag == "Teleporter") {
+        if (coll.gameObject.tag == "Teleporter")
+        {
             //reload lvl and move player to opposite side of the lvl
             GeneratingDungeon gameManagerScript = FindObjectOfType<GeneratingDungeon>();
             gameManagerScript.DestroyLevel();
@@ -105,4 +103,16 @@ public class PlayerMovement : MonoBehaviour
             transform.parent.transform.position = new Vector2(0f, 0f);
         }
     }
+
+    /*public void Attack()
+    {
+        if (wepType == WeaponType.Melee)
+        {
+
+        }
+        else if (wepType == WeaponType.Ranged)
+        {
+
+        }
+    }*/
 }
