@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
+    // To-do: move combat related code to WeaponScript
     [SerializeField] private Vector2 speed;
 
     [SerializeField] private GameObject bulletPreFab;
@@ -104,17 +105,5 @@ public class PlayerMovement : MonoBehaviour
             transform.parent.transform.position = new Vector2(0f, 0f);
         }
     }
-
-    /*public void Attack()
-    {
-        if (wepType == WeaponType.Melee)
-        {
-
-        }
-        else if (wepType == WeaponType.Ranged)
-        {
-
-        }
-    }*/
 }
 
