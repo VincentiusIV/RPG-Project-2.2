@@ -21,20 +21,13 @@ public class PlayerMovement : MonoBehaviour
 
     public bool canPlay;
 
-    void Start()
-    {
+    void Start(){
         rig = GetComponent<Rigidbody2D>();
         currentHP = maxHP;
         ren = GetComponent<SpriteRenderer>();
     }
 
     void Update() {
-        //Movement
-        float movX = Input.GetAxis("Horizontal");
-        float movY = Input.GetAxis("Vertical");
-        movement = new Vector2(speed.x * movX, speed.y * movY);
-        movement *= Time.deltaTime;
-
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
         float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
         float angleDeg = (180 / Mathf.PI) * angleRad;
@@ -60,44 +53,52 @@ public class PlayerMovement : MonoBehaviour
         if (currentHP <= 0){
             //Respawn?? End Game?? Lifes??
         }
+        FollowPlayer();
     }
 
-    void FixedUpdate() {
-        if (canPlay)
-        {
-            rig.velocity = movement;
-        }
-        else
-        {
-            rig.velocity = Vector2.zero;
-        }
+    public GameObject target;
+    public float camDistance;
+    public float lerpIntensity;
+
+    void FollowPlayer(){
+        Vector3 targetPosition = target.transform.position + new Vector3(0f, 0f, camDistance);
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, lerpIntensity);
+        //transform.LookAt(target.transform);
     }
 
-    void Shoot()
-    {
+    /*void FixedUpdate() {
+        float movX = Input.GetAxis("Horizontal");
+        float movY = Input.GetAxis("Vertical");
+        movement = new Vector2(speed.x * movX, speed.y * movY);
+        movement *= Time.deltaTime;
+        //if (canPlay){
+            transform.Translate(movement);
+       // }
+        //else{
+           // return;
+       // }
+    }*/
+
+    void Shoot(){
         GameObject BulletClone = (GameObject)Instantiate(bulletPreFab, bulletSpawnPoint.transform.position, transform.rotation);
         BulletClone.transform.parent = transform;
         BulletClone.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
         Destroy(BulletClone, 0.6f);
     }
 
-    public void doDmg(int damage)
-    {
+    public void doDmg(int damage){
         currentHP -= damage;
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        if (coll.transform.parent != null && coll.transform.parent.name == "MeleeEnemy(Clone)")
-        {
+    void OnCollisionEnter2D(Collision2D coll){
+        if (coll.transform.parent != null && coll.transform.parent.name == "MeleeEnemy(Clone)"){
             currentHP -= coll.transform.parent.GetComponent<EnemyScript>().dmg;
         }
-        if (coll.transform.name == "Bullet(Clone)")
-        {
+        if (coll.transform.name == "Bullet(Clone)"){
             currentHP -= coll.gameObject.GetComponent<BulletScript>().enemyScript.dmg;
         }
-        if (coll.gameObject.tag == "Teleporter")
-        {
+        if (coll.gameObject.tag == "Teleporter"){
             //reload lvl and move player to opposite side of the lvl
             GeneratingDungeon gameManagerScript = FindObjectOfType<GeneratingDungeon>();
             gameManagerScript.DestroyLevel();

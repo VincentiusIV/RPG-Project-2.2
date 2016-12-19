@@ -63,7 +63,8 @@ public class EnemyScript : MonoBehaviour {
         if (coll.gameObject.tag == player.tag) {
             seesPlayer = true;
             inRange = true;
-            /*int layerMask = 1 << 8;
+            /*int layerMask = 1 << 1;
+             * layerMask = ~layerMask;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, Mathf.Infinity, layerMask);
             Debug.Log(hit.collider.gameObject.name);
             if (hit.collider.gameObject.tag == player.tag){
@@ -81,8 +82,8 @@ public class EnemyScript : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D coll){
-        if (!isRanged && coll.gameObject.tag == player.tag){
-            //StartCoroutine("Stab");
+        if (isRanged && coll.gameObject.tag == player.tag){
+            //Walk away
         }
     }
 
@@ -91,13 +92,6 @@ public class EnemyScript : MonoBehaviour {
         BulletClone.transform.parent = transform;
         BulletClone.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
         Destroy(BulletClone, 0.6f);
-    }
-
-    IEnumerator Stab(){
-        transform.GetChild(0).transform.Translate(Vector2.right);
-        yield return new WaitForSeconds(0.1f);
-        transform.GetChild(0).transform.Translate(-Vector2.right);
-        yield return new WaitForSeconds(0.1f);
     }
 
     public void doDmg(int damage) {
