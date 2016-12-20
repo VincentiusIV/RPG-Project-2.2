@@ -90,8 +90,7 @@ public class Inventory : MonoBehaviour
                     itemObj.transform.SetParent(slots[i].transform);
                     itemObj.transform.position = slots[i].transform.position;
 
-                    Sprite spriteData = Resources.Load<Sprite>("Sprites/" + itemToAdd.Type + "/" + itemToAdd.Slug);
-                    itemObj.GetComponent<Image>().sprite = spriteData;
+                    itemObj.GetComponent<Image>().sprite = FetchSpriteBySlug(itemToAdd.Type, itemToAdd.Slug);
 
                     itemObj.name = itemToAdd.Title;
                     break;
@@ -110,6 +109,12 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
+    Sprite FetchSpriteBySlug(string type, string slug)
+    {
+        Sprite spriteData = Resources.Load<Sprite>("Sprites/" + type + "/" + slug);
+        return spriteData;
+    }
+
     public void EquipItem(int id)
     {
         Item itemToEquip = database.FetchItemByID(id);
@@ -120,12 +125,18 @@ public class Inventory : MonoBehaviour
             return;
         }
 
+        if(hand.transform.GetChild(0).CompareTag("Weapon"))
+        {
+            // move weapon to inventory
+            Debug.Log("Player already holding a weapon");
+        }
         if (CheckIfItemIsInInventory(itemToEquip) && itemToEquip.Stackable == false)
         {
             GameObject weapon = Instantiate(equipmentItem, hand.transform.position, Quaternion.identity) as GameObject;
             weapon.transform.SetParent(hand.transform);
             weapon.name = itemToEquip.Title;
 
+            equipmentItem.GetComponent<SpriteRenderer>().sprite = FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug);
             WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
 
         }
