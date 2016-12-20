@@ -7,15 +7,27 @@ public class WeaponScript : MonoBehaviour
     private SpriteRenderer sr; // change this to animator in the future
 
     private PlayerStats ps; // maybe not needed if dmg is calculated beforehand
+    private Transform spawnPos;
 
-	void Start()
+    [SerializeField]
+    private Sprite projectileSprite;
+    [SerializeField]
+    private GameObject projectile;
+    [SerializeField]
+    private float projectileDamage;
+    [SerializeField]
+    private float projectileSpeed;
+    [SerializeField]
+    private float projectileRange;
+
+    void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-
+        spawnPos = transform.FindChild("ProjectileSpawnPoint").transform;
         // ps = GetComponent
     }
 
-    public void MeleeAttack(int dmg, int range)
+    public void MeleeAttack()
     {
         /* Modify collider radius with range
          * change damage based on player stats
@@ -24,13 +36,17 @@ public class WeaponScript : MonoBehaviour
          * */
     }
 
-    public void RangedAttack(int dmg, int range, GameObject proj, float projSpeed)
+    public void RangedAttack()
     {
-        /* Instantiate(proj, );
-         * change damage based on player stats
-         * pass range to projectile script
-         * */
+        BulletScript proj = projectile.GetComponent<BulletScript>();
+        proj.damage = projectileDamage;
+        proj.speed = projectileSpeed;
+        proj.range = projectileRange;
 
+        if(projectileSprite != null)
+            projectile.GetComponent<SpriteRenderer>().sprite = projectileSprite;
+
+        Instantiate(projectile, spawnPos.position, spawnPos.rotation);
     }
 
     public void SpecialAttack()

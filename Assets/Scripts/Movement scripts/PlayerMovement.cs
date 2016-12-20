@@ -4,15 +4,13 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     // To-do: move combat related code to WeaponScript
-    [SerializeField] private Vector2 speed;
+    [SerializeField] private Vector2 moveSpeed;
+    
 
-    [SerializeField] private GameObject bulletPreFab;
-    [SerializeField] private GameObject bulletSpawnPoint;
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private float firingSpeedPerSec;
-    [SerializeField] public int dmg;
     [SerializeField] private int maxHP;
     private float currentHP;
+
+    private WeaponScript weapon;
 
     private Rigidbody2D rig;
     private Vector2 movement;
@@ -21,27 +19,37 @@ public class PlayerMovement : MonoBehaviour
 
     public bool canPlay;
 
-    void Start(){
+    void Start()
+    {
         rig = GetComponent<Rigidbody2D>();
         currentHP = maxHP;
         ren = GetComponent<SpriteRenderer>();
+
+        weapon = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
     }
 
-    void Update() {
+    void Update()
+    {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
         float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
         float angleDeg = (180 / Mathf.PI) * angleRad;
         transform.rotation = Quaternion.Euler(0, 0, angleDeg);
         transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
-        
-        //Shooting
+
+        if (Input.GetButtonDown("Fire1"))
+            weapon.MeleeAttack();
+
+        if (Input.GetButtonDown("Fire2"))
+            weapon.RangedAttack();
+
+        /*//Shooting
         shootTime += ((1f / 60f) * 100) * firingSpeedPerSec;
         if (Input.GetMouseButtonDown(0) && canPlay) {
             if (shootTime >= 100) {
                 Shoot();
                 shootTime = 0f;
             }
-        }
+        }*/
 
         // Menu buttons were moved to ButtonFunctionality script
 
@@ -79,12 +87,10 @@ public class PlayerMovement : MonoBehaviour
            // return;
        // }
     }*/
+    
+    public void GetWeapon()
+    {
 
-    void Shoot(){
-        GameObject BulletClone = (GameObject)Instantiate(bulletPreFab, bulletSpawnPoint.transform.position, transform.rotation);
-        BulletClone.transform.parent = transform;
-        BulletClone.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
-        Destroy(BulletClone, 0.6f);
     }
 
     public void doDmg(int damage){
@@ -96,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
             currentHP -= coll.transform.parent.GetComponent<EnemyScript>().dmg;
         }
         if (coll.transform.name == "Bullet(Clone)"){
-            currentHP -= coll.gameObject.GetComponent<BulletScript>().enemyScript.dmg;
+            //currentHP -= coll.gameObject.GetComponent<BulletScript>().enemyScript.dmg;
         }
         if (coll.gameObject.tag == "Teleporter"){
             //reload lvl and move player to opposite side of the lvl

@@ -3,20 +3,27 @@ using System.Collections;
 
 public class BulletScript : MonoBehaviour
 {
-    private PlayerMovement playerScript;
-    public EnemyScript enemyScript;
+    public float damage;
+    public float speed;
+    public float range;
+
+    private Vector2 endPos;
 
     void Start()
     {
-        if (transform.GetComponentInParent<PlayerMovement>() != null)
+        //transform.parent = null;
+
+        range += transform.position.z;
+    }
+
+    void FixedUpdate()
+    {
+        transform.Translate(new Vector2(0f,speed / 10));
+
+        if(transform.position.y > range)
         {
-            playerScript = transform.GetComponent<PlayerMovement>();
+            Destroy(gameObject);
         }
-        if (transform.GetComponentInParent<EnemyScript>() != null)
-        {
-            enemyScript = transform.GetComponent<EnemyScript>();
-        }
-        transform.parent = null;
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
@@ -26,18 +33,22 @@ public class BulletScript : MonoBehaviour
             Destroy(gameObject);
             if (coll.gameObject.tag == "Player")
             {
-                coll.gameObject.GetComponent<PlayerMovement>().doDmg(enemyScript.dmg);
                 Debug.Log("hithihtihtihithitihtihit");
             }
             if (coll.gameObject.tag == "AI")
             {
-                coll.gameObject.GetComponent<EnemyScript>().doDmg(playerScript.dmg);
+
             }
-            if (coll.gameObject.tag == "Breakable")
+            if (coll.gameObject.CompareTag("Breakable"))
             {
                 Destroy(coll.gameObject);
-                //Spawn Loot???
             }
         }
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.CompareTag("DestroyRange"))
+            Destroy(gameObject);
     }
 }
