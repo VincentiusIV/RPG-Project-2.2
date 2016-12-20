@@ -25,6 +25,8 @@ public class WeaponScript : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         spawnPos = transform.FindChild("ProjectileSpawnPoint").transform;
         // ps = GetComponent
+
+        transform.GetChild(1).GetComponent<CircleCollider2D>().radius = projectileRange;
     }
 
     public void MeleeAttack()
