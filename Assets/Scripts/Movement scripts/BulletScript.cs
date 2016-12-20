@@ -19,11 +19,6 @@ public class BulletScript : MonoBehaviour
     void FixedUpdate()
     {
         transform.Translate(new Vector2(0f,speed / 10));
-
-        if(transform.position.y > range)
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D coll)

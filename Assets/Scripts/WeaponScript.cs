@@ -3,22 +3,18 @@ using System.Collections;
 
 public class WeaponScript : MonoBehaviour
 {
+// Private Fields
     private string wepName;
     private SpriteRenderer sr; // change this to animator in the future
 
     private PlayerStats ps; // maybe not needed if dmg is calculated beforehand
     private Transform spawnPos;
 
+    // Private & Serialized Fields
     [SerializeField]
-    private Sprite projectileSprite;
+    private Melee melee;
     [SerializeField]
-    private GameObject projectile;
-    [SerializeField]
-    private float projectileDamage;
-    [SerializeField]
-    private float projectileSpeed;
-    [SerializeField]
-    private float projectileRange;
+    private Projectile projectile;
 
     void Start()
     {
@@ -26,7 +22,7 @@ public class WeaponScript : MonoBehaviour
         spawnPos = transform.FindChild("ProjectileSpawnPoint").transform;
         // ps = GetComponent
 
-        transform.GetChild(1).GetComponent<CircleCollider2D>().radius = projectileRange;
+        transform.GetChild(1).GetComponent<CircleCollider2D>().radius = projectile.range;
     }
 
     public void MeleeAttack()
@@ -40,15 +36,15 @@ public class WeaponScript : MonoBehaviour
 
     public void RangedAttack()
     {
-        BulletScript proj = projectile.GetComponent<BulletScript>();
-        proj.damage = projectileDamage;
-        proj.speed = projectileSpeed;
-        proj.range = projectileRange;
+        BulletScript proj = projectile.go.GetComponent<BulletScript>();
+        proj.damage = projectile.damage;
+        proj.speed = projectile.speed;
+        proj.range = projectile.range;
 
-        if(projectileSprite != null)
-            projectile.GetComponent<SpriteRenderer>().sprite = projectileSprite;
+        if(projectile.sprite != null)
+            projectile.go.GetComponent<SpriteRenderer>().sprite = projectile.sprite;
 
-        Instantiate(projectile, spawnPos.position, spawnPos.rotation);
+        Instantiate(projectile.go, spawnPos.position, spawnPos.rotation);
     }
 
     public void SpecialAttack()
@@ -56,3 +52,25 @@ public class WeaponScript : MonoBehaviour
         // Something special
     }
 }
+
+[System.Serializable]
+public struct Melee
+{
+    public Sprite sprite;
+    public float damage;
+    public float attackSpeed;
+    public float range;
+}
+
+[System.Serializable]
+public struct Projectile
+{
+    public Sprite sprite;
+    public GameObject go;
+    public float damage;
+    public float attackSpeed;
+    public float speed;
+    public float range;
+}
+
+

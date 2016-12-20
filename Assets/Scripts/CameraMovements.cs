@@ -19,7 +19,7 @@ public class CameraMovements : MonoBehaviour{
         //FollowPlayer();
     }
 
-    void FixedUpdate(){
+    void FixedUpdate(){ 
         float movX = Input.GetAxis("Horizontal");
         float movY = Input.GetAxis("Vertical");
         movement = new Vector2(speed.x * movX, speed.y * movY);

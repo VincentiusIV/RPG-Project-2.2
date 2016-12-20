@@ -115,7 +115,7 @@ public class Item// : IEquatable<Item>
     public string Slug { get; set; }
 
     private WeaponType wepType;
-    public float attackRange;
+    public double attackRange;
 
     public Item(int id, string title, string type, int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug)
     {

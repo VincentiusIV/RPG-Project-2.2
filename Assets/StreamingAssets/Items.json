@@ -11,7 +11,8 @@
   "Description" : "\"Beige Gloves\"",
   "Stackable"   : false,
   "Rarity"      : 10,
-  "Slug"        : "beige_gloves"
+  "Slug"        : "beige_gloves",
+  "attackRange" : 0.0
  },
  {
   "ID" : 1,
@@ -24,7 +25,8 @@
   "Description" : "\"Bronze Gloves\"",
   "Stackable"   : false,
   "Rarity"      : 20,
-  "Slug"        : "bronze_gloves"
+  "Slug"        : "bronze_gloves",
+  "attackRange" : 0.0
  },
  {
   "ID" : 2,
@@ -35,9 +37,10 @@
   "Defence" : 0,
   "Vitality" : 23,
   "Description" : "\"A Silver Sword\"",
-  "Stackable"   : true,
+  "Stackable"   : false,
   "Rarity"      : 12,
-  "Slug"        : "sword_silver"
+  "Slug"        : "sword_silver",
+  "attackRange" : 0.0
  },
  {
   "ID" : 3,
@@ -50,7 +53,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 4,
@@ -63,7 +67,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 5,
@@ -76,7 +81,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 6,
@@ -89,7 +95,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 7,
@@ -102,7 +109,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 8,
@@ -115,7 +123,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 9,
@@ -128,7 +137,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 10,
@@ -141,7 +151,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 11,
@@ -154,7 +165,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 12,
@@ -167,7 +179,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 13,
@@ -180,7 +193,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 14,
@@ -193,7 +207,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 15,
@@ -206,7 +221,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "dwarf1"
+  "Slug"        : "dwarf1",
+  "attackRange" : 0.0
  },
  {
   "ID" : 16,
@@ -219,7 +235,8 @@
   "Description" : "an old man",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "old_man"
+  "Slug"        : "old_man",
+  "attackRange" : 0.0
  },
  {
   "ID" : 17,
@@ -232,7 +249,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 18,
@@ -245,7 +263,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 19,
@@ -258,7 +277,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 20,
@@ -271,7 +291,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 21,
@@ -284,7 +305,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 22,
@@ -297,7 +319,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 23,
@@ -310,7 +333,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 24,
@@ -323,7 +347,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 25,
@@ -336,7 +361,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 26,
@@ -349,7 +375,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 27,
@@ -362,7 +389,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 28,
@@ -375,7 +403,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 29,
@@ -388,7 +417,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 30,
@@ -401,7 +431,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 31,
@@ -414,7 +445,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 32,
@@ -427,7 +459,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 33,
@@ -440,7 +473,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 34,
@@ -453,7 +487,8 @@
   "Description" : "this is a descriptioh",
   "Stackable"   : true,
   "Rarity"      : 0,
-  "Slug"        : "beige_gloves"
+  "Slug"        : "beige_gloves",
+  "attackRange" : 0.0
  },
  {
   "ID" : 35,
@@ -466,7 +501,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 36,
@@ -479,7 +515,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 37,
@@ -492,7 +529,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 38,
@@ -505,7 +543,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 39,
@@ -518,7 +557,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 40,
@@ -531,7 +571,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 41,
@@ -544,7 +585,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 42,
@@ -557,7 +599,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 43,
@@ -570,7 +613,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 44,
@@ -583,7 +627,8 @@
   "Description" : "Its a stick thats pretty great",
   "Stackable"   : true,
   "Rarity"      : 9000,
-  "Slug"        : "the_great_stick"
+  "Slug"        : "the_great_stick",
+  "attackRange" : 0.0
  },
  {
   "ID" : 45,
@@ -596,7 +641,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 46,
@@ -609,7 +655,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 47,
@@ -622,7 +669,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 48,
@@ -635,7 +683,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 49,
@@ -648,7 +697,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 50,
@@ -661,7 +711,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 51,
@@ -674,7 +725,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 52,
@@ -687,7 +739,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 53,
@@ -700,7 +753,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 54,
@@ -713,7 +767,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 55,
@@ -726,7 +781,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 56,
@@ -739,7 +795,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 57,
@@ -752,7 +809,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 58,
@@ -765,7 +823,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 59,
@@ -778,7 +837,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 60,
@@ -791,7 +851,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 61,
@@ -804,7 +865,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 62,
@@ -817,7 +879,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 63,
@@ -830,7 +893,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 64,
@@ -843,7 +907,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 65,
@@ -856,7 +921,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 66,
@@ -869,7 +935,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 67,
@@ -882,7 +949,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 68,
@@ -895,7 +963,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 69,
@@ -908,7 +977,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 70,
@@ -921,7 +991,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 71,
@@ -934,7 +1005,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 72,
@@ -947,7 +1019,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 73,
@@ -960,7 +1033,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 74,
@@ -973,7 +1047,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 75,
@@ -986,7 +1061,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 76,
@@ -999,7 +1075,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 77,
@@ -1012,7 +1089,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 78,
@@ -1025,7 +1103,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 79,
@@ -1038,7 +1117,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 80,
@@ -1051,7 +1131,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 81,
@@ -1064,7 +1145,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 82,
@@ -1077,7 +1159,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 83,
@@ -1090,7 +1173,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 84,
@@ -1103,7 +1187,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 85,
@@ -1116,7 +1201,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 86,
@@ -1129,7 +1215,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 87,
@@ -1142,7 +1229,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 88,
@@ -1155,7 +1243,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 89,
@@ -1168,7 +1257,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 90,
@@ -1181,7 +1271,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 91,
@@ -1194,7 +1285,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 92,
@@ -1207,7 +1299,8 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  },
  {
   "ID" : 93,
@@ -1220,799 +1313,7 @@
   "Description" : "default",
   "Stackable"   : false,
   "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 94,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 95,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 96,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 97,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 98,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 99,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 100,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 101,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 102,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 103,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 104,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 105,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 106,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 107,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 108,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 109,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 110,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 111,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 112,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 113,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 114,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 115,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 116,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 117,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 118,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 119,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 120,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 121,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 122,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 123,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 124,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 125,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 126,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 127,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 128,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 129,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 130,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 131,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 132,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 133,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 134,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 135,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 136,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 137,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 138,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 139,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 140,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 141,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 142,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 143,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 144,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 145,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 146,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 147,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 148,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 149,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 150,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 151,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 152,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 153,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
- },
- {
-  "ID" : 154,
-  "Type" : "Items",
-  "Title" : "default",
-  "Value" : 0,
-  "Power" : 0,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "Description" : "default",
-  "Stackable"   : false,
-  "Rarity"      : 0,
-  "Slug"        : "default_slug"
+  "Slug"        : "default_slug",
+  "attackRange" : 0.0
  }
 ]

@@ -5,27 +5,37 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
+// Public Fields
+    public List<Item> items = new List<Item>();
+
+// Public & Hidden Fields
+    [HideInInspector]public List<GameObject> slots = new List<GameObject>();
+    [HideInInspector]public int money;
+
+// Private & Hidden Reference Fields
     private GameObject inventoryPanel;
     private GameObject slotPanel;
+    private GameObject hand;
 
     private DatabaseHandler database;
+
+// Private & Serialized Fields
     [SerializeField]private GameObject inventorySlot;
     [SerializeField]private GameObject inventoryItem;
+    [SerializeField]private GameObject equipmentItem;
+
     [SerializeField]private int slotAmount;
-
-    public List<Item> items = new List<Item>();
-    [HideInInspector]public List<GameObject> slots = new List<GameObject>();
-
-    [HideInInspector]public int money;
 
     void Start()
     {
         database = GetComponent<DatabaseHandler>();
 
         inventoryPanel = GameObject.Find("Inventory_Panel");
+        inventoryPanel.SetActive(true);
 
         slotPanel = inventoryPanel.transform.FindChild("Slot_Panel").gameObject;
-        inventoryPanel.SetActive(true);
+
+        hand = GameObject.FindWithTag("Hand");
 
         UpdateWallet(1000);
 
@@ -38,6 +48,13 @@ public class Inventory : MonoBehaviour
         }
     }
 	
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            EquipItem(2);
+        }
+    }
     public void AddItem(int id)
     {
         Item itemToAdd = database.FetchItemByID(id);
@@ -91,6 +108,27 @@ public class Inventory : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    public void EquipItem(int id)
+    {
+        Item itemToEquip = database.FetchItemByID(id);
+
+        if (itemToEquip == null || itemToEquip.Type != "Items")
+        {
+            Debug.Log("Item with ID: " + id + " does not exist");
+            return;
+        }
+
+        if (CheckIfItemIsInInventory(itemToEquip) && itemToEquip.Stackable == false)
+        {
+            GameObject weapon = Instantiate(equipmentItem, hand.transform.position, Quaternion.identity) as GameObject;
+            weapon.transform.SetParent(hand.transform);
+            weapon.name = itemToEquip.Title;
+
+            WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
+
+        }
     }
 
     public void UpdateWallet(int change)
