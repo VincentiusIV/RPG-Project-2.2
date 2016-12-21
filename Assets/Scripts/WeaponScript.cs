@@ -10,7 +10,7 @@ public class WeaponScript : MonoBehaviour
     private PlayerStats ps; // maybe not needed if dmg is calculated beforehand
     private Transform spawnPos;
 
-    // Private & Serialized Fields
+// Private & Serialized Fields
     [SerializeField]
     private Melee melee;
     [SerializeField]

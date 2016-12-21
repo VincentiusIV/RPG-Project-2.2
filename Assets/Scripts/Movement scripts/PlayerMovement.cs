@@ -22,10 +22,10 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
-        currentHP = maxHP;
         ren = GetComponent<SpriteRenderer>();
-
         weapon = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
+
+        currentHP = maxHP;
     }
 
     void Update()

@@ -55,6 +55,7 @@ public class Inventory : MonoBehaviour
             EquipItem(2);
         }
     }
+
     public void AddItem(int id)
     {
         Item itemToAdd = database.FetchItemByID(id);
