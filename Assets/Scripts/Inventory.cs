@@ -23,8 +23,10 @@ public class Inventory : MonoBehaviour
     [SerializeField]private GameObject inventorySlot;
     [SerializeField]private GameObject inventoryItem;
     [SerializeField]private GameObject equipmentItem;
+    [SerializeField]private GameObject equipmentSlot;
 
     [SerializeField]private int slotAmount;
+    [SerializeField]private int equipmentSlotAmount;
 
     void Start()
     {

@@ -7,6 +7,7 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
     public int id;
     public bool isMerchantSlot;
+    public bool isEquipSlot;
 
     private Inventory inv;
 
