@@ -8,7 +8,7 @@ public class WeaponScript : MonoBehaviour
     private SpriteRenderer sr; // change this to animator in the future
 
     private PlayerStats ps; // maybe not needed if dmg is calculated beforehand
-    private Transform spawnPos;
+    private GameObject spawnPos;
 
 // Private & Serialized Fields
     [SerializeField]
@@ -19,7 +19,7 @@ public class WeaponScript : MonoBehaviour
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        spawnPos = transform.FindChild("ProjectileSpawnPoint").transform;
+        spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
         // ps = GetComponent
 
         transform.GetChild(1).GetComponent<CircleCollider2D>().radius = projectile.range;
@@ -44,7 +44,7 @@ public class WeaponScript : MonoBehaviour
         if(projectile.sprite != null)
             projectile.go.GetComponent<SpriteRenderer>().sprite = projectile.sprite;
 
-        Instantiate(projectile.go, spawnPos.position, spawnPos.rotation);
+        Instantiate(projectile.go, spawnPos.transform.position, spawnPos.transform.rotation);
     }
 
     public void SpecialAttack()

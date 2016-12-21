@@ -58,11 +58,6 @@ public class Inventory : MonoBehaviour
             slots[i].GetComponent<Slot>().id = i;
             slots[i].transform.SetParent(slotPanel.transform);
         }
-
-        for (int i = 0; i < equipmentSlotAmount; i++)
-        {
-
-        }
     }
 
     public void AddItem(int id)
@@ -119,7 +114,7 @@ public class Inventory : MonoBehaviour
     public void EquipItem(int id)
     {
         Item itemToEquip = database.FetchItemByID(id);
-
+        Debug.Log(itemToEquip.Title + " " + itemToEquip.Slug);
         if (itemToEquip == null || itemToEquip.Type != "Items")
         {
             Debug.Log("Item with ID: " + id + " does not exist");
@@ -135,16 +130,14 @@ public class Inventory : MonoBehaviour
                 Destroy(hand.transform.GetChild(0).gameObject);
             }
         }
-        
 
-        if (CheckIfItemIsInInventory(itemToEquip) && itemToEquip.Stackable == false)
+        if (itemToEquip.Stackable == false)
         {
+            equipmentItem.GetComponent<SpriteRenderer>().sprite = FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug);
             GameObject weapon = Instantiate(equipmentItem, hand.transform.position, Quaternion.identity) as GameObject;
             weapon.transform.SetParent(hand.transform);
             weapon.name = itemToEquip.Title;
-            weapon.GetComponent<ItemData>().item = itemToEquip;
-
-            equipmentItem.GetComponent<SpriteRenderer>().sprite = FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug);
+            
             WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
 
         }

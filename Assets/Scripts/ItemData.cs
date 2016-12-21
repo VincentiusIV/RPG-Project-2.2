@@ -19,8 +19,6 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     void Start()
     {
-        if(item == null)
-            item = new Item();
         InfoPanel = transform.parent.parent.parent.FindChild("Info_Panel").gameObject;
         TextPanel = transform.parent.parent.parent.FindChild("Info_Panel").FindChild("Text_Panel").gameObject;
         InfoPanel.SetActive(false);
