@@ -40,6 +40,11 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler
                 inv.items[droppedItem.slotID] = item.GetComponent<ItemData>().item;
                 inv.items[id] = droppedItem.item;
             }
+
+            if(isEquipSlot)
+            {
+                inv.EquipItem(droppedItem.item.ID);
+            }
         }
     }
 

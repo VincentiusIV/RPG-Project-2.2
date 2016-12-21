@@ -6,9 +6,9 @@ using System.Collections.Generic;
 public class Inventory : MonoBehaviour
 {
 // Public Fields
-    public List<Item> items = new List<Item>();
 
 // Public & Hidden Fields
+    [HideInInspector]public List<Item> items = new List<Item>();
     [HideInInspector]public List<GameObject> slots = new List<GameObject>();
     [HideInInspector]public int money;
 
@@ -39,26 +39,34 @@ public class Inventory : MonoBehaviour
 
         UpdateWallet(1000);
 
+        slotAmount += equipmentSlotAmount;
+
         for (int i = 0; i < slotAmount; i++)
         {
             items.Add(new Item());
-            slots.Add(Instantiate(inventorySlot));
+
+            if (i < equipmentSlotAmount)
+            {
+                slots.Add(Instantiate(equipmentSlot));
+            }
+            else
+            {
+                slots.Add(Instantiate(inventorySlot));
+            }
             slots[i].GetComponent<Slot>().id = i;
             slots[i].transform.SetParent(slotPanel.transform);
         }
-    }
-	
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.E))
+
+        for (int i = 0; i < equipmentSlotAmount; i++)
         {
-            EquipItem(2);
+
         }
     }
 
     public void AddItem(int id)
     {
         Item itemToAdd = database.FetchItemByID(id);
+
         if(itemToAdd == null || itemToAdd.Type != "Items")
         {
             Debug.Log("Item with ID: " + id + " does not exist");
@@ -80,7 +88,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < items.Count; i++)
+            for (int i = equipmentSlotAmount; i < items.Count; i++)
             {
                 if (items[i].ID == -1)
                 {
@@ -100,6 +108,52 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void RemoveItem(int id)
+    {
+        Item itemToRemove = database.FetchItemByID(id);
+
+    }
+
+    public void EquipItem(int id)
+    {
+        Item itemToEquip = database.FetchItemByID(id);
+
+        if (itemToEquip == null || itemToEquip.Type != "Items")
+        {
+            Debug.Log("Item with ID: " + id + " does not exist");
+            return;
+        }
+
+        if(hand.transform.childCount > 0)
+        {
+            if (hand.transform.GetChild(0).CompareTag("Weapon"))
+            {
+                Debug.Log("Player already holding a weapon");
+                //AddItem(hand.GetComponent<ItemData>().item.ID);
+                Destroy(hand.transform.GetChild(0).gameObject);
+            }
+        }
+        
+
+        if (CheckIfItemIsInInventory(itemToEquip) && itemToEquip.Stackable == false)
+        {
+            GameObject weapon = Instantiate(equipmentItem, hand.transform.position, Quaternion.identity) as GameObject;
+            weapon.transform.SetParent(hand.transform);
+            weapon.name = itemToEquip.Title;
+            weapon.GetComponent<ItemData>().item = itemToEquip;
+
+            equipmentItem.GetComponent<SpriteRenderer>().sprite = FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug);
+            WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
+
+        }
+    }
+
+    public void UpdateWallet(int change)
+    {
+        money += change;
+        inventoryPanel.transform.FindChild("Wallet").GetComponent<Text>().text = "Wallet: " + money;
+    }
+
     bool CheckIfItemIsInInventory(Item item)
     {
         for (int i = 0; i < items.Count; i++)
@@ -114,38 +168,5 @@ public class Inventory : MonoBehaviour
     {
         Sprite spriteData = Resources.Load<Sprite>("Sprites/" + type + "/" + slug);
         return spriteData;
-    }
-
-    public void EquipItem(int id)
-    {
-        Item itemToEquip = database.FetchItemByID(id);
-
-        if (itemToEquip == null || itemToEquip.Type != "Items")
-        {
-            Debug.Log("Item with ID: " + id + " does not exist");
-            return;
-        }
-
-        if(hand.transform.GetChild(0).CompareTag("Weapon"))
-        {
-            // move weapon to inventory
-            Debug.Log("Player already holding a weapon");
-        }
-        if (CheckIfItemIsInInventory(itemToEquip) && itemToEquip.Stackable == false)
-        {
-            GameObject weapon = Instantiate(equipmentItem, hand.transform.position, Quaternion.identity) as GameObject;
-            weapon.transform.SetParent(hand.transform);
-            weapon.name = itemToEquip.Title;
-
-            equipmentItem.GetComponent<SpriteRenderer>().sprite = FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug);
-            WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
-
-        }
-    }
-
-    public void UpdateWallet(int change)
-    {
-        money += change;
-        inventoryPanel.transform.FindChild("Wallet").GetComponent<Text>().text = "Wallet: " + money;
     }
 }

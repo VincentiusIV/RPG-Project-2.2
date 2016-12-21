@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         ren = GetComponent<SpriteRenderer>();
-        weapon = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
+        GetWeapon();
 
         currentHP = maxHP;
     }
@@ -41,17 +41,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire2"))
             weapon.RangedAttack();
-
-        /*//Shooting
-        shootTime += ((1f / 60f) * 100) * firingSpeedPerSec;
-        if (Input.GetMouseButtonDown(0) && canPlay) {
-            if (shootTime >= 100) {
-                Shoot();
-                shootTime = 0f;
-            }
-        }*/
-
-        // Menu buttons were moved to ButtonFunctionality script
 
         //HP
         ren.color = Color.Lerp(Color.red, Color.green, currentHP / 100);
@@ -90,7 +79,13 @@ public class PlayerMovement : MonoBehaviour
     
     public void GetWeapon()
     {
+        //weapon = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
 
+        if(weapon == null)
+        {
+            Debug.Log("Player is not holding any weapon");
+            weapon = new WeaponScript();
+        }
     }
 
     public void doDmg(int damage){

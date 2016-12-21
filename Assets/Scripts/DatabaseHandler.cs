@@ -100,7 +100,7 @@ public class DatabaseHandler : MonoBehaviour
     }
 }
 
-public class Item// : IEquatable<Item>
+public class Item
 {
     public int ID { get; set; }
     public string Type { get; set; }
@@ -163,8 +163,6 @@ public class Item// : IEquatable<Item>
             return (Title.Equals(other.Title));
         }
     }
-
-
 } 
 
 [Serializable]
