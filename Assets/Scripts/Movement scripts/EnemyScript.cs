@@ -11,7 +11,9 @@ public class EnemyScript : MonoBehaviour {
     [SerializeField] private float firingSpeedPerSec;
     [SerializeField] public int dmg;
     [SerializeField] private int maxHP;
+    [SerializeField] private DatabaseHandler inventorySystem;
     private float currentHP;
+    private float timer;
     private GameObject player;
     private bool seesPlayer;
     private bool inRange;
@@ -55,8 +57,14 @@ public class EnemyScript : MonoBehaviour {
             currentHP += 1 / 60f;
         }
         if (currentHP <= 0){
+            SpawnLoot(1);
             Destroy(gameObject);
         }
+    }
+
+    void SpawnLoot(float dropChance) {
+        //Item item = inventorySystem.FetchItemByID(1);
+        //Item loot = (Item)Instantiate(item, transform.position, Quaternion.identity);
     }
 
     void OnTriggerStay2D(Collider2D coll) {
@@ -83,13 +91,12 @@ public class EnemyScript : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll){
         if (isRanged && coll.gameObject.tag == player.tag){
-            //Walk away
+            //transform.Translate(-(transform.TransformDirection(player.transform.position).normalized * Time.deltaTime));
         }
     }
 
     void Shoot() {
         GameObject BulletClone = (GameObject)Instantiate(bulletPreFab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
-        BulletClone.transform.parent = transform;
         BulletClone.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
         Destroy(BulletClone, 0.6f);
     }
