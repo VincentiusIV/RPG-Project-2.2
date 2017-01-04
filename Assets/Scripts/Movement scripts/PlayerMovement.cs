@@ -37,10 +37,10 @@ public class PlayerMovement : MonoBehaviour
         transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
 
         if (Input.GetButtonDown("Fire1"))
-            weapon.MeleeAttack();
+            weapon.RangedAttack();
 
         if (Input.GetButtonDown("Fire2"))
-            weapon.RangedAttack();
+            weapon.MeleeAttack();
 
         //HP
         ren.color = Color.Lerp(Color.red, Color.green, currentHP / 100);
