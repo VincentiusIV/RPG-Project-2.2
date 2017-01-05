@@ -10,23 +10,21 @@ public class WeaponScript : MonoBehaviour
     private PlayerStats ps; // maybe not needed if dmg is calculated beforehand
     private GameObject spawnPos;
 
-// Private & Serialized Fields
-    [SerializeField]
-    private Melee melee;
-    [SerializeField]
-    private Projectile projectile;
+// Public Fields
+    public Melee melee;
+    public Projectile projectile;
 
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
         // ps = GetComponent
-
         transform.GetChild(1).GetComponent<CircleCollider2D>().radius = projectile.range;
     }
 
     public void MeleeAttack()
     {
+        Debug.Log("Melee attack");
         /* Modify collider radius with range
          * change damage based on player stats
          * Do dmg to rigidbodies with the right tags inside own collider
@@ -36,13 +34,11 @@ public class WeaponScript : MonoBehaviour
 
     public void RangedAttack()
     {
+        Debug.Log("Ranged attack");
         BulletScript proj = projectile.go.GetComponent<BulletScript>();
         proj.damage = projectile.damage;
         proj.speed = projectile.speed;
         proj.range = projectile.range;
-
-        if(projectile.sprite != null)
-            projectile.go.GetComponent<SpriteRenderer>().sprite = projectile.sprite;
 
         Instantiate(projectile.go, spawnPos.transform.position, spawnPos.transform.rotation);
     }
@@ -56,21 +52,19 @@ public class WeaponScript : MonoBehaviour
 [System.Serializable]
 public struct Melee
 {
-    public Sprite sprite;
-    public float damage;
-    public float attackSpeed;
-    public float range;
+    public int damage;
+    public int attackSpeed;
+    public int range;
 }
 
 [System.Serializable]
 public struct Projectile
 {
-    public Sprite sprite;
     public GameObject go;
-    public float damage;
-    public float attackSpeed;
-    public float speed;
-    public float range;
+    public int damage;
+    public int attackSpeed;
+    public int speed;
+    public int range;
 }
 
 

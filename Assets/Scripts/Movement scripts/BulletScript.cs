@@ -25,14 +25,15 @@ public class BulletScript : MonoBehaviour
     {
         if (coll.gameObject.layer == 8 || coll.gameObject.layer == 9)
         {
-            Destroy(gameObject);
+            
             if (coll.gameObject.tag == "Player")
             {
                 Debug.Log("hithihtihtihithitihtihit");
             }
-            if (coll.gameObject.tag == "AI")
+            if (coll.gameObject.CompareTag("AI"))
             {
-
+                Debug.Log("destroyed " + gameObject.name);
+                Destroy(gameObject);
             }
             if (coll.gameObject.CompareTag("Breakable"))
             {
@@ -43,6 +44,7 @@ public class BulletScript : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D col)
     {
+        // If bullet leaves DestroyRange trigger, bullet is destroyed
         if (col.CompareTag("DestroyRange"))
             Destroy(gameObject);
     }

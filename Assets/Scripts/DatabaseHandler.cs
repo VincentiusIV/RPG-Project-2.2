@@ -26,7 +26,7 @@ public class DatabaseHandler : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            itemList.Add(new Item(  (int)itemData[i]["ID"],
+            itemList.Add(new Item((int)itemData[i]["ID"],
                                     (string)itemData[i]["Title"],
                                     (string)itemData[i]["Type"],
                                     (int)itemData[i]["Value"],
@@ -36,11 +36,15 @@ public class DatabaseHandler : MonoBehaviour
                                     (string)itemData[i]["Description"],
                                     (bool)itemData[i]["Stackable"],
                                     (int)itemData[i]["Rarity"],
-                                    (string)itemData[i]["Slug"]));
+                                    (string)itemData[i]["Slug"],
+                                    (int)itemData[i]["MeleeAttackSpeed"],
+                                    (int)itemData[i]["MeleeAttackRange"],
+                                    (int)itemData[i]["RangeAttackSpeed"],
+                                    (int)itemData[i]["RangeAttackRange"]));
         }
     }
 
-    public void ChangeItemInDatabase(int id, string title, string type,int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug)
+    public void ChangeItemInDatabase(int id, string title, string type,int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug, int mAttSp, int mAttRan, int rAttSp, int rAttRan)
     {
         itemList[id].Title = title;
         itemList[id].Type = type;
@@ -52,6 +56,10 @@ public class DatabaseHandler : MonoBehaviour
         itemList[id].Stackable = stackable;
         itemList[id].Rarity = rarity;
         itemList[id].Slug = slug;
+        itemList[id].MeleeAttackSpeed = mAttSp;
+        itemList[id].MeleeAttackRange = mAttRan;
+        itemList[id].RangeAttackSpeed = rAttSp;
+        itemList[id].RangeAttackRange = rAttRan;
     }
 
     void CreateSpots(int amountOfSpots)
@@ -109,27 +117,36 @@ public class Item
     public int Power { get; set; }
     public int Defence { get; set; }
     public int Vitality { get; set; }
+    public int MeleeAttackSpeed { get; set; }
+    public int MeleeAttackRange { get; set; }
+    public int RangeAttackSpeed { get; set; }
+    public int RangeAttackRange { get; set; }
     public string Description { get; set; }
     public bool Stackable { get; set; }
     public int Rarity { get; set; }
     public string Slug { get; set; }
+    
 
-    private WeaponType wepType;
-    public double attackRange;
-
-    public Item(int id, string title, string type, int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug)
+    public Item(int id, string title, string type, int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug, int mAttSp, int mAttRan, int rAttSp, int rAttRan)
     {
         ID = id;
         Title = title;
         Type = type;
         Value = value;
+
         Power = power;
         Defence = defence;
         Vitality = vitality;
+        MeleeAttackSpeed = mAttSp;
+        MeleeAttackRange = mAttRan;
+        RangeAttackSpeed = rAttSp;
+        RangeAttackRange = rAttRan;
+
         Description = description;
         Stackable = stackable;
         Rarity = rarity;
         Slug = slug;
+        
     }
 
     public Item(int id)

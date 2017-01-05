@@ -115,6 +115,7 @@ public class Inventory : MonoBehaviour
     {
         Item itemToEquip = database.FetchItemByID(id);
         Debug.Log(itemToEquip.Title + " " + itemToEquip.Slug);
+
         if (itemToEquip == null || itemToEquip.Type != "Items")
         {
             Debug.Log("Item with ID: " + id + " does not exist");
@@ -126,7 +127,6 @@ public class Inventory : MonoBehaviour
             if (hand.transform.GetChild(0).CompareTag("Weapon"))
             {
                 Debug.Log("Player already holding a weapon");
-                //AddItem(hand.GetComponent<ItemData>().item.ID);
                 Destroy(hand.transform.GetChild(0).gameObject);
             }
         }
@@ -139,7 +139,13 @@ public class Inventory : MonoBehaviour
             weapon.name = itemToEquip.Title;
             
             WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
+            wepScript.melee.damage = itemToEquip.Power;
+            wepScript.melee.attackSpeed = itemToEquip.MeleeAttackSpeed;
+            wepScript.melee.range = itemToEquip.MeleeAttackRange;
 
+            wepScript.projectile.damage = itemToEquip.Power;
+            wepScript.projectile.attackSpeed = itemToEquip.RangeAttackSpeed;
+            wepScript.projectile.range = itemToEquip.RangeAttackRange;
         }
     }
 

@@ -13,9 +13,13 @@ public class AddNewItemToDatabase : ScriptableWizard
     public string itemName = "defaultItem";
     public ItemType itemType;
     public int cost;
+
     public int power;
     public int defence;
     public int vitality;
+    public Melee melee;
+    public Projectile ranged;
+
     public string description = "defaultDescription";
     public bool stackable;
     public int rarity;
@@ -39,7 +43,7 @@ public class AddNewItemToDatabase : ScriptableWizard
     {
         if(Application.isPlaying)
         {
-            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(),cost, power, defence, vitality, description, stackable, rarity, slug);
+            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(),cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, ranged.attackSpeed, ranged.range);
             db.WriteToDatabase();
         }
         else
@@ -52,7 +56,7 @@ public class AddNewItemToDatabase : ScriptableWizard
     {
         if (Application.isPlaying)
         {
-            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(), cost, power, defence, vitality, description, stackable, rarity, slug);
+            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(), cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, ranged.attackSpeed, ranged.range);
         }
         else
         {

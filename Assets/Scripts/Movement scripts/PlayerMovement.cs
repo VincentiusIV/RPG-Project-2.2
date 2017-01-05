@@ -79,12 +79,12 @@ public class PlayerMovement : MonoBehaviour
     
     public void GetWeapon()
     {
-        //weapon = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
+        weapon = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
 
         if(weapon == null)
         {
             Debug.Log("Player is not holding any weapon");
-            weapon = new WeaponScript();
+            //weapon = new WeaponScript();
         }
     }
 
