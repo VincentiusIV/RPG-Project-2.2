@@ -33,6 +33,7 @@ public class Inventory : MonoBehaviour
     {
         database = GetComponent<DatabaseHandler>();
         player = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
+
         inventoryPanel = GameObject.Find("Inventory_Panel");
         inventoryPanel.SetActive(true);
 

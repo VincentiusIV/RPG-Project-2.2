@@ -35,11 +35,16 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angleDeg);
         transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
 
-        if (Input.GetButtonDown("Fire1"))
-            weapon.RangedAttack();
+        if (weapon != null)
+        {
+            if (Input.GetButtonDown("Fire1"))
+                weapon.RangedAttack();
 
-        if (Input.GetButtonDown("Fire2"))
-            weapon.MeleeAttack();
+            if (Input.GetButtonDown("Fire2"))
+                weapon.MeleeAttack();
+        }
+        else
+            Debug.Log("Weapon is not assigned");
 
         //HP
         ren.color = Color.Lerp(Color.red, Color.green, currentHP / 100);
