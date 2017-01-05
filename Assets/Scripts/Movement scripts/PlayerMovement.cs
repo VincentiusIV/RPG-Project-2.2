@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         ren = GetComponent<SpriteRenderer>();
-        GetWeapon();
 
         currentHP = maxHP;
     }
@@ -80,11 +79,11 @@ public class PlayerMovement : MonoBehaviour
     public void GetWeapon()
     {
         weapon = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
+        Debug.Log("Equipped new weapon: " + weapon.gameObject.name);
 
         if(weapon == null)
         {
             Debug.Log("Player is not holding any weapon");
-            //weapon = new WeaponScript();
         }
     }
 

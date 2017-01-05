@@ -17,14 +17,18 @@ public class WeaponScript : MonoBehaviour
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+
         spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
-        // ps = GetComponent
+        if (spawnPos != null)
+            Debug.Log("Spawn position assigned succesfully");
+        else
+            Debug.Log("WARNING! No spawn position for projectile assigned");
         transform.GetChild(1).GetComponent<CircleCollider2D>().radius = projectile.range;
     }
 
     public void MeleeAttack()
     {
-        Debug.Log("Melee attack");
+        Debug.Log("Melee attack with "+ gameObject.name);
         /* Modify collider radius with range
          * change damage based on player stats
          * Do dmg to rigidbodies with the right tags inside own collider
@@ -34,13 +38,22 @@ public class WeaponScript : MonoBehaviour
 
     public void RangedAttack()
     {
-        Debug.Log("Ranged attack");
+        spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
+        if (spawnPos != null)
+            Debug.Log("Spawn position assigned succesfully");
+        else
+            Debug.Log("WARNING! No spawn position for projectile assigned");
+
+        Debug.Log("Ranged attack with "+ gameObject.name);
         BulletScript proj = projectile.go.GetComponent<BulletScript>();
         proj.damage = projectile.damage;
         proj.speed = projectile.speed;
         proj.range = projectile.range;
 
-        Instantiate(projectile.go, spawnPos.transform.position, spawnPos.transform.rotation);
+        if (projectile.go != null && spawnPos != null)
+            Instantiate(projectile.go, spawnPos.transform.position, spawnPos.transform.rotation);
+        else
+            Debug.Log("Projectile Game Object is empty");
     }
 
     public void SpecialAttack()

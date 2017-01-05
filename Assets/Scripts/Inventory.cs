@@ -18,6 +18,7 @@ public class Inventory : MonoBehaviour
     private GameObject hand;
 
     private DatabaseHandler database;
+    private PlayerMovement player;
 
 // Private & Serialized Fields
     [SerializeField]private GameObject inventorySlot;
@@ -31,7 +32,7 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         database = GetComponent<DatabaseHandler>();
-
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
         inventoryPanel = GameObject.Find("Inventory_Panel");
         inventoryPanel.SetActive(true);
 
@@ -146,6 +147,8 @@ public class Inventory : MonoBehaviour
             wepScript.projectile.damage = itemToEquip.Power;
             wepScript.projectile.attackSpeed = itemToEquip.RangeAttackSpeed;
             wepScript.projectile.range = itemToEquip.RangeAttackRange;
+
+            player.GetWeapon();
         }
     }
 
