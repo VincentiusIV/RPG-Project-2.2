@@ -81,9 +81,9 @@ public class PlayerMovement : MonoBehaviour
        // }
     }*/
     
-    public void GetWeapon()
+    public void GetWeapon(WeaponScript wep)
     {
-        weapon = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
+        weapon = wep;
         Debug.Log("Equipped new weapon: " + weapon.gameObject.name);
 
         if(weapon == null)

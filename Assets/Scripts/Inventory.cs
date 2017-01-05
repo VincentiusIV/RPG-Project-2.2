@@ -149,7 +149,7 @@ public class Inventory : MonoBehaviour
             wepScript.projectile.attackSpeed = itemToEquip.RangeAttackSpeed;
             wepScript.projectile.range = itemToEquip.RangeAttackRange;
 
-            player.GetWeapon();
+            player.GetWeapon(wepScript);
         }
     }
 
