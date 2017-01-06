@@ -6,9 +6,9 @@ public class MeleeScript : MonoBehaviour
 // Public Fields
     public int dmg;
 
-	void OnTriggerStay(Collider2D col)
+	void OnTriggerStay2D(Collider2D col)
     {
-        if(col.CompareTag("Enemy"))
+        if(col.CompareTag("AI"))
         {
             col.gameObject.GetComponent<EnemyScript>().doDmg(dmg);
             gameObject.SetActive(false);

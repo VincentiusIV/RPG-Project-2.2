@@ -14,6 +14,7 @@ public class BulletScript : MonoBehaviour
         //transform.parent = null;
 
         range += transform.position.z;
+        StartCoroutine(DestroyTime());
     }
 
     void FixedUpdate()
@@ -47,5 +48,11 @@ public class BulletScript : MonoBehaviour
         // If bullet leaves DestroyRange trigger, bullet is destroyed
         if (col.CompareTag("DestroyRange"))
             Destroy(gameObject);
+    }
+
+    IEnumerator DestroyTime()
+    {
+        yield return new WaitForSeconds(range/10);
+        Destroy(this.gameObject);
     }
 }

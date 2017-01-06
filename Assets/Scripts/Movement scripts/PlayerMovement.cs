@@ -37,10 +37,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (weapon != null)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButton("Fire1"))
                 weapon.RangedAttack();
 
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButton("Fire2"))
                 weapon.MeleeAttack();
         }
         else
