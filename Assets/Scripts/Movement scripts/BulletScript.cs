@@ -6,6 +6,7 @@ public class BulletScript : MonoBehaviour
     public float damage;
     public float speed;
     public float range;
+    public Elements element;
 
     private Vector2 endPos;
 
