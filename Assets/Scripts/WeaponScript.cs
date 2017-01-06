@@ -10,6 +10,8 @@ public class WeaponScript : MonoBehaviour
     private PlayerStats ps; // maybe not needed if dmg is calculated beforehand
     private GameObject spawnPos;
 
+    private CircleCollider2D destroyRange;
+    private GameObject meleeRange;
 // Public Fields
     public Melee melee;
     public Projectile projectile;
@@ -23,17 +25,29 @@ public class WeaponScript : MonoBehaviour
             Debug.Log("Spawn position assigned succesfully");
         else
             Debug.Log("WARNING! No spawn position for projectile assigned");
-        transform.GetChild(1).GetComponent<CircleCollider2D>().radius = projectile.range;
+        destroyRange = transform.GetChild(1).GetComponent<CircleCollider2D>();
+        meleeRange = transform.GetChild(2).gameObject;
     }
 
     public void MeleeAttack()
     {
         Debug.Log("Melee attack with "+ gameObject.name);
+
+        meleeRange.SetActive(true);
+        StartCoroutine(MeleeAttackSpeed(melee.attackSpeed));
+        // start animation
+
         /* Modify collider radius with range
          * change damage based on player stats
          * Do dmg to rigidbodies with the right tags inside own collider
          * 
          * */
+    }
+
+    IEnumerator MeleeAttackSpeed(double attSp)
+    {
+        yield return new WaitForSeconds((float)attSp);
+        meleeRange.SetActive(false);
     }
 
     public void RangedAttack()
@@ -45,6 +59,8 @@ public class WeaponScript : MonoBehaviour
             Debug.Log("WARNING! No spawn position for projectile assigned");
 
         Debug.Log("Ranged attack with "+ gameObject.name);
+        destroyRange.radius = projectile.range;
+
         BulletScript proj = projectile.go.GetComponent<BulletScript>();
         proj.damage = projectile.damage;
         proj.speed = projectile.speed;
