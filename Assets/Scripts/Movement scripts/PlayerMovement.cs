@@ -29,41 +29,48 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
-        float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
-        float angleDeg = (180 / Mathf.PI) * angleRad;
-        transform.rotation = Quaternion.Euler(0, 0, angleDeg);
-        transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
-
-        if (weapon != null)
+        if(canPlay)
         {
-            if (Input.GetButton("Fire1"))
-                weapon.RangedAttack();
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
+            float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
+            float angleDeg = (180 / Mathf.PI) * angleRad;
+            transform.rotation = Quaternion.Euler(0, 0, angleDeg);
+            transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
 
-            if (Input.GetButton("Fire2"))
-                weapon.MeleeAttack();
-        }
-        else
-            Debug.Log("Weapon is not assigned");
+            if (weapon != null)
+            {
+                if (Input.GetButton("Fire1"))
+                    weapon.RangedAttack();
 
-        //HP
-        ren.color = Color.Lerp(Color.red, Color.green, currentHP / 100);
-        if (currentHP < 100 && currentHP > 0){
-            currentHP += 1 / 60f;
+                if (Input.GetButton("Fire2"))
+                    weapon.MeleeAttack();
+            }
+            else
+                Debug.Log("Weapon is not assigned");
+
+            //HP
+            ren.color = Color.Lerp(Color.red, Color.green, currentHP / 100);
+
+            if (currentHP < 100 && currentHP > 0)
+            {
+                currentHP += 1 / 60f;
+            }
+            if (currentHP <= 0)
+            {
+                //Respawn?? End Game?? Lifes??
+            }
+
+            FollowPlayer();
         }
-        if (currentHP <= 0){
-            //Respawn?? End Game?? Lifes??
-        }
-        FollowPlayer();
     }
 
     public GameObject target;
     public float camDistance;
     public float lerpIntensity;
 
-    void FollowPlayer(){
+    void FollowPlayer()
+    {
         Vector3 targetPosition = target.transform.position + new Vector3(0f, 0f, camDistance);
-
         transform.position = Vector3.Lerp(transform.position, targetPosition, lerpIntensity);
         //transform.LookAt(target.transform);
     }
