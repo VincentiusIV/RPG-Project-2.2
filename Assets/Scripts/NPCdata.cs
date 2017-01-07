@@ -45,7 +45,7 @@ public class NPCdata : MonoBehaviour
 	
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.CompareTag("Player"))
+        if(col.CompareTag("Player") && isMerchant)
         {
             notification.SetActive(true);
         }

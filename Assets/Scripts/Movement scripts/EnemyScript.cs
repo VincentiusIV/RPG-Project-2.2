@@ -12,6 +12,7 @@ public class EnemyScript : MonoBehaviour {
     [SerializeField] public int dmg;
     [SerializeField] private int maxHP;
     [SerializeField] private DatabaseHandler inventorySystem;
+    [SerializeField] private Inventory inventory;
     private float currentHP;
     private float timer;
     private GameObject player;
@@ -21,9 +22,11 @@ public class EnemyScript : MonoBehaviour {
     private SpriteRenderer ren;
 
     void Start () {
+        inventory = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
         player = GameObject.Find("Player");
         currentHP = maxHP;
         ren = GetComponent<SpriteRenderer>();
+        SpawnLoot(1);
     }
 
     void Update() {
@@ -63,22 +66,24 @@ public class EnemyScript : MonoBehaviour {
     }
 
     void SpawnLoot(float dropChance) {
-        //Item item = inventorySystem.FetchItemByID(1);
-        //Item loot = (Item)Instantiate(item, transform.position, Quaternion.identity);
+        Item itemToDropInfo = inventorySystem.FetchItemByID(GetComponent<NPCdata>().invData[0].id);
+        GameObject itemToDrop = new GameObject();
+        itemToDrop.GetComponent<SpriteRenderer>().sprite = inventory.FetchSpriteBySlug(itemToDropInfo.Type, itemToDropInfo.Slug);
+        GameObject droppedItem = (GameObject)Instantiate(itemToDrop, transform);
     }
 
     void OnTriggerStay2D(Collider2D coll) {
         if (coll.gameObject.tag == player.tag) {
-            seesPlayer = true;
-            inRange = true;
-            /*int layerMask = 1 << 1;
-             * layerMask = ~layerMask;
+            //seesPlayer = true;
+            //inRange = true;
+            int layerMask = 1 << 1;
+            layerMask = ~layerMask;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, Mathf.Infinity, layerMask);
             Debug.Log(hit.collider.gameObject.name);
             if (hit.collider.gameObject.tag == player.tag){
                 seesPlayer = true;
                 Debug.Log("HIttttt");
-            }*/
+            }
         }
     }
 

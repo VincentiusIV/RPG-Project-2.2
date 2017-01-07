@@ -169,7 +169,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    Sprite FetchSpriteBySlug(string type, string slug)
+    public Sprite FetchSpriteBySlug(string type, string slug)
     {
         Sprite spriteData = Resources.Load<Sprite>("Sprites/" + type + "/" + slug);
         return spriteData;

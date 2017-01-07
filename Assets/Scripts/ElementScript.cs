@@ -16,7 +16,7 @@ public class ElementScript : MonoBehaviour
 
         if(col.CompareTag("Bullet"))
         {
-            col.GetComponent<BulletScript>().
+            //col.GetComponent<BulletScript>().
         }
     }
 }
