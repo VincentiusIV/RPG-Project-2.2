@@ -6,6 +6,8 @@ public class ButtonFunctionality : MonoBehaviour
 {
     PlayerMovement player;
 
+    public GameObject[] uiPanels;
+
     void Start()
     {
         for (int i = 1; i < 4; i++)
@@ -33,12 +35,28 @@ public class ButtonFunctionality : MonoBehaviour
 
     public void LoadGame()
     {
-
+        // TO-DO Load game functionality
     }
 
     public void SwitchActive(string objName)
     {
-        GameObject obj = transform.FindChild(objName).gameObject;
+        GameObject obj = null;
+
+        for (int i = 0; i < uiPanels.Length; i++)
+        {
+            if (objName == uiPanels[i].name)
+            {
+                obj = uiPanels[i];
+                break;
+            }
+        }
+
+        if (obj == null)
+        {
+            Debug.Log("Panel with name " + objName + " was not found in array, will Find instead");
+            obj = GameObject.Find(objName);
+        }
+            
 
         if(obj.activeInHierarchy)
         {
@@ -61,7 +79,19 @@ public class ButtonFunctionality : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SwitchActive("Menu_Panel");
+            for (int i = 0; i < uiPanels.Length; i++)
+            {
+                if (uiPanels[i].activeInHierarchy && uiPanels[i].name != "Menu_Panel")
+                {
+                    SwitchActive(uiPanels[i].name);
+                }
+                else if(i == uiPanels.Length - 1)
+                {
+                    SwitchActive("Menu_Panel");
+                }
+            }
+
+            
         }
     }
 }

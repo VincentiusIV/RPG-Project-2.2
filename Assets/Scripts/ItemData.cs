@@ -15,7 +15,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     private GameObject InfoPanel;
     private GameObject TextPanel;
-    private Vector3 offset = new Vector3(40f, -80f, 0f);
+    private Vector3 offset = new Vector3(90f, -65f, 0f);
 
     void Start()
     {
