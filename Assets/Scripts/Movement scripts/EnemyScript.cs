@@ -16,10 +16,11 @@ public class EnemyScript : MonoBehaviour {
     private float currentHP;
     private float timer;
     private GameObject player;
-    private bool seesPlayer;
-    private bool inRange;
+    private bool seesPlayer = false;
+    private bool inRange = false;
     private float shootTime = 0;
     private SpriteRenderer ren;
+    private int counter = 0;
 
     void Start () {
         inventory = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
@@ -53,6 +54,13 @@ public class EnemyScript : MonoBehaviour {
             //moving
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime);
         }
+        if (!seesPlayer && !inRange) {
+            //idle movement
+            if (counter == 0) {
+                IdleMovement();
+                counter++;
+            }
+        }
 
         //HP
         ren.color = Color.Lerp(Color.red, Color.green, currentHP / 100);
@@ -62,6 +70,35 @@ public class EnemyScript : MonoBehaviour {
         if (currentHP <= 0){
             SpawnLoot(1);
             Destroy(gameObject);
+        }
+    }
+
+    IEnumerator IdleMovement(){
+        float random = Random.value;
+        Vector2 movement;
+        if (random >= 0.75){
+            movement = new Vector2(-1f, 0f) * Time.deltaTime;
+            movement *= movementSpeed;
+            transform.Translate(movement);
+        }
+        else if (random >= 0.50){
+            movement = new Vector2(1f, 0f) * Time.deltaTime;
+            movement *= movementSpeed;
+            transform.Translate(movement);
+        }
+        else if (random >= 0.25){
+            movement = new Vector2(0f, 1f) * Time.deltaTime;
+            movement *= movementSpeed;
+            transform.Translate(movement);
+        }
+        else if (random >= 0){
+            movement = new Vector2(0f, -1f) * Time.deltaTime;
+            movement *= movementSpeed;
+            transform.Translate(movement);
+        }
+        yield return new WaitForSeconds(5f);
+        if (!seesPlayer && !inRange) {
+            IdleMovement();
         }
     }
 

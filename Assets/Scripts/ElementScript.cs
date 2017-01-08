@@ -16,9 +16,7 @@ public class ElementScript : MonoBehaviour
 
         if(col.CompareTag("Bullet"))
         {
-<<<<<<< HEAD
             //col.GetComponent<BulletScript>().
-=======
             Elements newElement = col.GetComponent<BulletScript>().element;
             if (newElement == thisElement)
             {
@@ -35,7 +33,6 @@ public class ElementScript : MonoBehaviour
             {
                 Debug.Log("The ice has frozen "+gameObject.name);
             }
->>>>>>> 8fa5e04dc132eb1750f43a82a3ee07bb82cf3e3f
         }
     }
 }
