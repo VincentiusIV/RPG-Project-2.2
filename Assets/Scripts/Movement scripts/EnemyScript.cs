@@ -20,7 +20,7 @@ public class EnemyScript : MonoBehaviour {
     private bool inRange = false;
     private float shootTime = 0;
     private SpriteRenderer ren;
-    private int counter = 0;
+    private float counter = 0;
 
     void Start () {
         inventory = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
@@ -56,9 +56,42 @@ public class EnemyScript : MonoBehaviour {
         }
         if (!seesPlayer && !inRange) {
             //idle movement
-            if (counter == 0) {
-                IdleMovement();
-                counter++;
+            float random = 0;
+            Vector2 movement = Vector2.zero;
+            if (counter >= 0){
+                counter -= 0.1f;
+            }
+            if (counter <= 0) {
+                random = Random.value;
+                counter = 1f;
+            }
+            if (random <= 0.25)
+            {
+                movement = new Vector2(-1f, 0f) * Time.deltaTime;
+                movement *= movementSpeed;
+                transform.Translate(movement);
+                Debug.Log("Left");
+            }
+            else if (random <= 0.50)
+            {
+                movement = new Vector2(1f, 0f) * Time.deltaTime;
+                movement *= movementSpeed;
+                transform.Translate(movement);
+                Debug.Log("Right");
+            }
+            else if (random <= 0.75)
+            {
+                movement = new Vector2(0f, 1f) * Time.deltaTime;
+                movement *= movementSpeed;
+                transform.Translate(movement);
+                Debug.Log("Up");
+            }
+            else if (random <= 1)
+            {
+                movement = new Vector2(0f, -1f) * Time.deltaTime;
+                movement *= movementSpeed;
+                transform.Translate(movement);
+                Debug.Log("Down");
             }
         }
 
@@ -73,41 +106,12 @@ public class EnemyScript : MonoBehaviour {
         }
     }
 
-    IEnumerator IdleMovement(){
-        float random = Random.value;
-        Vector2 movement;
-        if (random >= 0.75){
-            movement = new Vector2(-1f, 0f) * Time.deltaTime;
-            movement *= movementSpeed;
-            transform.Translate(movement);
-        }
-        else if (random >= 0.50){
-            movement = new Vector2(1f, 0f) * Time.deltaTime;
-            movement *= movementSpeed;
-            transform.Translate(movement);
-        }
-        else if (random >= 0.25){
-            movement = new Vector2(0f, 1f) * Time.deltaTime;
-            movement *= movementSpeed;
-            transform.Translate(movement);
-        }
-        else if (random >= 0){
-            movement = new Vector2(0f, -1f) * Time.deltaTime;
-            movement *= movementSpeed;
-            transform.Translate(movement);
-        }
-        yield return new WaitForSeconds(5f);
-        if (!seesPlayer && !inRange) {
-            IdleMovement();
-        }
-    }
-
     void SpawnLoot(float dropChance)
     {
         Item itemToDropInfo = inventorySystem.FetchItemByID(GetComponent<NPCdata>().invData[0].id);
         GameObject itemToDrop = new GameObject();
         itemToDrop.GetComponent<SpriteRenderer>().sprite = inventory.FetchSpriteBySlug(itemToDropInfo.Type, itemToDropInfo.Slug);
-        GameObject droppedItem = (GameObject)Instantiate(itemToDrop, transform);
+        GameObject droppedItem = (GameObject)Instantiate(itemToDrop, transform.position, transform.rotation);
     }
 
     void OnTriggerStay2D(Collider2D coll) {
