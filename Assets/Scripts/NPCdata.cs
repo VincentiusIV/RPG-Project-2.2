@@ -20,7 +20,7 @@ public class NPCdata : MonoBehaviour
 
     void Start()
     {
-        notification = transform.FindChild("HelpText").gameObject;
+        notification = transform.GetChild(0).gameObject;
         notification.SetActive(false);
 
         db = GameObject.FindWithTag("Inventory").GetComponent<DatabaseHandler>();
@@ -68,8 +68,6 @@ public class NPCdata : MonoBehaviour
         {
             notification.SetActive(false);
         }
-
-        if(merchantPanel.activeInHierarchy)
         {
             merchantPanel.SetActive(false);
             inventoryPanel.SetActive(false);

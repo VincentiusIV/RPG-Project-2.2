@@ -102,7 +102,8 @@ public class EnemyScript : MonoBehaviour {
         }
     }
 
-    void SpawnLoot(float dropChance) {
+    void SpawnLoot(float dropChance)
+    {
         Item itemToDropInfo = inventorySystem.FetchItemByID(GetComponent<NPCdata>().invData[0].id);
         GameObject itemToDrop = new GameObject();
         itemToDrop.GetComponent<SpriteRenderer>().sprite = inventory.FetchSpriteBySlug(itemToDropInfo.Type, itemToDropInfo.Slug);

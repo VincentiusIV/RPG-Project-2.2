@@ -3,8 +3,8 @@ using System.Collections;
 
 public class BulletScript : MonoBehaviour
 {
-    public float damage;
-    public float speed;
+    public int damage;
+    public int speed;
     public float range;
     public Elements element;
 
@@ -31,15 +31,19 @@ public class BulletScript : MonoBehaviour
             if (coll.gameObject.tag == "Player")
             {
                 Debug.Log("hithihtihtihithitihtihit");
+                return;
             }
             if (coll.gameObject.CompareTag("AI"))
             {
                 Debug.Log("destroyed " + gameObject.name);
+                coll.gameObject.GetComponent<EnemyScript>().doDmg(damage);
                 Destroy(gameObject);
+                return;
             }
             if (coll.gameObject.CompareTag("Breakable"))
             {
                 Destroy(coll.gameObject);
+                return;
             }
         }
     }
