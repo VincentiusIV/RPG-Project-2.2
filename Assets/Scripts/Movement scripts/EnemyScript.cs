@@ -11,7 +11,8 @@ public class EnemyScript : MonoBehaviour {
     [SerializeField] private int maxHP;
     [SerializeField] private DatabaseHandler inventorySystem;
     [SerializeField] private Inventory inventory;
-    [SerializeField] public int dmg; 
+    [SerializeField] public int dmg;
+    private Vector2 direction = Vector2.zero;
     private float currentHP;
     private GameObject player;
     private bool seesPlayer = false;
@@ -87,10 +88,14 @@ public class EnemyScript : MonoBehaviour {
             Destroy(gameObject);
         }
         if (inRange && seesPlayer && isRanged && !tooCloseToPlayer) {
-            //WalkToPlayer
+            direction = transform.position - player.transform.position;
+            direction.Normalize();
+            transform.Translate((direction * Time.deltaTime) * movementSpeed);
         }
         if (tooCloseToPlayer && isRanged) {
-            //WalkAway
+            direction = -(transform.position - player.transform.position);
+            direction.Normalize();
+            transform.Translate((direction * Time.deltaTime) * movementSpeed);
         }
     }
 
