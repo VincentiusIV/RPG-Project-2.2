@@ -144,11 +144,13 @@ public class Inventory : MonoBehaviour
             wepScript.melee.damage = itemToEquip.Power;
             wepScript.melee.attackSpeed = itemToEquip.MeleeAttackSpeed;
             wepScript.melee.range = itemToEquip.MeleeAttackRange;
+            wepScript.melee.element = database.StringToElement(itemToEquip.MeleeElement);
 
             wepScript.projectile.damage = itemToEquip.Power;
             wepScript.projectile.attackSpeed = itemToEquip.RangeAttackSpeed;
             wepScript.projectile.range = itemToEquip.RangeAttackRange;
-
+            wepScript.projectile.speed = itemToEquip.RangeBulletSpeed;
+            wepScript.projectile.element = database.StringToElement(itemToEquip.RangeElement);
             player.GetWeapon(wepScript);
         }
     }

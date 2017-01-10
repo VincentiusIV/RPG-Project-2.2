@@ -43,7 +43,7 @@ public class AddNewItemToDatabase : ScriptableWizard
     {
         if(Application.isPlaying)
         {
-            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(),cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, ranged.attackSpeed, ranged.range);
+            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(),cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, melee.element, ranged.attackSpeed, ranged.range, ranged.speed, ranged.element);
             db.WriteToDatabase();
         }
         else
@@ -56,7 +56,7 @@ public class AddNewItemToDatabase : ScriptableWizard
     {
         if (Application.isPlaying)
         {
-            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(), cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, ranged.attackSpeed, ranged.range);
+            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(), cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, melee.element, ranged.attackSpeed, ranged.range, ranged.speed, ranged.element);
         }
         else
         {
@@ -66,8 +66,6 @@ public class AddNewItemToDatabase : ScriptableWizard
 
     void OnWizardUpdate()
     {
-        Debug.Log("database consists of " + db.count + " items");
-
         if(ID != currentID && ID <= db.count)
         {
             currentID = ID;
@@ -87,6 +85,16 @@ public class AddNewItemToDatabase : ScriptableWizard
             power = itemToUpdate.Power;
             defence = itemToUpdate.Defence;
             vitality = itemToUpdate.Vitality;
+            melee.element = db.StringToElement(itemToUpdate.MeleeElement);
+            melee.damage = itemToUpdate.Power;
+            melee.attackSpeed = itemToUpdate.MeleeAttackSpeed;
+
+            ranged.damage = itemToUpdate.Power;
+            ranged.attackSpeed = itemToUpdate.RangeAttackSpeed;
+            ranged.range = itemToUpdate.RangeAttackRange;
+            ranged.speed = itemToUpdate.RangeBulletSpeed;
+            ranged.element = db.StringToElement(itemToUpdate.RangeElement);
+
             description = itemToUpdate.Description;
             stackable = itemToUpdate.Stackable;
             rarity = itemToUpdate.Rarity;

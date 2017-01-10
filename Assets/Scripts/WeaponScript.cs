@@ -12,6 +12,8 @@ public class WeaponScript : MonoBehaviour
 
     private CircleCollider2D destroyRange;
     private GameObject meleeRange;
+
+    private float nextShot;
 // Public Fields
     public Melee melee;
     public Projectile projectile;
@@ -52,24 +54,26 @@ public class WeaponScript : MonoBehaviour
 
     public void RangedAttack()
     {
-        spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
-        if (spawnPos != null)
-            Debug.Log("Spawn position assigned succesfully");
-        else
-            Debug.Log("WARNING! No spawn position for projectile assigned");
+        if(Time.time > nextShot)
+        {
+            nextShot = Time.time + (float)projectile.attackSpeed / 10;
 
-        Debug.Log("Ranged attack with "+ gameObject.name);
-        destroyRange.radius = projectile.range;
+            spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
+            if (spawnPos != null)
+                Debug.Log("Spawn position assigned succesfully");
+            else
+                Debug.Log("WARNING! No spawn position for projectile assigned");
 
-        BulletScript proj = projectile.go.GetComponent<BulletScript>();
-        proj.damage = projectile.damage;
-        proj.speed = projectile.speed;
-        proj.range = projectile.range;
+            Debug.Log("Ranged attack with " + gameObject.name);
+            destroyRange.radius = projectile.range;
 
-        if (projectile.go != null && spawnPos != null)
-            Instantiate(projectile.go, spawnPos.transform.position, spawnPos.transform.rotation);
-        else
-            Debug.Log("Projectile Game Object is empty");
+            projectile.go.GetComponent<BulletScript>().thisData = projectile;
+
+            if (projectile.go != null && spawnPos != null)
+                Instantiate(projectile.go, spawnPos.transform.position, spawnPos.transform.rotation);
+            else
+                Debug.Log("Projectile Game Object is empty");
+        }
     }
 
     public void SpecialAttack()
@@ -81,6 +85,7 @@ public class WeaponScript : MonoBehaviour
 [System.Serializable]
 public struct Melee
 {
+    public Elements element;
     public int damage;
     public int attackSpeed;
     public int range;
@@ -90,9 +95,10 @@ public struct Melee
 public struct Projectile
 {
     public GameObject go;
+    public Elements element;
     public int damage;
     public int attackSpeed;
-    public int speed;
+    public double speed;
     public int range;
 }
 
