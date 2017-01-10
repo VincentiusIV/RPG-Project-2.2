@@ -23,6 +23,7 @@ public class GeneratingDungeon : MonoBehaviour {
     private Vector2 SouthExit;
     private Vector2 EastExit;
     private Vector2 WestExit;
+    public Vector2[] insideLvl;
 
     void Start(){
         GenerateLevel();
@@ -145,27 +146,12 @@ public class GeneratingDungeon : MonoBehaviour {
             } else if (maze[i] == 0) {
                 usedPrefab = groundBlockPrefabs[0];
             }
+            if (maze[i] != 1 && maze[i] != 2 && maze[i] != 3) {
+                insideLvl[++] = blockPosition;
+            }
             GameObject blockClone = (GameObject)Instantiate(usedPrefab, blockPosition, Quaternion.identity);
             blockClone.transform.parent = lvlParent.transform;
             blockClone.name = "Block" + i;
-        }
-    }
-
-    public Vector2 RespawnPlayer(string side) {
-        if (side == "North") {
-            return NorthExit;
-        }
-        if (side == "South"){
-            return SouthExit;
-        }
-        if (side == "East"){
-            return EastExit;
-        }
-        if (side == "West"){
-            return WestExit;
-        }
-        else {
-            return Vector2.zero;
         }
     }
 }
