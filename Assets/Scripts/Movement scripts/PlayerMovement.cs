@@ -53,18 +53,12 @@ public class PlayerMovement : MonoBehaviour
                 //Respawn?? End Game?? Lifes??
             }
 
-            FollowPlayer();
+            float xPos = Input.GetAxis("Horizontal");
+            float yPos = Input.GetAxis("Vertical");
+            Vector3 movement = new Vector3(xPos * moveSpeed.x, yPos * moveSpeed.y, 0f);
+            movement *= Time.deltaTime;
+            transform.Translate(movement, Space.World);
         }
-    }
-
-    public GameObject target;
-    public float camDistance;
-    public float lerpIntensity;
-
-    void FollowPlayer()
-    {
-        Vector3 targetPosition = target.transform.position + new Vector3(0f, 0f, camDistance);
-        transform.position = Vector3.Lerp(transform.position, targetPosition, lerpIntensity);
     }
     
     public void GetWeapon(WeaponScript wep)

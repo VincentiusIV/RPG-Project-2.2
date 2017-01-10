@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraMovements : MonoBehaviour{
-    [SerializeField]
-    private Vector2 speed;
+public class CameraMovements : MonoBehaviour
+{
+    //[SerializeField]
+    //private Vector2 speed;
     public GameObject target;
     public float camDistance;
     public float lerpIntensity;
@@ -23,12 +24,13 @@ public class CameraMovements : MonoBehaviour{
     {
         if(target.GetComponent<PlayerMovement>().canPlay)
         {
-            float movX = Input.GetAxis("Horizontal");
-            float movY = Input.GetAxis("Vertical");
-            movement = new Vector2(speed.x * movX, speed.y * movY);
-            movement *= Time.deltaTime;
-            transform.Translate(movement);
+            //float movX = Input.GetAxis("Horizontal");
+            //float movY = Input.GetAxis("Vertical");
+            //movement = new Vector2(speed.x * movX, speed.y * movY);
+            //movement *= Time.deltaTime;
+            //transform.Translate(movement);
         }
+        FollowPlayer();
     }
 
     void FollowPlayer() { 
