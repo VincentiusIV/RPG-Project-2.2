@@ -4,16 +4,21 @@ using System.Collections;
 
 public class NPCdata : MonoBehaviour
 {
-    public Item thisNPC = new Item();
+// Public & Hidden Variables
+    [HideInInspector]public Item thisNPC = new Item();
+
+// Public Variables
     public int id;
     public bool isMerchant;
-
-    private DatabaseHandler db;
-    private Inventory inventory;
     public GameObject merchantSlot;
     public InventoryData[] invData;
 
-    private GameObject inventoryPanel;
+// Private Variables
+    private DatabaseHandler db;
+    private Inventory inventory;
+    private ButtonFunctionality ui;
+
+// Private UI objects
     private GameObject merchantPanel;
     private GameObject slotPanel;
     private GameObject notification;
@@ -26,20 +31,16 @@ public class NPCdata : MonoBehaviour
         db = GameObject.FindWithTag("Inventory").GetComponent<DatabaseHandler>();
         thisNPC = db.FetchItemByID(id);
 
+        ui = GameObject.Find("UI").GetComponent<ButtonFunctionality>();
+
         Sprite spriteData = Resources.Load<Sprite>("Sprites/" + thisNPC.Type + "/" + thisNPC.Slug);
         GetComponent<SpriteRenderer>().sprite = spriteData;
 
         if(isMerchant)
         {
             inventory = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
-            inventoryPanel = GameObject.Find("Inventory_Panel");
             merchantPanel = GameObject.Find("Merchant_Inventory_Panel");
             slotPanel = merchantPanel.transform.FindChild("Merchant_Slot_Panel").gameObject;
-
-            if(merchantPanel.activeSelf)
-            {
-                //merchantPanel.SetActive(false);
-            }
         }
     }
 	
@@ -70,8 +71,8 @@ public class NPCdata : MonoBehaviour
         }
         else if(merchantPanel.activeInHierarchy)
         {
-            merchantPanel.SetActive(false);
-            inventoryPanel.SetActive(false);
+            ui.SwitchActive("Merchant_Inventory_Panel");
+            ui.SwitchActive("Inventory_Panel");
         }
     }
 
@@ -84,8 +85,8 @@ public class NPCdata : MonoBehaviour
 
         for (int i = 0; i < invData.Length; i++)
         {
-            merchantPanel.SetActive(true);
-            inventoryPanel.SetActive(true);
+            ui.SwitchActive("Merchant_Inventory_Panel");
+            ui.SwitchActive("Inventory_Panel");
 
             Item itemToAdd = db.FetchItemByID(invData[i].id);
 

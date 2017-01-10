@@ -19,17 +19,16 @@ public class CameraMovements : MonoBehaviour{
         //FollowPlayer();
     }
 
-    void FixedUpdate(){ 
-        float movX = Input.GetAxis("Horizontal");
-        float movY = Input.GetAxis("Vertical");
-        movement = new Vector2(speed.x * movX, speed.y * movY);
-        movement *= Time.deltaTime;
-        //if (canPlay){
-        transform.Translate(movement);
-        // }
-        //else{
-        // return;
-        // }
+    void FixedUpdate()
+    {
+        if(target.GetComponent<PlayerMovement>().canPlay)
+        {
+            float movX = Input.GetAxis("Horizontal");
+            float movY = Input.GetAxis("Vertical");
+            movement = new Vector2(speed.x * movX, speed.y * movY);
+            movement *= Time.deltaTime;
+            transform.Translate(movement);
+        }
     }
 
     void FollowPlayer() { 

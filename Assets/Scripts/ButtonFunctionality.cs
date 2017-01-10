@@ -55,18 +55,21 @@ public class ButtonFunctionality : MonoBehaviour
         {
             Debug.Log("Panel with name " + objName + " was not found in array, will Find instead");
             obj = GameObject.Find(objName);
-        }
-            
+        }   
 
         if(obj.activeInHierarchy)
         {
             obj.SetActive(false);
-            player.canPlay = true;
+
+            if(CheckForActivePanel() == false)
+                player.canPlay = true;
         }
         else
         {
             obj.SetActive(true);
-            player.canPlay = false;
+
+            if(CheckForActivePanel())
+                player.canPlay = false;
         }
     }
 
@@ -84,14 +87,20 @@ public class ButtonFunctionality : MonoBehaviour
                 if (uiPanels[i].activeInHierarchy && uiPanels[i].name != "Menu_Panel")
                 {
                     SwitchActive(uiPanels[i].name);
-                }
-                else if(i == uiPanels.Length - 1)
-                {
-                    SwitchActive("Menu_Panel");
+                    return;
                 }
             }
-
-            
+            SwitchActive("Menu_Panel");
         }
+    }
+
+    bool CheckForActivePanel()
+    {
+        for (int i = 0; i < uiPanels.Length; i++)
+        {
+            if (uiPanels[i].activeInHierarchy)
+                return true;
+        }
+        return false;
     }
 }
