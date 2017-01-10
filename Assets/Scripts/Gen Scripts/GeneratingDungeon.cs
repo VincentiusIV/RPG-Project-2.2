@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using System.Collections;
 
 public class GeneratingDungeon : MonoBehaviour {
@@ -23,7 +24,7 @@ public class GeneratingDungeon : MonoBehaviour {
     private Vector2 SouthExit;
     private Vector2 EastExit;
     private Vector2 WestExit;
-    public Vector2[] insideLvl;
+    public List<Vector2> insideLvl = new List<Vector2>();
 
     void Start(){
         GenerateLevel();
@@ -147,7 +148,7 @@ public class GeneratingDungeon : MonoBehaviour {
                 usedPrefab = groundBlockPrefabs[0];
             }
             if (maze[i] != 1 && maze[i] != 2 && maze[i] != 3) {
-                insideLvl[++] = blockPosition;
+                insideLvl.Add(blockPosition);
             }
             GameObject blockClone = (GameObject)Instantiate(usedPrefab, blockPosition, Quaternion.identity);
             blockClone.transform.parent = lvlParent.transform;

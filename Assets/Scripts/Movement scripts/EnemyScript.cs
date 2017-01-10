@@ -2,25 +2,25 @@
 using System.Collections;
 
 public class EnemyScript : MonoBehaviour {
-    [SerializeField] private int fOVRange;
     [SerializeField] private bool isRanged;
     [SerializeField] private GameObject bulletPreFab;
     [SerializeField] private GameObject bulletSpawnPoint;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float firingSpeedPerSec;
-    [SerializeField] public int dmg;
     [SerializeField] private int maxHP;
     [SerializeField] private DatabaseHandler inventorySystem;
     [SerializeField] private Inventory inventory;
+    [SerializeField] public int dmg; 
     private float currentHP;
-    private float timer;
     private GameObject player;
     private bool seesPlayer = false;
     private bool inRange = false;
     private float shootTime = 0;
     private SpriteRenderer ren;
     private float counter = 0;
+    private float random = 0;
+    public bool tooCloseToPlayer = false;
 
     void Start () {
         inventory = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
@@ -56,45 +56,27 @@ public class EnemyScript : MonoBehaviour {
         }
         if (!seesPlayer && !inRange) {
             //idle movement
-            float random = 0;
             Vector2 movement = Vector2.zero;
             if (counter >= 0){
                 counter -= 0.1f;
             }
             if (counter <= 0) {
                 random = Random.value;
-                counter = 1f;
+                counter = 4f;
             }
-            if (random <= 0.25)
-            {
-                movement = new Vector2(-1f, 0f) * Time.deltaTime;
-                movement *= movementSpeed;
-                transform.Translate(movement);
-                Debug.Log("Left");
+            if (random <= 0.25) {
+                transform.Translate((new Vector2(-1f, 0f) * Time.deltaTime) * movementSpeed);
             }
-            else if (random <= 0.50)
-            {
-                movement = new Vector2(1f, 0f) * Time.deltaTime;
-                movement *= movementSpeed;
-                transform.Translate(movement);
-                Debug.Log("Right");
+            else if (random <= 0.50){
+                transform.Translate((new Vector2(1f, 0f) * Time.deltaTime) * movementSpeed);
             }
-            else if (random <= 0.75)
-            {
-                movement = new Vector2(0f, 1f) * Time.deltaTime;
-                movement *= movementSpeed;
-                transform.Translate(movement);
-                Debug.Log("Up");
+            else if (random <= 0.75){
+                transform.Translate((new Vector2(0f, 1f) * Time.deltaTime) * movementSpeed);
             }
-            else if (random <= 1)
-            {
-                movement = new Vector2(0f, -1f) * Time.deltaTime;
-                movement *= movementSpeed;
-                transform.Translate(movement);
-                Debug.Log("Down");
+            else if (random <= 1){
+                transform.Translate((new Vector2(0f, -1f) * Time.deltaTime) * movementSpeed);
             }
         }
-
         //HP
         ren.color = Color.Lerp(Color.red, Color.green, currentHP / 100);
         if (currentHP < 100 && currentHP > 0){
@@ -104,28 +86,26 @@ public class EnemyScript : MonoBehaviour {
             SpawnLoot(1);
             Destroy(gameObject);
         }
+        if (inRange && seesPlayer && isRanged && !tooCloseToPlayer) {
+            //WalkToPlayer
+        }
+        if (tooCloseToPlayer && isRanged) {
+            //WalkAway
+        }
     }
 
-    void SpawnLoot(float dropChance)
-    {
-        Item itemToDropInfo = inventorySystem.FetchItemByID(GetComponent<NPCdata>().invData[0].id);
+    void SpawnLoot(float dropChance){
+        Item itemToDropInfo = inventorySystem.FetchItemByID(this.GetComponent<NPCdata>().invData[0].id);
         GameObject itemToDrop = new GameObject();
+        itemToDrop.AddComponent<SpriteRenderer>();
         itemToDrop.GetComponent<SpriteRenderer>().sprite = inventory.FetchSpriteBySlug(itemToDropInfo.Type, itemToDropInfo.Slug);
         GameObject droppedItem = (GameObject)Instantiate(itemToDrop, transform.position, transform.rotation);
     }
 
     void OnTriggerStay2D(Collider2D coll) {
         if (coll.gameObject.tag == player.tag) {
-            //seesPlayer = true;
-            //inRange = true;
-            int layerMask = 1 << 1;
-            layerMask = ~layerMask;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, Mathf.Infinity, layerMask);
-            Debug.Log(hit.collider.gameObject.name);
-            if (hit.collider.gameObject.tag == player.tag){
-                seesPlayer = true;
-                Debug.Log("HIttttt");
-            }
+            seesPlayer = true;
+            inRange = true;
         }
     }
 

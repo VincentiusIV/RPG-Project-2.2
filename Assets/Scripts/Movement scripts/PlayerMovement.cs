@@ -5,25 +5,18 @@ public class PlayerMovement : MonoBehaviour
 {
     // To-do: move combat related code to WeaponScript
     [SerializeField] private Vector2 moveSpeed;
-    
-
     [SerializeField] private int maxHP;
     private float currentHP;
-
     private WeaponScript weapon;
-
     private Rigidbody2D rig;
     private Vector2 movement;
     private float shootTime = 0;
     private SpriteRenderer ren;
-
     public bool canPlay;
 
-    void Start()
-    {
+    void Start(){
         rig = GetComponent<Rigidbody2D>();
         ren = GetComponent<SpriteRenderer>();
-
         currentHP = maxHP;
     }
 
@@ -72,21 +65,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 targetPosition = target.transform.position + new Vector3(0f, 0f, camDistance);
         transform.position = Vector3.Lerp(transform.position, targetPosition, lerpIntensity);
-        //transform.LookAt(target.transform);
     }
-
-    /*void FixedUpdate() {
-        float movX = Input.GetAxis("Horizontal");
-        float movY = Input.GetAxis("Vertical");
-        movement = new Vector2(speed.x * movX, speed.y * movY);
-        movement *= Time.deltaTime;
-        //if (canPlay){
-            transform.Translate(movement);
-       // }
-        //else{
-           // return;
-       // }
-    }*/
     
     public void GetWeapon(WeaponScript wep)
     {
@@ -116,6 +95,18 @@ public class PlayerMovement : MonoBehaviour
             gameManagerScript.DestroyLevel();
             gameManagerScript.GenerateLevel();
             transform.parent.transform.position = new Vector2(0f, 0f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider col){
+        if (col.transform.gameObject.tag == "AI") {
+            col.gameObject.GetComponent<EnemyScript>().tooCloseToPlayer = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider col){
+        if (col.transform.gameObject.tag == "AI"){
+            col.gameObject.GetComponent<EnemyScript>().tooCloseToPlayer = false;
         }
     }
 }
