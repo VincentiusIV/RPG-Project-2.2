@@ -17,6 +17,7 @@ public class DatabaseHandler : MonoBehaviour
     void Start()
     {
         itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/" + dbName + ".json"));
+        //CreateSpots(100); 
         CreateList();
     }
 
@@ -39,12 +40,15 @@ public class DatabaseHandler : MonoBehaviour
                                     (string)itemData[i]["Slug"],
                                     (int)itemData[i]["MeleeAttackSpeed"],
                                     (int)itemData[i]["MeleeAttackRange"],
+                                    StringToElement((string)itemData[i]["MeleeElement"]),
                                     (int)itemData[i]["RangeAttackSpeed"],
-                                    (int)itemData[i]["RangeAttackRange"]));
+                                    (int)itemData[i]["RangeAttackRange"],
+                                    (double)itemData[i]["RangeBulletSpeed"],
+                                    StringToElement((string)itemData[i]["RangeElement"])));
         }
     }
 
-    public void ChangeItemInDatabase(int id, string title, string type,int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug, int mAttSp, int mAttRan, int rAttSp, int rAttRan)
+    public void ChangeItemInDatabase(int id, string title, string type,int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug, int mAttSp, int mAttRan, Elements mElem, int rAttSp, int rAttRan, double rBullSp, Elements rElem)
     {
         itemList[id].Title = title;
         itemList[id].Type = type;
@@ -58,8 +62,12 @@ public class DatabaseHandler : MonoBehaviour
         itemList[id].Slug = slug;
         itemList[id].MeleeAttackSpeed = mAttSp;
         itemList[id].MeleeAttackRange = mAttRan;
+        itemList[id].MeleeElement = mElem.ToString();
+
         itemList[id].RangeAttackSpeed = rAttSp;
         itemList[id].RangeAttackRange = rAttRan;
+        itemList[id].RangeBulletSpeed = rBullSp;
+        itemList[id].RangeElement = rElem.ToString();
     }
 
     void CreateSpots(int amountOfSpots)
@@ -83,6 +91,26 @@ public class DatabaseHandler : MonoBehaviour
         File.WriteAllText(Application.dataPath + "/StreamingAssets/" + dbName + ".json", sb.ToString());
     }
 
+    public Elements StringToElement(string str)
+    {
+        if (str == "fire")
+        {
+            Debug.Log("given string returns as fire");
+            return Elements.fire;
+        }
+            
+        if (str == "earth")
+            return Elements.earth;
+        if (str == "water")
+            return Elements.water;
+        if (str == "oil")
+            return Elements.oil;
+        if (str == "ice")
+            return Elements.ice;
+        if (str == "aether")
+            return Elements.aether;
+        else return Elements.none;
+    }
     public Item FetchItemByID(int id)
     {
         for (int i = 0; i < itemList.Count; i++)
@@ -119,15 +147,18 @@ public class Item
     public int Vitality { get; set; }
     public int MeleeAttackSpeed { get; set; }
     public int MeleeAttackRange { get; set; }
+    public string MeleeElement { get; set; }
     public int RangeAttackSpeed { get; set; }
     public int RangeAttackRange { get; set; }
+    public double RangeBulletSpeed { get; set; }
+    public string RangeElement { get; set; }
     public string Description { get; set; }
     public bool Stackable { get; set; }
     public int Rarity { get; set; }
     public string Slug { get; set; }
     
 
-    public Item(int id, string title, string type, int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug, int mAttSp, int mAttRan, int rAttSp, int rAttRan)
+    public Item(int id, string title, string type, int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug, int mAttSp, int mAttRan, Elements mElem, int rAttSp, int rAttRan, double rBullSp, Elements rElem)
     {
         ID = id;
         Title = title;
@@ -137,10 +168,15 @@ public class Item
         Power = power;
         Defence = defence;
         Vitality = vitality;
+
         MeleeAttackSpeed = mAttSp;
         MeleeAttackRange = mAttRan;
+        MeleeElement = mElem.ToString();
+
         RangeAttackSpeed = rAttSp;
         RangeAttackRange = rAttRan;
+        RangeBulletSpeed = rBullSp;
+        RangeElement = rElem.ToString();
 
         Description = description;
         Stackable = stackable;
@@ -162,6 +198,9 @@ public class Item
         Stackable = false;
         Rarity = 0;
         Slug = "default_slug";
+        MeleeElement = Elements.none.ToString();
+        RangeElement = Elements.none.ToString();
+
     }
 
     public Item()

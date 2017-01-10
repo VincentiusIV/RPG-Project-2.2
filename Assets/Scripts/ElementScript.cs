@@ -17,7 +17,7 @@ public class ElementScript : MonoBehaviour
         if(col.CompareTag("Bullet"))
         {
             //col.GetComponent<BulletScript>().
-            Elements newElement = col.GetComponent<BulletScript>().element;
+            Elements newElement = col.GetComponent<BulletScript>().thisData.element;
             if (newElement == thisElement)
             {
                 Debug.Log("The elements are identical");
@@ -39,6 +39,7 @@ public class ElementScript : MonoBehaviour
 
 public enum Elements
 {
+    none,
     fire,
     earth,
     water,

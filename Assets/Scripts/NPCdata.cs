@@ -33,12 +33,12 @@ public class NPCdata : MonoBehaviour
         {
             inventory = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
             inventoryPanel = GameObject.Find("Inventory_Panel");
-            merchantPanel = inventoryPanel.transform.parent.FindChild("Merchant_Inventory_Panel").gameObject;
+            merchantPanel = GameObject.Find("Merchant_Inventory_Panel");
             slotPanel = merchantPanel.transform.FindChild("Merchant_Slot_Panel").gameObject;
 
             if(merchantPanel.activeSelf)
             {
-                merchantPanel.SetActive(false);
+                //merchantPanel.SetActive(false);
             }
         }
     }
@@ -68,6 +68,7 @@ public class NPCdata : MonoBehaviour
         {
             notification.SetActive(false);
         }
+        else if(merchantPanel.activeInHierarchy)
         {
             merchantPanel.SetActive(false);
             inventoryPanel.SetActive(false);

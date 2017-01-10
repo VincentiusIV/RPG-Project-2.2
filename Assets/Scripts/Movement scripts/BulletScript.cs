@@ -3,40 +3,35 @@ using System.Collections;
 
 public class BulletScript : MonoBehaviour
 {
-    public int damage;
-    public int speed;
-    public float range;
-    public Elements element;
+    public Projectile thisData;
 
     private Vector2 endPos;
 
     void Start()
     {
         //transform.parent = null;
-
-        range += transform.position.z;
+        //range += transform.position.z;
         StartCoroutine(DestroyTime());
+        Debug.Log("bullet speed:" + thisData.speed);
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        transform.Translate(new Vector2(0f,speed / 10));
+        transform.Translate(new Vector2(0f,(float)thisData.speed));
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.layer == 8 || coll.gameObject.layer == 9)
         {
-            
             if (coll.gameObject.tag == "Player")
             {
                 Debug.Log("hithihtihtihithitihtihit");
-                return;
             }
             if (coll.gameObject.CompareTag("AI"))
             {
                 Debug.Log("destroyed " + gameObject.name);
-                coll.gameObject.GetComponent<EnemyScript>().doDmg(damage);
+                coll.gameObject.GetComponent<EnemyScript>().doDmg(thisData.damage);
                 Destroy(gameObject);
                 return;
             }
@@ -57,7 +52,7 @@ public class BulletScript : MonoBehaviour
 
     IEnumerator DestroyTime()
     {
-        yield return new WaitForSeconds(range/10);
+        yield return new WaitForSeconds(thisData.range/10);
         Destroy(this.gameObject);
     }
 }
