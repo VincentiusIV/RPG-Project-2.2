@@ -28,7 +28,6 @@ public class EnemyScript : MonoBehaviour {
         player = GameObject.Find("Player");
         currentHP = maxHP;
         ren = GetComponent<SpriteRenderer>();
-        SpawnLoot(1);
     }
 
     void Update() {
@@ -123,16 +122,18 @@ public class EnemyScript : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter2D(Collision2D coll){
-        if (isRanged && coll.gameObject.tag == player.tag){
-            //transform.Translate(-(transform.TransformDirection(player.transform.position).normalized * Time.deltaTime));
-        }
-    }
-
     void Shoot() {
         GameObject BulletClone = (GameObject)Instantiate(bulletPreFab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
         BulletClone.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
         Destroy(BulletClone, 0.6f);
+    }
+
+    public void ChangetooCloseToPlayer() {
+        if (tooCloseToPlayer == false) {
+            tooCloseToPlayer = true;
+        } else {
+            tooCloseToPlayer = false;
+        }
     }
 
     public void doDmg(int damage) {

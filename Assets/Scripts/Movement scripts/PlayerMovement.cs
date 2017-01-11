@@ -109,16 +109,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider col){
+    private void OnTriggerEnter(Collider col){
         if (col.transform.gameObject.tag == "AI") {
-            col.gameObject.GetComponent<EnemyScript>().tooCloseToPlayer = true;
+            col.gameObject.GetComponent<EnemyScript>().ChangetooCloseToPlayer();
             Debug.Log("Player: (should be true)" + GetComponent<EnemyScript>().tooCloseToPlayer);
         }
     }
 
     private void OnTriggerExit(Collider col){
         if (col.transform.gameObject.tag == "AI"){
-            col.gameObject.GetComponent<EnemyScript>().tooCloseToPlayer = false;
+            col.gameObject.GetComponent<EnemyScript>().ChangetooCloseToPlayer();
             Debug.Log("Player: (should be false)" + GetComponent<EnemyScript>().tooCloseToPlayer);
         }
     }
