@@ -3,14 +3,12 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // To-do: move combat related code to WeaponScript
     [SerializeField] private Vector2 moveSpeed;
     [SerializeField] private int maxHP;
     private float currentHP;
     private WeaponScript weapon;
     private Rigidbody2D rig;
     private Vector2 movement;
-    private float shootTime = 0;
     private SpriteRenderer ren;
     public bool canPlay;
 
