@@ -13,6 +13,7 @@ public class DatabaseHandler : MonoBehaviour
 
     private JsonData itemData;
     private List<Item> itemList = new List<Item>();
+    //Dictionary<Int, Item> itemDictionary = new Dictionary<Int, Item>();
 
     void Start()
     {
@@ -113,6 +114,7 @@ public class DatabaseHandler : MonoBehaviour
     }
     public Item FetchItemByID(int id)
     {
+        
         for (int i = 0; i < itemList.Count; i++)
         {
             if (itemList[i].ID == id)

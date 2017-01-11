@@ -7,7 +7,7 @@
   "Value" : 0,
   "Power" : 121,
   "Defence" : 3,
-  "Vitality" : 42,
+  "Vitality" : 0,
   "MeleeAttackSpeed" : 0,
   "MeleeAttackRange" : 0,
   "MeleeElement"     : "none",

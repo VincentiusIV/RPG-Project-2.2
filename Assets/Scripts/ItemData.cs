@@ -10,6 +10,8 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public int amount = 1;
     public int slotID;
 
+    [SerializeField]private GameObject[] textFields;
+
     private Inventory inv;
     private CanvasGroup cg;
 
@@ -71,13 +73,30 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         InfoPanel.transform.position = transform.position + offset;
         TextPanel.transform.GetChild(0).GetComponent<Text>().text = item.Title;
-        TextPanel.transform.GetChild(1).FindChild("Value").GetComponent<Text>().text = "Value: " + item.Value;
-        TextPanel.transform.GetChild(1).FindChild("Power").GetComponent<Text>().text = "Power: " + item.Power;
-        TextPanel.transform.GetChild(1).FindChild("Defence").GetComponent<Text>().text = "Defence: " + item.Defence;
-        TextPanel.transform.GetChild(1).FindChild("Vitality").GetComponent<Text>().text = "Vitality: " + item.Vitality;
-        TextPanel.transform.FindChild("Description").GetComponent<Text>().text = item.Description;
+        TextPanel.GetComponent<InfoDataVisualizer>().UpdateInfo(item);
+
+        /*UpdateText(TextPanel.transform.GetChild(1).FindChild("Value").gameObject, "Value: ", item.Value.ToString(), true);
+        UpdateText(TextPanel.transform.GetChild(1).FindChild("Power").gameObject, "Power: ", item.Power.ToString(), true);
+        UpdateText(TextPanel.transform.GetChild(1).FindChild("Defence").gameObject, "Defence: ", item.Defence.ToString(), true);
+        UpdateText(TextPanel.transform.GetChild(1).FindChild("Vitality").gameObject, "Vitality: ", item.Vitality.ToString(), false);
+        UpdateText(TextPanel.transform.GetChild(1).FindChild("Melee Element").gameObject, "Melee Element: ", item.MeleeElement.ToString(), false);
+        UpdateText(TextPanel.transform.GetChild(1).FindChild("Melee Attack Speed").gameObject, "Melee Attack Speed:", item.MeleeAttackSpeed.ToString(), false);
+        //UpdateText()*/
+        /*TextPanel.transform.FindChild("Description").GetComponent<Text>().text = item.Description;*/
     }
 
+    void UpdateText(GameObject go, string defaultText, string text, bool forceActive)
+    {
+        if (text != null || text == "" || forceActive)
+        {
+            go.SetActive(true);
+            go.GetComponent<Text>().text = defaultText + text;
+        }
+        else
+        {
+            go.SetActive(false);
+        }
+    }
     public void OnPointerExit(PointerEventData eventData)
     {
         if (InfoPanel.activeInHierarchy == true)
