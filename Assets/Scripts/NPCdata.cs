@@ -44,13 +44,14 @@ public class NPCdata : MonoBehaviour
             canTrade = false;
         }
     }
-	
-    void OnTriggerEnter2D(Collider2D col)
+
+    void OnTriggerStay2D(Collider2D col)
     {
-        if(col.CompareTag("Player") && isMerchant)
+        if (col.CompareTag("Player") && isMerchant)
         {
-            notification.SetActive(true);
             canTrade = true;
+            if (notification.activeInHierarchy == false)
+                notification.SetActive(true);
         }
     }
 
@@ -67,9 +68,7 @@ public class NPCdata : MonoBehaviour
         canTrade = false;
 
         if(notification.activeInHierarchy)
-        {
             notification.SetActive(false);
-        }
         else if(merchantPanel.activeInHierarchy)
         {
             ui.SwitchActive("Merchant_Inventory_Panel");
