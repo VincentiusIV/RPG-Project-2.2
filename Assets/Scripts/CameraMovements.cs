@@ -9,12 +9,7 @@ public class CameraMovements : MonoBehaviour
     public float camDistance;
     public float lerpIntensity;
 
-    private Camera cam;
     private Vector2 movement;
-
-    void Start(){
-        cam = GetComponent<Camera>();
-    }
 
     void FixedUpdate()
     {

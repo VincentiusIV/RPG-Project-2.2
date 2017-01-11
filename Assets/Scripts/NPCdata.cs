@@ -15,7 +15,6 @@ public class NPCdata : MonoBehaviour
 
 // Private Variables
     private DatabaseHandler db;
-    private Inventory inventory;
     private ButtonFunctionality ui;
 
 // Private UI objects
@@ -40,7 +39,6 @@ public class NPCdata : MonoBehaviour
 
         if(isMerchant)
         {
-            inventory = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
             merchantPanel = GameObject.Find("Merchant_Inventory_Panel");
             slotPanel = merchantPanel.transform.FindChild("Merchant_Slot_Panel").gameObject;
             canTrade = false;

@@ -110,7 +110,7 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(int id)
     {
         Item itemToRemove = database.FetchItemByID(id);
-
+        // TO-DO write code to remove item from inventory
     }
 
     public void EquipItem(int id)
