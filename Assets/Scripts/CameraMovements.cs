@@ -18,18 +18,11 @@ public class CameraMovements : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(target.GetComponent<PlayerMovement>().canPlay)
-        {
-            //float movX = Input.GetAxis("Horizontal");
-            //float movY = Input.GetAxis("Vertical");
-            //movement = new Vector2(speed.x * movX, speed.y * movY);
-            //movement *= Time.deltaTime;
-            //transform.Translate(movement);
-        }
         FollowPlayer();
     }
 
-    void FollowPlayer() { 
+    void FollowPlayer()
+    { 
         Vector3 targetPosition = target.transform.position + new Vector3(0f, 0f, -camDistance);
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, lerpIntensity);
