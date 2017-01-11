@@ -49,12 +49,21 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(isMerchantSlot)
+        {
+            Debug.Log("Pointer entered merchant slot");
+            transform.FindChild("Item").gameObject.GetComponent<ItemData>().UpdateInfo(eventData);
+        }
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if(isMerchantSlot)
         {
             ItemData itemToBuy = transform.FindChild("Item").gameObject.GetComponent<ItemData>();
-
+            
             if(itemToBuy.item.Value <= inv.money)
             {
                 inv.AddItem(itemToBuy.item.ID);

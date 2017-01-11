@@ -3,8 +3,8 @@
  {
   "ID" : 0,
   "Type" : "Items",
-  "Title" : "a flaming silver sword",
-  "Value" : 1000,
+  "Title" : "Silver Sword of the Pyro",
+  "Value" : 0,
   "Power" : 121,
   "Defence" : 3,
   "Vitality" : 42,

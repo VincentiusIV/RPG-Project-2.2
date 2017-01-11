@@ -16,11 +16,7 @@ public class CameraMovements : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
-    void Update(){
-        //FollowPlayer();
-    }
-
-    void FixedUpdate()
+    void Update()
     {
         if(target.GetComponent<PlayerMovement>().canPlay)
         {

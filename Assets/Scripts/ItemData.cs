@@ -15,7 +15,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     private GameObject InfoPanel;
     private GameObject TextPanel;
-    private Vector3 offset = new Vector3(90f, -65f, 0f);
+    private Vector3 offset = new Vector3(120f,  -160f, 0f);
 
     void Start()
     {
@@ -70,12 +70,12 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             InfoPanel.SetActive(true);
 
         InfoPanel.transform.position = transform.position + offset;
-        TextPanel.transform.FindChild("Name").GetComponent<Text>().text = "Name: " + item.Title;
-        TextPanel.transform.FindChild("Value").GetComponent<Text>().text = "Value: " + item.Value;
-        TextPanel.transform.FindChild("Power").GetComponent<Text>().text = "Power: " + item.Power;
-        TextPanel.transform.FindChild("Defence").GetComponent<Text>().text = "Defence: " + item.Defence;
-        TextPanel.transform.FindChild("Vitality").GetComponent<Text>().text = "Vitality: " + item.Vitality;
-        TextPanel.transform.FindChild("Description").GetComponent<Text>().text = "Description: " + item.Description;
+        TextPanel.transform.GetChild(0).GetComponent<Text>().text = item.Title;
+        TextPanel.transform.GetChild(1).FindChild("Value").GetComponent<Text>().text = "Value: " + item.Value;
+        TextPanel.transform.GetChild(1).FindChild("Power").GetComponent<Text>().text = "Power: " + item.Power;
+        TextPanel.transform.GetChild(1).FindChild("Defence").GetComponent<Text>().text = "Defence: " + item.Defence;
+        TextPanel.transform.GetChild(1).FindChild("Vitality").GetComponent<Text>().text = "Vitality: " + item.Vitality;
+        TextPanel.transform.FindChild("Description").GetComponent<Text>().text = item.Description;
     }
 
     public void OnPointerExit(PointerEventData eventData)
