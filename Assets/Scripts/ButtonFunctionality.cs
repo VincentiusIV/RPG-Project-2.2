@@ -76,11 +76,11 @@ public class ButtonFunctionality : MonoBehaviour
     public void Update()
     {
         //Menus
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetButtonDown("Inventory"))
         {
             SwitchActive("Inventory_Panel");
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Cancel"))
         {
             for (int i = 0; i < uiPanels.Length; i++)
             {

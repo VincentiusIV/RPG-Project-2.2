@@ -5,12 +5,16 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Vector2 moveSpeed;
     [SerializeField] private int maxHP;
+    [SerializeField] private bool useController;
+
     private float currentHP;
     private WeaponScript weapon;
     private Rigidbody2D rig;
     private Vector2 movement;
     private SpriteRenderer ren;
     public bool canPlay;
+
+    public Texture2D cursorTexture;
 
     void Start(){
         rig = GetComponent<Rigidbody2D>();
@@ -45,6 +49,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 //Respawn?? End Game?? Lifes??
             }
+        }
+
+        if(useController)
+        {
+            float xPos = Input.GetAxis("X360_Horizontal");
+            float yPos = Input.GetAxis("X360_Vertical");
+            Vector2 mouseMovement = new Vector2(xPos, yPos);
+
+            Cursor.SetCursor(cursorTexture, mouseMovement, CursorMode.Auto);
         }
     }
     

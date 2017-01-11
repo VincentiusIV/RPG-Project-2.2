@@ -35,7 +35,7 @@ public class InfoDataVisualizer : MonoBehaviour
 	
     void UpdateText(int index, string text)
     {
-        if (text != null || text != "" || text != "0")
+        if (text != null && text != "" && text != "0" && text != "none")
         {
             textFields[index].SetActive(true);
             textFields[index].GetComponent<Text>().text = defaultText[index] + text;
