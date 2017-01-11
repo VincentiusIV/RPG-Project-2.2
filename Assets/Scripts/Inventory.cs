@@ -136,7 +136,8 @@ public class Inventory : MonoBehaviour
         if (itemToEquip.Stackable == false)
         {
             equipmentItem.GetComponent<SpriteRenderer>().sprite = FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug);
-            GameObject weapon = Instantiate(equipmentItem, hand.transform.position, Quaternion.identity) as GameObject;
+            GameObject weapon = Instantiate(equipmentItem, hand.transform.position, hand.transform.rotation) as GameObject;
+            weapon.transform.Rotate(new Vector3(0f, 0f, -90f));
             weapon.transform.SetParent(hand.transform);
             weapon.name = itemToEquip.Title;
             
