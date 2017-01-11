@@ -26,12 +26,18 @@ public class ElementScript : MonoBehaviour
             if(newElement == Elements.fire && thisElement == Elements.oil)
             {
                 Debug.Log("The fire has ignited the oil");
+                // does dmg based on % of the hp of enemies and player and their resistances
+
+                // look for  rigidbodies and their tags (enemy and player)
                 
             }
 
             if(newElement == Elements.ice && thisElement == Elements.water)
             {
                 Debug.Log("The ice has frozen "+gameObject.name);
+                // does dmg based on % of the hp of enemies and player and their resistances
+
+                // look for  rigidbodies and their tags (enemy and player)
             }
         }
     }
