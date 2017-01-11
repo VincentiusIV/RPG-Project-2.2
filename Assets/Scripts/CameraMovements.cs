@@ -16,12 +16,16 @@ public class CameraMovements : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
-    void FixedUpdate(){
+    void FixedUpdate()
+    {
         FollowPlayer();
     }
 
-    void FollowPlayer() { 
+    void FollowPlayer()
+    { 
         Vector3 targetPosition = target.transform.position + new Vector3(0f, 0f, -camDistance);
+
         transform.position = Vector3.Lerp(transform.position, targetPosition, lerpIntensity);
+        //transform.LookAt(target.transform);
     }
 }

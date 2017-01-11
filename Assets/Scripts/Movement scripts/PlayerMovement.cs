@@ -24,8 +24,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if(canPlay)
         {
-            
-            
             // Weapon
             if (weapon != null)
             {
