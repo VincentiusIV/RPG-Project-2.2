@@ -91,11 +91,13 @@ public class EnemyScript : MonoBehaviour {
             direction = transform.position - player.transform.position;
             direction.Normalize();
             transform.Translate((direction * Time.deltaTime) * movementSpeed);
+            Debug.Log("Enemy: (should be false)" + tooCloseToPlayer);
         }
         if (tooCloseToPlayer && isRanged) {
             direction = -(transform.position - player.transform.position);
             direction.Normalize();
             transform.Translate((direction * Time.deltaTime) * movementSpeed);
+            Debug.Log("Enemy: (should be true)" + tooCloseToPlayer);
         }
     }
 
