@@ -24,12 +24,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if(canPlay)
         {
+            // Rotation
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
             float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
             float angleDeg = (180 / Mathf.PI) * angleRad;
             transform.rotation = Quaternion.Euler(0, 0, angleDeg);
             transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
 
+            // Movement
+            float xPos = Input.GetAxis("Horizontal");
+            float yPos = Input.GetAxis("Vertical");
+            Vector3 movement = new Vector3(xPos * moveSpeed.x, yPos * moveSpeed.y, 0f);
+            movement *= Time.deltaTime;
+            transform.Translate(movement, Space.World);
+
+            // Weapon
             if (weapon != null)
             {
                 if (Input.GetButton("Fire1"))
@@ -52,12 +61,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 //Respawn?? End Game?? Lifes??
             }
-
-            float xPos = Input.GetAxis("Horizontal");
-            float yPos = Input.GetAxis("Vertical");
-            Vector3 movement = new Vector3(xPos * moveSpeed.x, yPos * moveSpeed.y, 0f);
-            movement *= Time.deltaTime;
-            transform.Translate(movement, Space.World);
         }
     }
     

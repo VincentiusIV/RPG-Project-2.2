@@ -23,6 +23,8 @@ public class NPCdata : MonoBehaviour
     private GameObject slotPanel;
     private GameObject notification;
 
+    private bool canTrade;
+
     void Start()
     {
         notification = transform.GetChild(0).gameObject;
@@ -41,6 +43,7 @@ public class NPCdata : MonoBehaviour
             inventory = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
             merchantPanel = GameObject.Find("Merchant_Inventory_Panel");
             slotPanel = merchantPanel.transform.FindChild("Merchant_Slot_Panel").gameObject;
+            canTrade = false;
         }
     }
 	
@@ -49,22 +52,22 @@ public class NPCdata : MonoBehaviour
         if(col.CompareTag("Player") && isMerchant)
         {
             notification.SetActive(true);
+            canTrade = true;
         }
     }
 
-    void OnTriggerStay2D(Collider2D col)
+    void Update()
     {
-        if(Input.GetButtonDown("Interact"))
+        if(Input.GetButtonDown("Interact") && canTrade)
         {
-            if(isMerchant)
-            {
-                CreateMerchantInventory();
-            }
+            CreateMerchantInventory();
         }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
+        canTrade = false;
+
         if(notification.activeInHierarchy)
         {
             notification.SetActive(false);
