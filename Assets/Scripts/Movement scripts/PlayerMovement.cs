@@ -24,20 +24,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if(canPlay)
         {
-            // Rotation
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
-            float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
-            float angleDeg = (180 / Mathf.PI) * angleRad;
-            transform.rotation = Quaternion.Euler(0, 0, angleDeg);
-            transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
-
-            // Movement
-            float xPos = Input.GetAxis("Horizontal");
-            float yPos = Input.GetAxis("Vertical");
-            Vector3 movement = new Vector3(xPos * moveSpeed.x, yPos * moveSpeed.y, 0f);
-            movement *= Time.deltaTime;
-            transform.Translate(movement, Space.World);
-
+            
+            
             // Weapon
             if (weapon != null)
             {
@@ -64,6 +52,34 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
+    void FixedUpdate()
+    {
+        if(canPlay)
+        {
+            // Rotation
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
+            float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
+            float angleDeg = (180 / Mathf.PI) * angleRad;
+            transform.rotation = Quaternion.Euler(0, 0, angleDeg);
+            transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
+
+            // Movement
+            float xPos = Input.GetAxis("Horizontal");
+            float yPos = Input.GetAxis("Vertical");
+
+            Vector3 movement = new Vector3(xPos, yPos, 0f).normalized;
+
+            if (Input.GetButtonUp("Horizontal") || Input.GetButtonUp("Vertical"))
+            {
+                rig.velocity = Vector3.zero;
+            }
+            else
+            {
+                rig.velocity = movement * moveSpeed.x;
+            }
+        }
+    }
+
     public void GetWeapon(WeaponScript wep)
     {
         weapon = wep;
