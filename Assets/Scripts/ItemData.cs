@@ -74,7 +74,11 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         if(canDrag)
         {
             Debug.Log("Dragging with controller...");
-            transform.position = e.currentSelectedGameObject.transform.position;
+
+            if (e.currentSelectedGameObject.CompareTag("Slot"))
+                transform.position = e.currentSelectedGameObject.transform.position;
+            else
+                Debug.LogError("Cannot move item there because it is not a slot");
             
         }
     }
