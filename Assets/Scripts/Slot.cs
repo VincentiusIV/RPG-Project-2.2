@@ -10,6 +10,7 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
     public bool isEquipSlot;
 
     private Inventory inv;
+    private EventSystem e;
 
     void Start()
     {
@@ -80,15 +81,26 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
                 inv.UpdateWallet(-itemToBuy.item.Value);
             }
         }
+        else
+        {
+            ItemData itemToMove = transform.GetChild(0).gameObject.GetComponent<ItemData>();
+
+            if(itemToMove != null)
+            {
+                itemToMove.OnControllerPress();
+            }
+        }
     }
 
     public void OnSelect(BaseEventData eventData)
     {
-        transform.FindChild("Item").gameObject.GetComponent<ItemData>().UpdateInfo();
+        if(isMerchantSlot)
+            transform.FindChild("Item").gameObject.GetComponent<ItemData>().UpdateInfo();
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        transform.FindChild("Item").gameObject.GetComponent<ItemData>().HideInfo();
+        if (isMerchantSlot)
+            transform.FindChild("Item").gameObject.GetComponent<ItemData>().HideInfo();
     }
 }

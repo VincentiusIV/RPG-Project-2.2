@@ -6,8 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 moveSpeed;
     [SerializeField] private int maxHP;
     [SerializeField] private bool useController;
-    [SerializeField] private Vector2 cursorMoveSpeed;
-    [SerializeField] private GameObject cursorObject;
+
     private float currentHP;
     private WeaponScript weapon;
     private Rigidbody2D rig;
@@ -23,15 +22,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (true/*Input.GetButton("X360_Horizontal") || Input.GetButton("X360_Vertical")*/)
-        {
-            float xPos = Input.GetAxis("Horizontal") * cursorMoveSpeed.x;
-            float yPos = Input.GetAxis("Vertical") * cursorMoveSpeed.y;
-            Vector3 cursorMovement = new Vector3(xPos, yPos, 0f);
-
-            cursorObject.transform.Translate(cursorMovement);
-        }
-
         if (canPlay)
         {
             // Weapon
