@@ -47,10 +47,6 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             transform.position = eventData.position;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            inv.EquipItem(item.ID);
-        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -63,17 +59,22 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UpdateInfo(eventData);
+        UpdateInfo();
     }
 
-    public void UpdateInfo(PointerEventData eventData)
+    public void UpdateInfo()
     {
         if(InfoPanel.activeInHierarchy == false)
             InfoPanel.SetActive(true);
 
         InfoPanel.transform.position = transform.position + offset;
-        TextPanel.transform.GetChild(0).GetComponent<Text>().text = item.Title;
+
         TextPanel.GetComponent<InfoDataVisualizer>().UpdateInfo(item);
+    }
+
+    public void HideInfo()
+    {
+        InfoPanel.SetActive(false);
     }
 
     void UpdateText(GameObject go, string defaultText, string text, bool forceActive)

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using System;
 
-public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler
+public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerEnterHandler, ISelectHandler, IDeselectHandler
 {
     public int id;
     public bool isMerchantSlot;
@@ -49,26 +49,46 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler
         }
     }
 
+    public void ControllerDropItem()
+    {
+
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(isMerchantSlot)
         {
             Debug.Log("Pointer entered merchant slot");
-            transform.FindChild("Item").gameObject.GetComponent<ItemData>().UpdateInfo(eventData);
+            transform.FindChild("Item").gameObject.GetComponent<ItemData>().UpdateInfo();
         }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(isMerchantSlot)
+        OnControllerPress();
+    }
+
+    public void OnControllerPress()
+    {
+        if (isMerchantSlot)
         {
             ItemData itemToBuy = transform.FindChild("Item").gameObject.GetComponent<ItemData>();
-            
-            if(itemToBuy.item.Value <= inv.money)
+
+            if (itemToBuy.item.Value <= inv.money)
             {
                 inv.AddItem(itemToBuy.item.ID);
                 inv.UpdateWallet(-itemToBuy.item.Value);
             }
         }
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        transform.FindChild("Item").gameObject.GetComponent<ItemData>().UpdateInfo();
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        transform.FindChild("Item").gameObject.GetComponent<ItemData>().HideInfo();
     }
 }
