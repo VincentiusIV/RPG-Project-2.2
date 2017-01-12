@@ -6,15 +6,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 moveSpeed;
     [SerializeField] private int maxHP;
     [SerializeField] private bool useController;
-
+    [SerializeField] private Vector2 cursorMoveSpeed;
+    [SerializeField] private GameObject cursorObject;
     private float currentHP;
     private WeaponScript weapon;
     private Rigidbody2D rig;
     private Vector2 movement;
     private SpriteRenderer ren;
     public bool canPlay;
-
-    public Texture2D cursorTexture;
 
     void Start(){
         rig = GetComponent<Rigidbody2D>();
@@ -24,7 +23,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(canPlay)
+        if (true/*Input.GetButton("X360_Horizontal") || Input.GetButton("X360_Vertical")*/)
+        {
+            float xPos = Input.GetAxis("Horizontal") * cursorMoveSpeed.x;
+            float yPos = Input.GetAxis("Vertical") * cursorMoveSpeed.y;
+            Vector3 cursorMovement = new Vector3(xPos, yPos, 0f);
+
+            cursorObject.transform.Translate(cursorMovement);
+        }
+
+        if (canPlay)
         {
             // Weapon
             if (weapon != null)
@@ -57,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             float yPos = Input.GetAxis("X360_Vertical");
             Vector2 mouseMovement = new Vector2(xPos, yPos);
 
-            Cursor.SetCursor(cursorTexture, mouseMovement, CursorMode.Auto);
+            //Cursor.SetCursor(cursorTexture, mouseMovement, CursorMode.Auto);
         }
     }
     
@@ -73,13 +81,14 @@ public class PlayerMovement : MonoBehaviour
             transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
 
             // Movement
-            float xPos = Input.GetAxis("Horizontal");
-            float yPos = Input.GetAxis("Vertical");
+            float xPos = Input.GetAxis("X360_Horizontal");
+            float yPos = Input.GetAxis("X360_Vertical");
 
             Vector3 movement = new Vector3(xPos, yPos, 0f).normalized;
 
-            if (Input.GetButtonUp("Horizontal") || Input.GetButtonUp("Vertical"))
+            if (Input.GetButtonUp("X360_Horizontal") || Input.GetButtonUp("X360_Vertical"))
             {
+                Debug.Log("Velocity reset on player");
                 rig.velocity = Vector3.zero;
             }
             else
