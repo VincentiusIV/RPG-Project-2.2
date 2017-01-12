@@ -15,6 +15,7 @@ public class InfoDataVisualizer : MonoBehaviour
             defaultText.Add(textFields[i].GetComponent<Text>().text.ToString());
         }
     }
+
     public void UpdateInfo(Item itemToVisual)
     {
         UpdateText(0, itemToVisual.Title.ToString());
@@ -32,7 +33,8 @@ public class InfoDataVisualizer : MonoBehaviour
         UpdateText(12, itemToVisual.Rarity.ToString());
         UpdateText(13, itemToVisual.Description.ToString());
     }
-	
+
+// Checks if the text provided holds any value, otherwise textfield will be left invisible
     void UpdateText(int index, string text)
     {
         if (text != null && text != "" && text != "0" && text != "none")

@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
 // Public Fields
+    public ItemData movingItem;
+    public bool isMovingAnItem;
 
 // Public & Hidden Fields
     [HideInInspector]public List<Item> items = new List<Item>();
@@ -19,6 +22,7 @@ public class Inventory : MonoBehaviour
 
     private DatabaseHandler database;
     private PlayerMovement player;
+    private EventSystem e;
 
 // Private & Serialized Fields
     [SerializeField]private GameObject inventorySlot;
@@ -31,6 +35,8 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
+        movingItem = null;
+
         database = GetComponent<DatabaseHandler>();
         player = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
 
@@ -72,6 +78,7 @@ public class Inventory : MonoBehaviour
             return;
         }
 
+        // Checks if item of the same type is in inventory, if it is stackable it will be stacked
         if(itemToAdd.Stackable && CheckIfItemIsInInventory(itemToAdd))
         {
             for (int i = 0; i < items.Count; i++)
@@ -85,6 +92,7 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+        // else it will be dropped without stacking
         else
         {
             for (int i = equipmentSlotAmount; i < items.Count; i++)
@@ -101,6 +109,8 @@ public class Inventory : MonoBehaviour
                     itemObj.GetComponent<Image>().sprite = FetchSpriteBySlug(itemToAdd.Type, itemToAdd.Slug);
 
                     itemObj.name = itemToAdd.Title;
+
+                    slots[i].GetComponent<Slot>().containsItem = true;
                     break;
                 }
             }
@@ -154,6 +164,32 @@ public class Inventory : MonoBehaviour
             wepScript.projectile.element = database.StringToElement(itemToEquip.RangeElement);
             player.GetWeapon(wepScript);
         }
+    }
+
+    public void StartMovingItem(ItemData itemToMove)
+    {
+        // Called when player clicks on an item in inv
+        // empty slot the item was in
+        // store lastSlotID item
+        // move item with selected gameobject
+        // if holding an item while slot.containsItem == true, drop held item and pick up new item
+
+        isMovingAnItem = true;
+        Debug.Log(isMovingAnItem);
+        movingItem = itemToMove;
+        movingItem.OnControllerPress();
+
+    }
+
+    public void EndMovingItem()
+    {
+        isMovingAnItem = false;
+        slots[movingItem.item.ID].GetComponent<Slot>().containsItem = false;
+
+        movingItem.transform.SetParent(slots[movingItem.slotID].transform);
+        // Called when player clicks on a slot while holding an item
+        // place held item in the selected gameobject
+        // update SlotID 
     }
 
     public void UpdateWallet(int change)

@@ -8,9 +8,10 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
     public int id;
     public bool isMerchantSlot;
     public bool isEquipSlot;
+    public bool containsItem;
 
     private Inventory inv;
-    private EventSystem e;
+
 
     void Start()
     {
@@ -19,10 +20,14 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
 
     public void OnDrop(PointerEventData eventData)
     {
-        if(isMerchantSlot == false)
+        ControllerDropItem(eventData.pointerDrag.GetComponent<ItemData>());
+    }
+
+    public void ControllerDropItem(ItemData droppedItem)
+    {
+        if (isMerchantSlot == false)
         {
-            ItemData droppedItem = eventData.pointerDrag.GetComponent<ItemData>();
-            if (inv.items[id].ID == -1)
+            /*if (inv.items[id].ID == -1)
             {
                 inv.items[droppedItem.slotID] = new Item();
                 inv.items[id] = droppedItem.item;
@@ -42,17 +47,14 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
                 inv.items[droppedItem.slotID] = item.GetComponent<ItemData>().item;
                 inv.items[id] = droppedItem.item;
             }
+            */
+            // checks if this slot is empty
 
-            if(isEquipSlot)
+            if (isEquipSlot)
             {
                 inv.EquipItem(droppedItem.item.ID);
             }
         }
-    }
-
-    public void ControllerDropItem()
-    {
-
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -71,6 +73,28 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
 
     public void OnControllerPress()
     {
+        if (containsItem && isMerchantSlot == false)
+        {
+            inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
+            inv.isMovingAnItem = true;
+        }  
+
+        if(inv.isMovingAnItem)
+        {
+            inv.EndMovingItem();
+        }
+
+        if(isMerchantSlot)
+        {
+            ItemData itemToBuy = transform.FindChild("Item").gameObject.GetComponent<ItemData>();
+
+            if (itemToBuy.item.Value <= inv.money)
+            {
+                inv.AddItem(itemToBuy.item.ID);
+                inv.UpdateWallet(-itemToBuy.item.Value);
+            }
+        }
+        /*
         if (isMerchantSlot)
         {
             ItemData itemToBuy = transform.FindChild("Item").gameObject.GetComponent<ItemData>();
@@ -83,24 +107,49 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
         }
         else
         {
-            ItemData itemToMove = transform.GetChild(0).gameObject.GetComponent<ItemData>();
-
-            if(itemToMove != null)
+            if(inv.movingItem != null)
             {
-                itemToMove.OnControllerPress();
+                Debug.Log("Dropped moving item");
+                ControllerDropItem(inv.movingItem);
+                inv.movingItem = null;
             }
-        }
+            else
+            {
+                Debug.Log("Picked up an item");
+                inv.movingItem = transform.GetChild(0).gameObject.GetComponent<ItemData>();
+                inv.movingItem.lastSlotID = inv.movingItem.slotID;
+                inv.movingItem.slotID = -1;
+                inv.items[inv.movingItem.slotID] = new Item();
+
+                if (inv.movingItem != null)
+                {
+                    inv.movingItem.OnControllerPress();
+                }
+            }
+        }*/
     }
 
     public void OnSelect(BaseEventData eventData)
     {
-        if(isMerchantSlot)
+        if (isMerchantSlot)
             transform.FindChild("Item").gameObject.GetComponent<ItemData>().UpdateInfo();
+        else if(containsItem)
+            transform.GetChild(0).gameObject.GetComponent<ItemData>().UpdateInfo();
+
+        Debug.Log("On selecting this slot isMoving =" +inv.isMovingAnItem);
+        if (inv.isMovingAnItem)
+        {
+            inv.movingItem.slotID = id;
+            Debug.Log("While holding an item, a new slot was selected with id:" + id);
+        }
+            
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
         if (isMerchantSlot)
             transform.FindChild("Item").gameObject.GetComponent<ItemData>().HideInfo();
+        else
+            transform.GetChild(0).gameObject.GetComponent<ItemData>().HideInfo();
     }
 }
