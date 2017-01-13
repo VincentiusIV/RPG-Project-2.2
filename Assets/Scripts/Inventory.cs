@@ -96,25 +96,22 @@ public class Inventory : MonoBehaviour
         // else it will be dropped without stacking
         else
         {
-            for (int i = equipmentSlotAmount; i < items.Count; i++)
-            {
-                if (items[i].ID == -1)
-                {
-                    items[i] = itemToAdd;
-                    GameObject itemObj = Instantiate(inventoryItem);
-                    itemObj.GetComponent<ItemData>().item = itemToAdd;
-                    itemObj.GetComponent<ItemData>().slotID = i;
-                    itemObj.transform.SetParent(slots[i].transform);
-                    itemObj.transform.position = slots[i].transform.position;
+            int emptySlot = SearchForEmptySlot();
 
-                    itemObj.GetComponent<Image>().sprite = FetchSpriteBySlug(itemToAdd.Type, itemToAdd.Slug);
+            if(emptySlot == -1)
+                return;
 
-                    itemObj.name = itemToAdd.Title;
+            items[emptySlot] = itemToAdd;
+            GameObject itemObj = Instantiate(inventoryItem);
+            itemObj.GetComponent<ItemData>().item = itemToAdd;
+            itemObj.GetComponent<ItemData>().slotID = emptySlot;
+            itemObj.transform.SetParent(slots[emptySlot].transform);
+            itemObj.transform.position = slots[emptySlot].transform.position;
 
-                    slots[i].GetComponent<Slot>().containsItem = true;
-                    break;
-                }
-            }
+            itemObj.GetComponent<Image>().sprite = FetchSpriteBySlug(itemToAdd.Type, itemToAdd.Slug);
+            itemObj.name = itemToAdd.Title;
+
+            slots[emptySlot].GetComponent<Slot>().containsItem = true;
         }
     }
 

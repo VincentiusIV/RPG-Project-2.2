@@ -90,6 +90,10 @@ public class ButtonFunctionality : MonoBehaviour
                     return;
                 }
             }
+        }
+
+        if(Input.GetButtonDown("Escape"))
+        {
             SwitchActive("Menu_Panel");
         }
     }
