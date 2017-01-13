@@ -8,12 +8,9 @@ public class ItemData : MonoBehaviour
 {
     public Item item;
     public int amount = 1;
-
     public int slotID;
 
     private Inventory inv;
-    private CanvasGroup cg;
-
     private GameObject InfoPanel;
     private GameObject TextPanel;
 
@@ -28,8 +25,6 @@ public class ItemData : MonoBehaviour
         TextPanel = transform.parent.parent.parent.FindChild("Info_Panel").FindChild("Text_Panel").gameObject;
         InfoPanel.SetActive(false);
         inv = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
-        cg = GetComponent<CanvasGroup>();
-        
     }
 
 // Controller interaction
@@ -37,7 +32,6 @@ public class ItemData : MonoBehaviour
     {
         if (item != null && canDrag == false)
         {
-            //Debug.Log("Controller started dragging: "+item.Title);
             canDrag = true;
         }
     }
@@ -46,7 +40,6 @@ public class ItemData : MonoBehaviour
     {
         if(item != null && canDrag == true)
         {
-            //Debug.Log("Dropping item:" + item.Title);
             canDrag = false;
             transform.SetParent(inv.slots[slotID].transform);
             transform.position = inv.slots[slotID].transform.position;
@@ -72,7 +65,7 @@ public class ItemData : MonoBehaviour
         }
     }
 
-// Public functions used by both mouse and controller
+// Public functions
     public void UpdateInfo()
     {
         if(InfoPanel.activeInHierarchy == false)
@@ -85,6 +78,4 @@ public class ItemData : MonoBehaviour
     {
         InfoPanel.SetActive(false);
     }
-
-    
 }

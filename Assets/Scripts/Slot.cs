@@ -6,9 +6,8 @@ using System;
 public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     public int id;
-    public bool isMerchantSlot;
-    public bool isEquipSlot;
-    public bool containsItem;
+    public slotType type;
+    [HideInInspector]public bool containsItem;
 
     private Inventory inv;
 
@@ -21,14 +20,14 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
     public void OnControllerPress()
     {
         Debug.Log("On pressed this slot "+ id+" isMoving =" + inv.isMovingAnItem);
-        if (inv.isMovingAnItem == false && containsItem && isMerchantSlot == false)
+        if (inv.isMovingAnItem == false && containsItem && type != slotType.merchant)
         {
             inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
             containsItem = false;
             return;
         }  
 
-        if(inv.isMovingAnItem && isMerchantSlot == false)
+        if(inv.isMovingAnItem && type != slotType.merchant)
         {
             inv.EndMovingItem(id);
 
@@ -40,7 +39,7 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
             return;
         }
 
-        if(isMerchantSlot)
+        if(type == slotType.merchant)
         {
             ItemData itemToBuy = transform.FindChild("Item").gameObject.GetComponent<ItemData>();
 
@@ -56,9 +55,9 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
     // Called when slot is selected
     public void OnSelect(BaseEventData eventData)
     {
-        if (isMerchantSlot)
+        if (type == slotType.merchant)
             transform.FindChild("Item").gameObject.GetComponent<ItemData>().UpdateInfo();
-        else if(inv.items[id].ID != -1)
+        else if(containsItem)
             transform.GetChild(0).gameObject.GetComponent<ItemData>().UpdateInfo();
             
     }
@@ -66,18 +65,26 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
     // Called when slot is deselected
     public void OnDeselect(BaseEventData eventData)
     {
-        if (isMerchantSlot)
+        if (type == slotType.merchant)
             transform.FindChild("Item").gameObject.GetComponent<ItemData>().HideInfo();
-        else if(inv.items[id].ID != -1)
+        else if(containsItem)
             transform.GetChild(0).gameObject.GetComponent<ItemData>().HideInfo();
     }
 
     void Update()
     {
-        // prevents items from getting stuck when a bug occurs that allows two seperate items to be stacked
+        // prevents items from getting stuck in case a bug occurs that allows two seperate items to be stacked
         if(transform.childCount > 0)
         {
             containsItem = true;
         }
     }
+}
+
+public enum slotType
+{
+    regular,
+    weaponEquip,
+    magicEquip,
+    merchant,
 }

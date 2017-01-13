@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]private GameObject inventorySlot;
     [SerializeField]private GameObject inventoryItem;
     [SerializeField]private GameObject equipmentItem;
-    [SerializeField]private GameObject equipmentSlot;
+    [SerializeField]private GameObject[] equipmentSlots;
 
     [SerializeField]private int slotAmount;
     [SerializeField]private int equipmentSlotAmount;
@@ -51,19 +51,11 @@ public class Inventory : MonoBehaviour
 
         // Creating slots
         slotAmount += equipmentSlotAmount;
-
-        for (int i = 0; i < slotAmount; i++)
+        for (int i = equipmentSlotAmount; i < slotAmount; i++)
         {
             items.Add(new Item());
 
-            if (i < equipmentSlotAmount)
-            {
-                slots.Add(Instantiate(equipmentSlot));
-            }
-            else
-            {
-                slots.Add(Instantiate(inventorySlot));
-            }
+            slots.Add(Instantiate(inventorySlot));
             slots[i].GetComponent<Slot>().id = i;
             slots[i].transform.SetParent(slotPanel.transform);
         }
@@ -136,7 +128,6 @@ public class Inventory : MonoBehaviour
         {
             if (hand.transform.GetChild(0).CompareTag("Weapon"))
             {
-                //Debug.Log("Player already holding a weapon");
                 Destroy(hand.transform.GetChild(0).gameObject);
             }
         }
@@ -179,11 +170,13 @@ public class Inventory : MonoBehaviour
     public void EndMovingItem(int new_slotID)
     {
         // Equips item on character if slot is equip slot
-        if (slots[new_slotID].GetComponent<Slot>().isEquipSlot)
+        if (slots[new_slotID].GetComponent<Slot>().type == slotType.weaponEquip)
         {
             Debug.Log("Equipping item...");
             EquipItem(movingItem.item.ID);
         }
+
+        // TO-DO Equip magic ability in specified slot
 
         // Resetting Old data
         isMovingAnItem = false;
