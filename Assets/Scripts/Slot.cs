@@ -71,7 +71,7 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
         Debug.Log("On pressed this slot "+ id+" isMoving =" + inv.isMovingAnItem);
         if (inv.isMovingAnItem == false && containsItem && isMerchantSlot == false)
         {
-            inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>(), id);
+            inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
             containsItem = false;
             return;
         }  
@@ -79,7 +79,12 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
         if(inv.isMovingAnItem)
         {
             inv.EndMovingItem(id);
-            containsItem = true;
+
+            if(containsItem)
+            {
+                inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
+            }
+            else containsItem = true;
             return;
         }
 

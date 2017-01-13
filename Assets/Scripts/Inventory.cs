@@ -167,15 +167,9 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void StartMovingItem(ItemData itemToMove, int old_slotID)
+    public void StartMovingItem(ItemData itemToMove)
     {
         // Called when player clicks on an item in inv
-        // if holding an item while slot.containsItem == true, drop held item and pick up new item
-
-        if(isMovingAnItem)
-        {
-            EndMovingItem(old_slotID);
-        }
 
         // Setting state & position for moving
         isMovingAnItem = true;
@@ -187,8 +181,6 @@ public class Inventory : MonoBehaviour
 
     public void EndMovingItem(int new_slotID)
     {
-        
-
         // Equips item on character if slot is equip slot
         if (slots[new_slotID].GetComponent<Slot>().isEquipSlot)
         {

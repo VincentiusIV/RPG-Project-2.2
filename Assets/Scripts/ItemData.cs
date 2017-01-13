@@ -104,9 +104,9 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             else
             {
                 Debug.LogError("Cannot move item there because it is not a slot");
-                canDrag = false;
-
+                
                 inv.EndMovingItem(slotID);
+                canDrag = false;
             }
         }
     }
