@@ -139,7 +139,7 @@ public class Inventory : MonoBehaviour
         {
             if (hand.transform.GetChild(0).CompareTag("Weapon"))
             {
-                Debug.Log("Player already holding a weapon");
+                //Debug.Log("Player already holding a weapon");
                 Destroy(hand.transform.GetChild(0).gameObject);
             }
         }
@@ -169,14 +169,15 @@ public class Inventory : MonoBehaviour
 
     public void StartMovingItem(ItemData itemToMove)
     {
-        // Called when player clicks on an item in inv
-
         // Setting state & position for moving
         isMovingAnItem = true;
         Debug.Log("Started moving an item: " + isMovingAnItem);
+
         movingItem = itemToMove;
-        movingItem.OnControllerDrag();
+        items[movingItem.slotID] = new Item();
         movingItem.transform.SetParent(movingItem.transform.parent.parent);
+        movingItem.OnControllerDrag();
+        
     }
 
     public void EndMovingItem(int new_slotID)
@@ -184,25 +185,20 @@ public class Inventory : MonoBehaviour
         // Equips item on character if slot is equip slot
         if (slots[new_slotID].GetComponent<Slot>().isEquipSlot)
         {
+            Debug.Log("Equipping item...");
             EquipItem(movingItem.item.ID);
         }
 
         // Resetting Old data
         isMovingAnItem = false;
-        // If 
+
+        // Move item in array
         items[movingItem.slotID] = new Item();
         items[new_slotID] = movingItem.item;
         movingItem.slotID = new_slotID;
 
         // Placing held item onto slot
         movingItem.OnControllerDrop();
-
-        // Saving new data
-        // Called when player clicks on a slot while holding an item
-        // place held item in the selected gameobject
-        // update SlotID 
-
-        
     }
 
     public void UpdateWallet(int change)
@@ -219,6 +215,22 @@ public class Inventory : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    public int SearchForEmptySlot()
+    {
+        int emptySlotID;
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            if(items[i].ID == -1)
+            {
+                emptySlotID = i;
+                return emptySlotID;
+            }
+        }
+        Debug.LogError("Inventory is full");
+        return emptySlotID = -1;
     }
 
     public Sprite FetchSpriteBySlug(string type, string slug)

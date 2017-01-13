@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using System;
 using UnityEngine.UI;
 
-public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class ItemData : MonoBehaviour
 {
     public Item item;
     public int amount = 1;
@@ -31,53 +31,13 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         cg = GetComponent<CanvasGroup>();
         
     }
-    
-// Mouse Interaction
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        if (item != null)
-        {
-            if (InfoPanel.activeInHierarchy == true)
-                InfoPanel.SetActive(false);
-
-            transform.SetParent(transform.parent.parent);
-            transform.position = eventData.position;
-            cg.blocksRaycasts = false;
-        }
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (item != null)
-        {
-            transform.position = eventData.position;
-        }
-    }
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        transform.SetParent(inv.slots[slotID].transform);
-        transform.position = inv.slots[slotID].transform.position;
-
-        cg.blocksRaycasts = true;
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        UpdateInfo();
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (InfoPanel.activeInHierarchy == true)
-            InfoPanel.SetActive(false);
-    }
 
 // Controller interaction
     public void OnControllerDrag()
     {
         if (item != null && canDrag == false)
         {
-            Debug.Log("Controller started dragging: "+item.Title);
+            //Debug.Log("Controller started dragging: "+item.Title);
             canDrag = true;
         }
     }
@@ -86,7 +46,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         if(item != null && canDrag == true)
         {
-            Debug.Log("Dropping item:" + item.Title);
+            //Debug.Log("Dropping item:" + item.Title);
             canDrag = false;
             transform.SetParent(inv.slots[slotID].transform);
             transform.position = inv.slots[slotID].transform.position;
@@ -104,8 +64,9 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             else
             {
                 Debug.LogError("Cannot move item there because it is not a slot");
-                
-                inv.EndMovingItem(slotID);
+                Debug.Log("slotID was:" + slotID);
+                inv.EndMovingItem(inv.SearchForEmptySlot());
+                inv.slots[slotID].GetComponent<Slot>().containsItem = true;
                 canDrag = false;
             }
         }
