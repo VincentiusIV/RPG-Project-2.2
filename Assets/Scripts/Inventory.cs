@@ -49,6 +49,7 @@ public class Inventory : MonoBehaviour
 
         UpdateWallet(1000);
 
+        // Creating slots
         slotAmount += equipmentSlotAmount;
 
         for (int i = 0; i < slotAmount; i++)
@@ -166,30 +167,50 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void StartMovingItem(ItemData itemToMove)
+    public void StartMovingItem(ItemData itemToMove, int old_slotID)
     {
         // Called when player clicks on an item in inv
-        // empty slot the item was in
-        // store lastSlotID item
-        // move item with selected gameobject
         // if holding an item while slot.containsItem == true, drop held item and pick up new item
 
-        isMovingAnItem = true;
-        Debug.Log(isMovingAnItem);
-        movingItem = itemToMove;
-        movingItem.OnControllerPress();
+        if(isMovingAnItem)
+        {
+            EndMovingItem(old_slotID);
+        }
 
+        // Setting state & position for moving
+        isMovingAnItem = true;
+        Debug.Log("Started moving an item: " + isMovingAnItem);
+        movingItem = itemToMove;
+        movingItem.OnControllerDrag();
+        movingItem.transform.SetParent(movingItem.transform.parent.parent);
     }
 
-    public void EndMovingItem()
+    public void EndMovingItem(int new_slotID)
     {
-        isMovingAnItem = false;
-        slots[movingItem.item.ID].GetComponent<Slot>().containsItem = false;
+        
 
-        movingItem.transform.SetParent(slots[movingItem.slotID].transform);
+        // Equips item on character if slot is equip slot
+        if (slots[new_slotID].GetComponent<Slot>().isEquipSlot)
+        {
+            EquipItem(movingItem.item.ID);
+        }
+
+        // Resetting Old data
+        isMovingAnItem = false;
+        // If 
+        items[movingItem.slotID] = new Item();
+        items[new_slotID] = movingItem.item;
+        movingItem.slotID = new_slotID;
+
+        // Placing held item onto slot
+        movingItem.OnControllerDrop();
+
+        // Saving new data
         // Called when player clicks on a slot while holding an item
         // place held item in the selected gameobject
         // update SlotID 
+
+        
     }
 
     public void UpdateWallet(int change)

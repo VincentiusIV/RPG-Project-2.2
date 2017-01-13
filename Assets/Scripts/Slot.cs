@@ -44,16 +44,10 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
                 droppedItem.transform.SetParent(this.transform);
                 droppedItem.transform.position = this.transform.position;
 
-                inv.items[droppedItem.slotID] = item.GetComponent<ItemData>().item;
+                inv.items[id] = item.GetComponent<ItemData>().item;
                 inv.items[id] = droppedItem.item;
             }
             */
-            // checks if this slot is empty
-
-            if (isEquipSlot)
-            {
-                inv.EquipItem(droppedItem.item.ID);
-            }
         }
     }
 
@@ -71,17 +65,22 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
         OnControllerPress();
     }
 
+    // Called when a slot is pressed
     public void OnControllerPress()
     {
-        if (containsItem && isMerchantSlot == false)
+        Debug.Log("On pressed this slot "+ id+" isMoving =" + inv.isMovingAnItem);
+        if (inv.isMovingAnItem == false && containsItem && isMerchantSlot == false)
         {
-            inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
-            inv.isMovingAnItem = true;
+            inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>(), id);
+            containsItem = false;
+            return;
         }  
 
         if(inv.isMovingAnItem)
         {
-            inv.EndMovingItem();
+            inv.EndMovingItem(id);
+            containsItem = true;
+            return;
         }
 
         if(isMerchantSlot)
@@ -93,18 +92,9 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
                 inv.AddItem(itemToBuy.item.ID);
                 inv.UpdateWallet(-itemToBuy.item.Value);
             }
+            return;
         }
-        /*
-        if (isMerchantSlot)
-        {
-            ItemData itemToBuy = transform.FindChild("Item").gameObject.GetComponent<ItemData>();
-
-            if (itemToBuy.item.Value <= inv.money)
-            {
-                inv.AddItem(itemToBuy.item.ID);
-                inv.UpdateWallet(-itemToBuy.item.Value);
-            }
-        }
+/*
         else
         {
             if(inv.movingItem != null)
@@ -117,8 +107,6 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
             {
                 Debug.Log("Picked up an item");
                 inv.movingItem = transform.GetChild(0).gameObject.GetComponent<ItemData>();
-                inv.movingItem.lastSlotID = inv.movingItem.slotID;
-                inv.movingItem.slotID = -1;
                 inv.items[inv.movingItem.slotID] = new Item();
 
                 if (inv.movingItem != null)
@@ -135,13 +123,6 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
             transform.FindChild("Item").gameObject.GetComponent<ItemData>().UpdateInfo();
         else if(containsItem)
             transform.GetChild(0).gameObject.GetComponent<ItemData>().UpdateInfo();
-
-        Debug.Log("On selecting this slot isMoving =" +inv.isMovingAnItem);
-        if (inv.isMovingAnItem)
-        {
-            inv.movingItem.slotID = id;
-            Debug.Log("While holding an item, a new slot was selected with id:" + id);
-        }
             
     }
 
@@ -149,7 +130,7 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerE
     {
         if (isMerchantSlot)
             transform.FindChild("Item").gameObject.GetComponent<ItemData>().HideInfo();
-        else
+        else if(containsItem)
             transform.GetChild(0).gameObject.GetComponent<ItemData>().HideInfo();
     }
 }

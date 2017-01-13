@@ -8,7 +8,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 {
     public Item item;
     public int amount = 1;
-    public int lastSlotID;
+    //public int lastSlotID;
     public int slotID;
 
     private Inventory inv;
@@ -18,7 +18,8 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private GameObject TextPanel;
 
     private EventSystem e;
-    public bool canDrag;
+    private bool canDrag;
+    private Vector3 dragOffset = new Vector3(10f, 10f, 0f);
 
     void Start()
     {
@@ -28,7 +29,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         InfoPanel.SetActive(false);
         inv = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
         cg = GetComponent<CanvasGroup>();
-        lastSlotID = slotID;
+        
     }
     
 // Mouse Interaction
@@ -72,14 +73,23 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     }
 
 // Controller interaction
-    public void OnControllerPress()
+    public void OnControllerDrag()
     {
-        Debug.Log("Controller pressed");
-
         if (item != null && canDrag == false)
         {
+            Debug.Log("Controller started dragging: "+item.Title);
             canDrag = true;
-            transform.SetParent(transform.parent.parent);
+        }
+    }
+
+    public void OnControllerDrop()
+    {
+        if(item != null && canDrag == true)
+        {
+            Debug.Log("Dropping item:" + item.Title);
+            canDrag = false;
+            transform.SetParent(inv.slots[slotID].transform);
+            transform.position = inv.slots[slotID].transform.position;
         }
     }
 
@@ -88,14 +98,15 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         // dragging with controller
         if (canDrag)
         {
+            // drags item if selected game object is a slot
             if (e.currentSelectedGameObject.CompareTag("Slot"))
-                transform.position = e.currentSelectedGameObject.transform.position;
+                transform.position = e.currentSelectedGameObject.transform.position + dragOffset;
             else
             {
                 Debug.LogError("Cannot move item there because it is not a slot");
                 canDrag = false;
 
-                inv.EndMovingItem();
+                inv.EndMovingItem(slotID);
             }
         }
     }
