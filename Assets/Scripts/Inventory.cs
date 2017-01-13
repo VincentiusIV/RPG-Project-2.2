@@ -177,7 +177,6 @@ public class Inventory : MonoBehaviour
         items[movingItem.slotID] = new Item();
         movingItem.transform.SetParent(movingItem.transform.parent.parent);
         movingItem.OnControllerDrag();
-        
     }
 
     public void EndMovingItem(int new_slotID)
@@ -221,11 +220,12 @@ public class Inventory : MonoBehaviour
     {
         int emptySlotID;
 
-        for (int i = 0; i < items.Count; i++)
+        for (int i = equipmentSlotAmount; i < items.Count; i++)
         {
-            if(items[i].ID == -1)
+            if(slots[i].GetComponent<Slot>().containsItem == false)
             {
                 emptySlotID = i;
+                Debug.Log("First empty slot is: " + emptySlotID);
                 return emptySlotID;
             }
         }

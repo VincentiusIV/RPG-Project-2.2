@@ -28,7 +28,7 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
             return;
         }  
 
-        if(inv.isMovingAnItem)
+        if(inv.isMovingAnItem && isMerchantSlot == false)
         {
             inv.EndMovingItem(id);
 
@@ -74,7 +74,7 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     void Update()
     {
-        // prevents items from getting stuck when a bug that allows two seperate items to be stacked
+        // prevents items from getting stuck when a bug occurs that allows two seperate items to be stacked
         if(transform.childCount > 0)
         {
             containsItem = true;

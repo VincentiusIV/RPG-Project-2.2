@@ -8,7 +8,7 @@ public class ItemData : MonoBehaviour
 {
     public Item item;
     public int amount = 1;
-    //public int lastSlotID;
+
     public int slotID;
 
     private Inventory inv;
