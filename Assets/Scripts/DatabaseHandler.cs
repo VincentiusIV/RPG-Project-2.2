@@ -229,19 +229,3 @@ public enum WeaponType
     Melee,
     Ranged,
 }
-/*
-[Serializable]
-public enum MagicType
-{
-    Fire,
-    Earth,
-    Water,
-    Ice,
-}
-
-[Serializable]
-public struct Magic
-{
-    MagicType thisType;
-    MagicType[] goodAgainst;
-}*/

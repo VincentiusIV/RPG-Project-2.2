@@ -4,7 +4,7 @@ using UnityEditor;
 
 public enum ItemType
 {
-    Items, NPCs,
+    Items, Magic, Weapon,NPCs,
 }
 
 public class AddNewItemToDatabase : ScriptableWizard
@@ -17,7 +17,10 @@ public class AddNewItemToDatabase : ScriptableWizard
     public int power;
     public int defence;
     public int vitality;
+
+    public bool hasMelee; // add to db
     public Melee melee;
+    public bool hasRanged; // add to db
     public Projectile ranged;
 
     public string description = "defaultDescription";

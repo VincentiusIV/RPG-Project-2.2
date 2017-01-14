@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.Collections;
 using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
-// Public Fields
-    public ItemData movingItem;
-    public bool isMovingAnItem;
+    // Public Fields
 
-// Public & Hidden Fields
+
+    // Public & Hidden Fields
+    [HideInInspector]public ItemData movingItem;
+    [HideInInspector]public bool isMovingAnItem;
     [HideInInspector]public List<Item> items = new List<Item>();
     [HideInInspector]public List<GameObject> slots = new List<GameObject>();
     [HideInInspector]public int money;
@@ -43,8 +43,6 @@ public class Inventory : MonoBehaviour
         inventoryPanel.SetActive(true);
 
         //slotPanel = inventoryPanel.transform.FindChild("Slot_Panel").gameObject;
-
-        
 
         UpdateWallet(1000);
 

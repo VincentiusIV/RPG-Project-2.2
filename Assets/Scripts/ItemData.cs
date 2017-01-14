@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.EventSystems;
-using System;
-using UnityEngine.UI;
 
 public class ItemData : MonoBehaviour
 {

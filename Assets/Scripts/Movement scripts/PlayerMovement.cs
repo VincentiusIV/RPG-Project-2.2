@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 moveSpeed;
     [SerializeField] private int maxHP;
     [SerializeField] private bool useController;
+    [SerializeField] private GameObject aim;
 
     private float currentHP;
     private WeaponScript weapon;
@@ -24,14 +25,25 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canPlay)
         {
+            float rStickH = Input.GetAxis("X360_RStickX");
+            float rStickV = Input.GetAxis("X360_RStickY");
+
+            aim.transform.position = new Vector3(transform.position.x + rStickH, transform.position.y + rStickV, 0f);
+
             // Weapon
             if (weapon != null)
             {
-                if (Input.GetButton("Fire1"))
+                if (Input.GetAxis("X360_Triggers") < 0)
+                {
                     weapon.RangedAttack();
+                }
+                    
 
-                if (Input.GetButton("Fire2"))
+                if (Input.GetAxis("X360_Triggers") > 0)
+                {
                     weapon.MeleeAttack();
+                }
+                    
             }
             else
                 Debug.Log("Weapon is not assigned");
@@ -48,43 +60,24 @@ public class PlayerMovement : MonoBehaviour
                 //Respawn?? End Game?? Lifes??
             }
         }
-
-        if(useController)
-        {
-            float xPos = Input.GetAxis("X360_Horizontal");
-            float yPos = Input.GetAxis("X360_Vertical");
-            Vector2 mouseMovement = new Vector2(xPos, yPos);
-
-            //Cursor.SetCursor(cursorTexture, mouseMovement, CursorMode.Auto);
-        }
     }
     
     void FixedUpdate()
     {
         if(canPlay)
         {
-            // Rotation
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
-            float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
+            // Rotation with mouse
+            float angleRad = Mathf.Atan2(aim.transform.position.y - transform.position.y, aim.transform.position.x - transform.position.x);
             float angleDeg = (180 / Mathf.PI) * angleRad;
             transform.rotation = Quaternion.Euler(0, 0, angleDeg);
             transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
 
             // Movement
-            float xPos = Input.GetAxis("X360_Horizontal");
-            float yPos = Input.GetAxis("X360_Vertical");
+            float xPos = Input.GetAxis("X360_LStickX");
+            float yPos = Input.GetAxis("X360_LStickY");
 
             Vector3 movement = new Vector3(xPos, yPos, 0f).normalized;
-
-            if (Input.GetButtonUp("X360_Horizontal") || Input.GetButtonUp("X360_Vertical"))
-            {
-                Debug.Log("Velocity reset on player");
-                rig.velocity = Vector3.zero;
-            }
-            else
-            {
-                rig.velocity = movement * moveSpeed.x;
-            }
+            rig.velocity = movement * moveSpeed.x;
         }
     }
 
