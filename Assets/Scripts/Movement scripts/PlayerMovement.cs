@@ -5,7 +5,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Vector2 moveSpeed;
     [SerializeField] private int maxHP;
-    [SerializeField] private bool useController;
     [SerializeField] private GameObject aim;
 
     private float currentHP;
@@ -34,20 +33,14 @@ public class PlayerMovement : MonoBehaviour
             if (weapon != null)
             {
                 if (Input.GetAxis("X360_Triggers") < 0)
-                {
                     weapon.RangedAttack();
-                }
-                    
+                else Debug.Log("No weapon equipped");
 
                 if (Input.GetAxis("X360_Triggers") > 0)
-                {
                     weapon.MeleeAttack();
-                }
-                    
+                else Debug.Log("No weapon equipped");
             }
-            else
-                Debug.Log("Weapon is not assigned");
-
+            // move hp to player stats at some point
             //HP
             ren.color = Color.Lerp(Color.red, Color.green, currentHP / 100);
 

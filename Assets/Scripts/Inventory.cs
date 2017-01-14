@@ -177,6 +177,10 @@ public class Inventory : MonoBehaviour
             Debug.Log("Equipping item...");
             EquipItem(movingItem.item.ID);
         }
+        if(slots[new_slotID].GetComponent<Slot>().type == slotType.magicEquip)
+        {
+            // equip magic ability
+        }
 
         // TO-DO Equip magic ability in specified slot
 
