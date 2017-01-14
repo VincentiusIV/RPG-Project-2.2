@@ -15,49 +15,53 @@ public class Inventory : MonoBehaviour
     [HideInInspector]public List<GameObject> slots = new List<GameObject>();
     [HideInInspector]public int money;
 
-// Private & Hidden Reference Fields
-    private GameObject inventoryPanel;
-    private GameObject slotPanel;
+    // Private & Hidden Reference Fields
     private GameObject hand;
 
     private DatabaseHandler database;
     private PlayerMovement player;
     private EventSystem e;
 
-// Private & Serialized Fields
+    // Private & Serialized Fields
+    [SerializeField]private GameObject inventoryPanel;
+    [SerializeField]private GameObject slotPanel;
+
     [SerializeField]private GameObject inventorySlot;
     [SerializeField]private GameObject inventoryItem;
     [SerializeField]private GameObject equipmentItem;
     [SerializeField]private GameObject[] equipmentSlots;
 
     [SerializeField]private int slotAmount;
-    [SerializeField]private int equipmentSlotAmount;
 
     void Start()
     {
-        movingItem = null;
-
         database = GetComponent<DatabaseHandler>();
         player = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
+        hand = GameObject.FindWithTag("Hand");
 
-        inventoryPanel = GameObject.Find("Inventory_Panel");
+        //inventoryPanel = GameObject.Find("Inventory_Panel");
         inventoryPanel.SetActive(true);
 
-        slotPanel = inventoryPanel.transform.FindChild("Slot_Panel").gameObject;
+        //slotPanel = inventoryPanel.transform.FindChild("Slot_Panel").gameObject;
 
-        hand = GameObject.FindWithTag("Hand");
+        
 
         UpdateWallet(1000);
 
-        // Creating slots
-        slotAmount += equipmentSlotAmount;
-        for (int i = equipmentSlotAmount; i < slotAmount; i++)
+        // Creating basic slots
+        for (int i = 0; i < slotAmount; i++)
         {
             items.Add(new Item());
-
             slots.Add(Instantiate(inventorySlot));
             slots[i].GetComponent<Slot>().id = i;
             slots[i].transform.SetParent(slotPanel.transform);
+        }
+        // Updating slot id's from equipment slots;
+        for (int i = 0; i < equipmentSlots.Length; i++)
+        {
+            items.Add(new Item());
+            slots.Add(equipmentSlots[i]);
+            equipmentSlots[i].GetComponent<Slot>().id = i + slotAmount;
         }
     }
 
@@ -210,9 +214,9 @@ public class Inventory : MonoBehaviour
     {
         int emptySlotID;
 
-        for (int i = equipmentSlotAmount; i < items.Count; i++)
+        for (int i = 0; i < items.Count; i++)
         {
-            if(slots[i].GetComponent<Slot>().containsItem == false)
+            if (slots[i].GetComponent<Slot>().containsItem == false && slots[i].GetComponent<Slot>().type == slotType.regular)
             {
                 emptySlotID = i;
                 Debug.Log("First empty slot is: " + emptySlotID);

@@ -29,6 +29,7 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
 
         if(inv.isMovingAnItem && type != slotType.merchant)
         {
+            Debug.Log("Moving item to slotid:" + id);
             inv.EndMovingItem(id);
 
             if(containsItem)
