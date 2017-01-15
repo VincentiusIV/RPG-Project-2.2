@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Vector2 moveSpeed;
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
             float rStickV = Input.GetAxis("X360_RStickY");
 
             aim.transform.position = new Vector3(transform.position.x + rStickH, transform.position.y + rStickV, 0f);
-
+            
             // Weapon
             if (weapon != null)
             {

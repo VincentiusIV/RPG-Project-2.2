@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WeaponScript : MonoBehaviour
 {
-// Private Fields
+    // Private Fields
     private string wepName;
     private SpriteRenderer sr; // change this to animator in the future
 
@@ -34,6 +34,11 @@ public class WeaponScript : MonoBehaviour
             Debug.Log("WARNING! No spawn position for projectile assigned");
         destroyRange = transform.GetChild(1).GetComponent<CircleCollider2D>();
         meleeRange = transform.GetChild(2).gameObject;
+    }
+
+    void Update()
+    {
+
     }
 
     public void MeleeAttack()
