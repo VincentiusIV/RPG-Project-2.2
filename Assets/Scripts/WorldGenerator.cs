@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class WorldGenerator : MonoBehaviour
 {
     public List<TerrainPrefab> terrainType = new List<TerrainPrefab>();
+    public GameObject tileGO;
+    public SpriteArrays spriteArrays;
     private GameObject worldHolder;
 
     public int chunkHeight;
@@ -78,7 +80,8 @@ public class WorldGenerator : MonoBehaviour
                     if (height <= terrainType[i].height)
                     {
                         Debug.Log(height);
-                        GameObject tile = Instantiate(terrainType[i].go, position, Quaternion.identity) as GameObject;
+                        GameObject tile = Instantiate(tileGO, position, Quaternion.identity) as GameObject;
+                        tile.GetComponent<SpriteRenderer>().sprite = PickRandomSprite(terrainType[i].spriteType);
                         tile.transform.SetParent(worldHolder.transform);
                         break;
                     }
@@ -91,12 +94,42 @@ public class WorldGenerator : MonoBehaviour
         generating = false;
         computeTime = 0f;
     }
+
+    Sprite PickRandomSprite(SpriteType type)
+    {
+        switch(type)
+        {
+            case SpriteType.grass:
+                return spriteArrays.grassTiles[(int)Random.Range(0, spriteArrays.grassTiles.Length)];
+            case SpriteType.rock:
+                return spriteArrays.rockTiles[(int)Random.Range(0, spriteArrays.rockTiles.Length)];
+            case SpriteType.snow:
+                return spriteArrays.snowTiles[(int)Random.Range(0, spriteArrays.snowTiles.Length)];
+            case SpriteType.water:
+                return spriteArrays.waterTiles[(int)Random.Range(0, spriteArrays.waterTiles.Length)];
+        }
+        return new Sprite();
+    }
 }
 
 [System.Serializable]
 public struct TerrainPrefab
 {
     public string name;
+    public SpriteType spriteType;
     public float height;
-    public GameObject go;
+}
+
+[System.Serializable]
+public struct SpriteArrays
+{
+    public Sprite[] snowTiles;
+    public Sprite[] grassTiles;
+    public Sprite[] rockTiles;
+    public Sprite[] waterTiles;
+}
+
+public enum SpriteType
+{
+    snow, grass, rock, water
 }
