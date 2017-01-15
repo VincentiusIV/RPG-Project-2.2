@@ -3,14 +3,25 @@ using System.Collections;
 using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
+    // Public Variables
+    
+    public PlayerStats playerStats;
+
+    // Public & Hidden Variables
+    [HideInInspector]public bool canPlay;
+
+    // Serialized & Private Variables
+    [SerializeField]private GameObject hud;
     [SerializeField] private Vector2 moveSpeed;
     [SerializeField] private GameObject aim;
-    public PlayerStats playerStats;
+
+    // Private Reference Variables
     private WeaponScript weapon;
     private Rigidbody2D rig;
     private Vector2 movement;
     private SpriteRenderer ren;
-    public bool canPlay;
+
+    private int currentSelection;
 
     void Start()
     {
@@ -22,9 +33,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canPlay)
         {
+            // Hotbar
+            if (Input.GetButtonDown("X360_LeftButton"))
+            {
+                SelectHotbar(currentSelection - 1);
+            }
+            if (Input.GetButtonDown("X360_RightButton"))
+            {
+                SelectHotbar(currentSelection + 1);
+            }
+            // Aiming
             float rStickH = Input.GetAxis("X360_RStickX");
             float rStickV = Input.GetAxis("X360_RStickY");
-
             aim.transform.position = new Vector3(transform.position.x + rStickH, transform.position.y + rStickV, 0f);
             
             // Weapon
@@ -68,6 +88,15 @@ public class PlayerMovement : MonoBehaviour
             Vector3 movement = new Vector3(xPos, yPos, 0f).normalized;
             rig.velocity = movement * moveSpeed.x;
         }
+    }
+
+    void SelectHotbar(int nextSelection)
+    {
+        if (nextSelection < 0)
+            nextSelection = 3;
+        if (nextSelection > 3)
+            nextSelection = 0;
+        currentSelection = nextSelection;
     }
 
     public void GetWeapon(WeaponScript wep)
