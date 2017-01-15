@@ -14,9 +14,14 @@ public class WeaponScript : MonoBehaviour
     private GameObject meleeRange;
 
     private float nextShot;
-// Public Fields
+    // Public Fields
+
+    public bool canMelee;
     public Melee melee;
+    public bool canRange;
     public Projectile projectile;
+
+    [SerializeField]private GameObject[] projectileGOs;
 
     void Start()
     {
@@ -67,10 +72,10 @@ public class WeaponScript : MonoBehaviour
             Debug.Log("Ranged attack with " + gameObject.name);
             destroyRange.radius = projectile.range;
 
-            projectile.go.GetComponent<BulletScript>().thisData = projectile;
+            projectileGOs[0].GetComponent<BulletScript>().thisData = projectile;
 
-            if (projectile.go != null && spawnPos != null)
-                Instantiate(projectile.go, spawnPos.transform.position, spawnPos.transform.rotation);
+            if (projectileGOs[0] != null && spawnPos != null)
+                Instantiate(projectileGOs[0], spawnPos.transform.position, spawnPos.transform.rotation);
             else
                 Debug.Log("Projectile Game Object is empty");
         }
@@ -89,17 +94,33 @@ public struct Melee
     public int damage;
     public int attackSpeed;
     public int range;
+
+    public Melee(Elements ele, int dmg, int attSp, int ran)
+    {
+        element = ele;
+        damage = dmg;
+        attackSpeed = attSp;
+        range = ran;
+    }
 }
 
 [System.Serializable]
 public struct Projectile
 {
-    public GameObject go;
     public Elements element;
     public int damage;
     public int attackSpeed;
-    public double speed;
+    public double bulletSpeed;
     public int range;
+
+    public Projectile(Elements ele, int dmg, int attSp, double bulletSp, int ran)
+    {
+        element = ele;
+        damage = dmg;
+        attackSpeed = attSp;
+        bulletSpeed = bulletSp;
+        range = ran;
+    }
 }
 
 

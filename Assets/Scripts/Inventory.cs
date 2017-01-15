@@ -143,16 +143,17 @@ public class Inventory : MonoBehaviour
             weapon.name = itemToEquip.Title;
             
             WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
-            wepScript.melee.damage = itemToEquip.Power;
-            wepScript.melee.attackSpeed = itemToEquip.MeleeAttackSpeed;
-            wepScript.melee.range = itemToEquip.MeleeAttackRange;
-            wepScript.melee.element = database.StringToElement(itemToEquip.MeleeElement);
 
-            wepScript.projectile.damage = itemToEquip.Power;
-            wepScript.projectile.attackSpeed = itemToEquip.RangeAttackSpeed;
-            wepScript.projectile.range = itemToEquip.RangeAttackRange;
-            wepScript.projectile.speed = itemToEquip.RangeBulletSpeed;
-            wepScript.projectile.element = database.StringToElement(itemToEquip.RangeElement);
+            wepScript.melee = new Melee(database.StringToElement(itemToEquip.MeleeElement),
+                                         itemToEquip.Power,
+                                         itemToEquip.MeleeAttackSpeed,
+                                         itemToEquip.MeleeAttackRange);
+
+            wepScript.projectile = new Projectile(database.StringToElement(itemToEquip.RangeElement),
+                                            itemToEquip.Power,
+                                            itemToEquip.RangeAttackSpeed,
+                                            itemToEquip.RangeBulletSpeed,
+                                            itemToEquip.RangeAttackRange);
             player.GetWeapon(wepScript);
         }
     }

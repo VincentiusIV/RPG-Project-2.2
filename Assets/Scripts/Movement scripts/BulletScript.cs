@@ -12,12 +12,12 @@ public class BulletScript : MonoBehaviour
         //transform.parent = null;
         //range += transform.position.z;
         StartCoroutine(DestroyTime());
-        Debug.Log("bullet speed:" + thisData.speed);
+        Debug.Log("bullet speed:" + thisData.bulletSpeed);
     }
 
     void Update()
     {
-        transform.Translate(new Vector2(0f,(float)thisData.speed));
+        transform.Translate(new Vector2(0f,(float)thisData.bulletSpeed));
     }
 
     private void OnCollisionEnter2D(Collision2D coll)

@@ -46,7 +46,7 @@ public class AddNewItemToDatabase : ScriptableWizard
     {
         if(Application.isPlaying)
         {
-            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(),cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, melee.element, ranged.attackSpeed, ranged.range, ranged.speed, ranged.element);
+            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(),cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, melee.element, ranged.attackSpeed, ranged.range, ranged.bulletSpeed, ranged.element);
             db.WriteToDatabase();
         }
         else
@@ -59,7 +59,7 @@ public class AddNewItemToDatabase : ScriptableWizard
     {
         if (Application.isPlaying)
         {
-            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(), cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, melee.element, ranged.attackSpeed, ranged.range, ranged.speed, ranged.element);
+            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(), cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, melee.element, ranged.attackSpeed, ranged.range, ranged.bulletSpeed, ranged.element);
         }
         else
         {
@@ -95,7 +95,7 @@ public class AddNewItemToDatabase : ScriptableWizard
             ranged.damage = itemToUpdate.Power;
             ranged.attackSpeed = itemToUpdate.RangeAttackSpeed;
             ranged.range = itemToUpdate.RangeAttackRange;
-            ranged.speed = itemToUpdate.RangeBulletSpeed;
+            ranged.bulletSpeed = itemToUpdate.RangeBulletSpeed;
             ranged.element = db.StringToElement(itemToUpdate.RangeElement);
 
             description = itemToUpdate.Description;

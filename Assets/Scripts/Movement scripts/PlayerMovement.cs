@@ -4,20 +4,18 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Vector2 moveSpeed;
-    [SerializeField] private int maxHP;
     [SerializeField] private GameObject aim;
-
-    private float currentHP;
+    public PlayerStats playerStats;
     private WeaponScript weapon;
     private Rigidbody2D rig;
     private Vector2 movement;
     private SpriteRenderer ren;
     public bool canPlay;
 
-    void Start(){
+    void Start()
+    {
         rig = GetComponent<Rigidbody2D>();
         ren = GetComponent<SpriteRenderer>();
-        currentHP = maxHP;
     }
 
     void Update()
@@ -34,21 +32,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (Input.GetAxis("X360_Triggers") < 0)
                     weapon.RangedAttack();
-                else Debug.Log("No weapon equipped");
 
                 if (Input.GetAxis("X360_Triggers") > 0)
                     weapon.MeleeAttack();
-                else Debug.Log("No weapon equipped");
             }
             // move hp to player stats at some point
             //HP
-            ren.color = Color.Lerp(Color.red, Color.green, currentHP / 100);
+            ren.color = Color.Lerp(Color.red, Color.green, playerStats.hp / playerStats.maxHP);
 
-            if (currentHP < 100 && currentHP > 0)
+            /*if (playerStats.hp < 100 && playerStats.hp > 0)
             {
-                currentHP += 1 / 60f;
-            }
-            if (currentHP <= 0)
+                playerStats.hp += 1 / 60f;
+            }*/
+            if (playerStats.hp <= 0)
             {
                 //Respawn?? End Game?? Lifes??
             }
@@ -86,12 +82,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void doDmg(int damage){
-        currentHP -= damage;
+        playerStats.hp -= damage;
     }
 
     void OnCollisionEnter2D(Collision2D coll){
         if (coll.transform.parent != null && coll.transform.parent.name == "MeleeEnemy(Clone)"){
-            currentHP -= coll.transform.parent.GetComponent<EnemyScript>().dmg;
+            playerStats.hp -= coll.transform.parent.GetComponent<EnemyScript>().dmg;
         }
         if (coll.transform.name == "Bullet(Clone)"){
             //currentHP -= coll.gameObject.GetComponent<BulletScript>().enemyScript.dmg;
@@ -119,4 +115,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 }
+
+
 
