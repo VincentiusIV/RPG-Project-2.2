@@ -11,7 +11,8 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]public bool canPlay;
 
     // Serialized & Private Variables
-    [SerializeField]private GameObject hud;
+    [SerializeField] private GameObject hotbar;
+    [SerializeField] private Sprite[] hotbarSprites;
     [SerializeField] private Vector2 moveSpeed;
     [SerializeField] private GameObject aim;
 
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         ren = GetComponent<SpriteRenderer>();
+        hotbar.transform.GetChild(0).GetComponent<Image>().sprite = hotbarSprites[0];
     }
 
     void Update()
@@ -96,7 +98,9 @@ public class PlayerMovement : MonoBehaviour
             nextSelection = 3;
         if (nextSelection > 3)
             nextSelection = 0;
+        hotbar.transform.GetChild(currentSelection).gameObject.GetComponent<Image>().sprite = hotbarSprites[0];
         currentSelection = nextSelection;
+        hotbar.transform.GetChild(currentSelection).gameObject.GetComponent<Image>().sprite = hotbarSprites[1];
     }
 
     public void GetWeapon(WeaponScript wep)
