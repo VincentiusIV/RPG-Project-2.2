@@ -2,11 +2,6 @@
 using System.Collections;
 using UnityEditor;
 
-public enum ItemType
-{
-    Items, Magic, Weapon,NPCs,
-}
-
 public class AddNewItemToDatabase : ScriptableWizard
 {
     [Range(0.0f, 100.0f)] public int ID = 0;
@@ -76,14 +71,15 @@ public class AddNewItemToDatabase : ScriptableWizard
 
             itemName = itemToUpdate.Title;
 
-            if(itemToUpdate.Type == "Items")
-            {
+            if (itemToUpdate.Type == ItemType.Items.ToString())
                 itemType = ItemType.Items;
-            }
-            else if(itemToUpdate.Type == "NPCs")
-            {
+            else if (itemToUpdate.Type == ItemType.NPCs.ToString())
                 itemType = ItemType.NPCs;
-            }
+            else if (itemToUpdate.Type == ItemType.Magic.ToString())
+                itemType = ItemType.Magic;
+            else if (itemToUpdate.Type == ItemType.Weapon.ToString())
+                itemType = ItemType.Weapon;
+
             cost = itemToUpdate.Value;
             power = itemToUpdate.Power;
             defence = itemToUpdate.Defence;

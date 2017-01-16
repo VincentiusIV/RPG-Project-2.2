@@ -2,7 +2,7 @@
 [
  {
   "ID" : 0,
-  "Type" : "Items",
+  "Type" : "Magic",
   "Title" : "Silver Sword of the Pyro",
   "Value" : 100,
   "Power" : 60,
@@ -22,7 +22,7 @@
  },
  {
   "ID" : 1,
-  "Type" : "Items",
+  "Type" : "Magic",
   "Title" : "Bronze Gloves of Water",
   "Value" : 0,
   "Power" : 11,

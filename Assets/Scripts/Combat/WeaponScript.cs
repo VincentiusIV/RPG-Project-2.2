@@ -22,6 +22,9 @@ public class WeaponScript : MonoBehaviour
     private GameObject meleeRange;
     private float nextShot;
 
+    /* If you want a weapon to melee attack, attackSpeed should be above 0
+     * same counts for range attack except that bulletSpeed needs to be above 0
+     */
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -33,6 +36,16 @@ public class WeaponScript : MonoBehaviour
             Debug.Log("WARNING! No spawn position for projectile assigned");
         destroyRange = transform.GetChild(1).GetComponent<CircleCollider2D>();
         meleeRange = transform.GetChild(2).gameObject;
+
+        // Update this maybe in db later
+        if (melee.attackSpeed == 0)
+            canMelee = false;
+        else canMelee = true;
+        if (projectile.bulletSpeed == 0)
+            canRange = false;
+        else canRange = true;
+
+        Debug.Log("This item canMelee:" + canMelee + " & canRange:" + canRange);
     }
 
     void Update()
@@ -42,21 +55,20 @@ public class WeaponScript : MonoBehaviour
 
     Sprite ChooseSprite(ElementType ele)
     {
-        Sprite newSprite = new Sprite();
-
         switch(ele)
         {
             case ElementType.fire:
-                return newSprite = projectileSprites[0];
+                return projectileSprites[0];
             case ElementType.water:
-                return newSprite = projectileSprites[1];
+                return projectileSprites[1];
             case ElementType.aether:
-                return newSprite = projectileSprites[2];
+                return projectileSprites[2];
             case ElementType.electricity:
-                return newSprite = projectileSprites[3];
+                return projectileSprites[3];
         }
-        return newSprite;
+        return new Sprite();
     }
+
     public void MeleeAttack()
     {
         if (canMelee)
@@ -84,27 +96,29 @@ public class WeaponScript : MonoBehaviour
 
     public void RangedAttack()
     {
-        if(Time.time > nextShot)
-        {
-            nextShot = Time.time + (float)projectile.attackSpeed / 10;
+        if (canRange)
+            if (Time.time > nextShot)
+            {
+                nextShot = Time.time + (float)projectile.attackSpeed / 10;
 
-            spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
-            if (spawnPos != null)
-                Debug.Log("Spawn position assigned succesfully");
-            else
-                Debug.Log("WARNING! No spawn position for projectile assigned");
+                spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
+                if (spawnPos != null)
+                    Debug.Log("Spawn position assigned succesfully");
+                else
+                    Debug.Log("WARNING! No spawn position for projectile assigned");
 
-            Debug.Log("Ranged attack with " + gameObject.name);
-            destroyRange.radius = projectile.range;
+                //Debug.Log("Ranged attack with " + gameObject.name);
+                destroyRange.radius = projectile.range;
 
-            projectileGO.GetComponent<BulletScript>().thisData = projectile;
-            projectileGO.GetComponent<SpriteRenderer>().sprite = ChooseSprite(projectile.element);
+                projectileGO.GetComponent<BulletScript>().thisData = projectile;
+                projectileGO.GetComponent<SpriteRenderer>().sprite = ChooseSprite(projectile.element);
 
-            if (projectileGO != null && spawnPos != null)
-                Instantiate(projectileGO, spawnPos.transform.position, spawnPos.transform.rotation);
-            else
-                Debug.Log("Projectile Game Object is empty");
-        }
+                if (projectileGO != null && spawnPos != null)
+                    Instantiate(projectileGO, spawnPos.transform.position, spawnPos.transform.rotation);
+                else
+                    Debug.Log("Projectile Game Object is empty");
+            }
+            else Debug.Log("This weapon or magic cannot range attack");
     }
     
     public void SpecialAttack()

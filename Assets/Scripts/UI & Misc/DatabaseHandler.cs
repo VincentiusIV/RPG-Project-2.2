@@ -235,3 +235,9 @@ public enum WeaponType
     Melee,
     Ranged,
 }
+
+[System.Serializable]
+public enum ItemType
+{
+    Items, Magic, Weapon, NPCs,
+}
