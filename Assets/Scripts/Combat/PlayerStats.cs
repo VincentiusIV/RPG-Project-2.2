@@ -4,6 +4,9 @@ using System.Collections;
 [System.Serializable]
 public class PlayerStats
 {
+    public GameObject playerStatsUIPanel;
+    public GameObject hpBar;
+
     public int power;
     public int defence;
     public float hp;
@@ -16,16 +19,32 @@ public class PlayerStats
         Debug.Log("Raw dmg:" + amount + " & ele: " + ele.ToString());
 
         float resist = resistances[(int)ele].resistanceValue / 100;
-        Debug.Log("Resist = " + resist);
-        amount *= resist;
+        float dmg = amount - (amount * resist);
+        
         Debug.Log("Resist %: " + resistances[(int)ele].resistanceValue+ " against "+ele.ToString());
-        Debug.Log("Total dmg = " + amount);
-        hp -= amount;
+        Debug.Log("new Dmg= " + dmg);
+        hp -= dmg;
+        UpdateHealth();
     }
 
     public void doHeal(int amount)
     {
         hp += amount;
+    }
+
+    void UpdateHealth()
+    {
+        RectTransform bar = hpBar.GetComponent<RectTransform>();
+        // Scale
+        float xValue = hp / maxHP;
+        if (xValue > 1f)
+            xValue = 1f;
+        Vector3 scale = new Vector3(xValue, 1f, 1f);
+        bar.localScale = scale;
+        // Position
+        float xPos = bar.anchoredPosition.x * xValue;
+        Vector3 pos = new Vector3(xPos, bar.anchoredPosition.y);
+        bar.GetComponent<RectTransform>().anchoredPosition = pos;
     }
 }
 
@@ -33,6 +52,6 @@ public class PlayerStats
 public struct Resistance
 {
     public string resistanceName;
-    public int resistanceValue;
+    public float resistanceValue;
 }
 
