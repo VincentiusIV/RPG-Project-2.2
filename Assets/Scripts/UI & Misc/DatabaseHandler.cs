@@ -49,7 +49,7 @@ public class DatabaseHandler : MonoBehaviour
         }
     }
 
-    public void ChangeItemInDatabase(int id, string title, string type,int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug, int mAttSp, int mAttRan, Elements mElem, int rAttSp, int rAttRan, double rBullSp, Elements rElem)
+    public void ChangeItemInDatabase(int id, string title, string type,int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug, int mAttSp, int mAttRan, ElementType mElem, int rAttSp, int rAttRan, double rBullSp, ElementType rElem)
     {
         itemList[id].Title = title;
         itemList[id].Type = type;
@@ -92,49 +92,55 @@ public class DatabaseHandler : MonoBehaviour
         File.WriteAllText(Application.dataPath + "/StreamingAssets/" + dbName + ".json", sb.ToString());
     }
 
-    public Elements StringToElement(string str)
+    public ElementType StringToElement(string str)
     {
-        if (str == "fire")
+        switch(str)
         {
-            Debug.Log("given string returns as fire");
-            return Elements.fire;
+            case "fire":
+                return ElementType.fire;
+            case "earth":
+                return ElementType.earth;
+            case "water":
+                return ElementType.water;
+            case "oil":
+                return ElementType.oil;
+            case "electricity":
+                return ElementType.electricity;
+            case "aether":
+                return ElementType.aether;
+            case "ice":
+                return ElementType.ice;
         }
-            
-        if (str == "earth")
-            return Elements.earth;
-        if (str == "water")
-            return Elements.water;
-        if (str == "oil")
-            return Elements.oil;
-        if (str == "ice")
-            return Elements.ice;
-        if (str == "aether")
-            return Elements.aether;
-        else return Elements.none;
+        return ElementType.none;
     }
+    public ProjectileType StringToProjType(string str)
+    {
+        switch (str)
+        {
+            case "bullet":
+                return ProjectileType.bullet;
+            case "beam":
+                return ProjectileType.beam;
+            case "flames":
+                return ProjectileType.flames;
+        }
+        return ProjectileType.bullet;
+    }
+
     public Item FetchItemByID(int id)
     {
-        
         for (int i = 0; i < itemList.Count; i++)
-        {
             if (itemList[i].ID == id)
-            {
-                return itemList[i];
-            }  
-        }
+                return itemList[i]; 
         return null;
     }
 
     public void EmptyDatabase(string safetyString)
     {
         if(safetyString == "I am sure to empty the database")
-        {
             File.WriteAllText(Application.dataPath + "/StreamingAssets/" + dbName + ".json", "");
-        }
         else
-        {
             Debug.Log("Safety string was incorrect... database was not emptied");
-        }
     }
 }
 
@@ -159,8 +165,8 @@ public class Item
     public int Rarity { get; set; }
     public string Slug { get; set; }
     
-
-    public Item(int id, string title, string type, int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug, int mAttSp, int mAttRan, Elements mElem, int rAttSp, int rAttRan, double rBullSp, Elements rElem)
+    // bool lifesteal, bool chain ,int knockbackStrength, int slowAmount, bool mindcontrol, enum projectileType, int resistanceBoost
+    public Item(int id, string title, string type, int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug, int mAttSp, int mAttRan, ElementType mElem, int rAttSp, int rAttRan, double rBullSp, ElementType rElem)
     {
         ID = id;
         Title = title;
@@ -200,8 +206,8 @@ public class Item
         Stackable = false;
         Rarity = 0;
         Slug = "default_slug";
-        MeleeElement = Elements.none.ToString();
-        RangeElement = Elements.none.ToString();
+        MeleeElement = ElementType.none.ToString();
+        RangeElement = ElementType.none.ToString();
 
     }
 
