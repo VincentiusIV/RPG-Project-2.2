@@ -112,7 +112,8 @@ public class PlayerMovement : MonoBehaviour
             rig.velocity = movement * moveSpeed.x;
         }
         if (canPlay && !useController){
-            float angleRad = Mathf.Atan2(aim.transform.position.y - transform.position.y, aim.transform.position.x - transform.position.x);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
+            float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
             float angleDeg = (180 / Mathf.PI) * angleRad;
             transform.rotation = Quaternion.Euler(0, 0, angleDeg);
             transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
