@@ -4,7 +4,7 @@ using System.Collections;
 public class ElementScript : MonoBehaviour
 {
 // Public & Serialized Fields
-    [SerializeField]public Elements thisElement;
+    [SerializeField]public ElementType thisElement;
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -17,13 +17,13 @@ public class ElementScript : MonoBehaviour
         if(col.CompareTag("Bullet"))
         {
             //col.GetComponent<BulletScript>().
-            Elements newElement = col.GetComponent<BulletScript>().thisData.element;
+            ElementType newElement = col.GetComponent<BulletScript>().thisData.element;
             if (newElement == thisElement)
             {
                 Debug.Log("The elements are identical");
             }
 
-            if(newElement == Elements.fire && thisElement == Elements.oil)
+            if(newElement == ElementType.fire && thisElement == ElementType.oil)
             {
                 Debug.Log("The fire has ignited the oil");
                 // does dmg based on % of the hp of enemies and player and their resistances
@@ -32,7 +32,7 @@ public class ElementScript : MonoBehaviour
                 
             }
 
-            if(newElement == Elements.ice && thisElement == Elements.water)
+            if(newElement == ElementType.ice && thisElement == ElementType.water)
             {
                 Debug.Log("The ice has frozen "+gameObject.name);
                 // does dmg based on % of the hp of enemies and player and their resistances
@@ -43,14 +43,14 @@ public class ElementScript : MonoBehaviour
     }
 }
 
-public enum Elements
+public enum ElementType
 {
-    none,
-    fire,
-    earth,
-    water,
-    oil,
-    ice,
-    aether,
-    electricity,
+    none = 7,
+    fire = 0,
+    earth = 1,
+    water = 2,
+    ice = 3,
+    aether = 4,
+    electricity = 5,
+    oil = 6,
 }

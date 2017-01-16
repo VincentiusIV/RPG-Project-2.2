@@ -40,36 +40,40 @@ public class WeaponScript : MonoBehaviour
 
     }
 
-    Sprite ChooseSprite(Elements ele)
+    Sprite ChooseSprite(ElementType ele)
     {
         Sprite newSprite = new Sprite();
 
         switch(ele)
         {
-            case Elements.fire:
+            case ElementType.fire:
                 return newSprite = projectileSprites[0];
-            case Elements.water:
+            case ElementType.water:
                 return newSprite = projectileSprites[1];
-            case Elements.aether:
+            case ElementType.aether:
                 return newSprite = projectileSprites[2];
-            case Elements.electricity:
+            case ElementType.electricity:
                 return newSprite = projectileSprites[3];
         }
         return newSprite;
     }
     public void MeleeAttack()
     {
-        Debug.Log("Melee attack with "+ gameObject.name);
+        if (canMelee)
+        {
+            Debug.Log("Melee attack with " + gameObject.name);
 
-        meleeRange.SetActive(true);
-        StartCoroutine(MeleeAttackSpeed(melee.attackSpeed));
-        // start animation
+            meleeRange.SetActive(true);
+            StartCoroutine(MeleeAttackSpeed(melee.attackSpeed));
+            // start animation
 
-        /* Modify collider radius with range
-         * change damage based on player stats
-         * Do dmg to rigidbodies with the right tags inside own collider
-         * 
-         * */
+            /* Modify collider radius with range
+             * change damage based on player stats
+             * Do dmg to rigidbodies with the right tags inside own collider
+             * 
+             * */
+        }
+        else Debug.Log("weapon or magic cannot melee attack");
     }
 
     IEnumerator MeleeAttackSpeed(double attSp)
@@ -112,12 +116,12 @@ public class WeaponScript : MonoBehaviour
 [System.Serializable]
 public struct Melee
 {
-    public Elements element;
+    public ElementType element;
     public int damage;
     public int attackSpeed;
     public int range;
 
-    public Melee(Elements ele, int dmg, int attSp, int ran)
+    public Melee(ElementType ele, int dmg, int attSp, int ran)
     {
         element = ele;
         damage = dmg;
@@ -129,13 +133,13 @@ public struct Melee
 [System.Serializable]
 public struct Projectile
 {
-    public Elements element;
+    public ElementType element;
     public int damage;
     public int attackSpeed;
     public double bulletSpeed;
     public int range;
 
-    public Projectile(Elements ele, int dmg, int attSp, double bulletSp, int ran)
+    public Projectile(ElementType ele, int dmg, int attSp, double bulletSp, int ran)
     {
         element = ele;
         damage = dmg;
@@ -143,6 +147,14 @@ public struct Projectile
         bulletSpeed = bulletSp;
         range = ran;
     }
+}
+
+[System.Serializable]
+public enum ProjectileType
+{
+    bullet,
+    beam,
+    flames,
 }
 
 
