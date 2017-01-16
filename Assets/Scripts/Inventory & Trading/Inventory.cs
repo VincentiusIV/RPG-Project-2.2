@@ -162,7 +162,6 @@ public class Inventory : MonoBehaviour
     {
         // Setting state & position for moving
         isMovingAnItem = true;
-        //Debug.Log("Started moving an item: " + isMovingAnItem);
 
         movingItem = itemToMove;
         items[movingItem.slotID] = new Item();
@@ -170,31 +169,33 @@ public class Inventory : MonoBehaviour
         movingItem.OnControllerDrag();
     }
 
-    public void EndMovingItem(int new_slotID)
+    public bool EndMovingItem(int new_slotID)
     {
         // Equips item on character if slot is equip slot
         if (slots[new_slotID].GetComponent<Slot>().type == slotType.weaponEquip && movingItem.item.Type == ItemType.Weapon.ToString())
         {
             Debug.Log("Equipping weapon...");
             EquipItem(movingItem.item.ID);
+            MoveItem(new_slotID);
+            return true;
         }
-        else if(slots[new_slotID].GetComponent<Slot>().type == slotType.weaponEquip)
-        {
-            Debug.Log("Cannot equip weapon because types do not match");
-            return;
-        }
-
         if (slots[new_slotID].GetComponent<Slot>().type == slotType.magicEquip && movingItem.item.Type == ItemType.Magic.ToString())
         {
+            Debug.Log("Equipping magic...");
             EquipItem(movingItem.item.ID);
+            MoveItem(new_slotID);
+            return true;
         }
-        else if (slots[new_slotID].GetComponent<Slot>().type == slotType.magicEquip)
+        if(slots[new_slotID].GetComponent<Slot>().type == slotType.regular)
         {
-            Debug.Log("Cannot equip weapon because types do not match");
-            return;
+            MoveItem(new_slotID);
+            return true;
         }
-        // TO-DO Equip magic ability in specified slot
+        return false; 
+    }
 
+    void MoveItem(int new_slotID)
+    {
         // Resetting Old data
         isMovingAnItem = false;
 
@@ -205,7 +206,6 @@ public class Inventory : MonoBehaviour
         // Placing held item onto slot
         movingItem.OnControllerDrop();
     }
-
     public void UpdateWallet(int change)
     {
         money += change;

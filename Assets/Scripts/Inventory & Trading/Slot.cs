@@ -19,25 +19,28 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
     public void OnControllerPress()
     {
         Debug.Log("slot " + id + " contains item = " + containsItem);
-        //Debug.Log("On pressed this slot "+ id+" isMoving =" + inv.isMovingAnItem);
-        if (inv.isMovingAnItem == false && containsItem && type != slotType.merchant)
-        {
-            inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
-            containsItem = false;
-            return;
-        }  
 
-        if(inv.isMovingAnItem && type != slotType.merchant)
+        if(containsItem && type != slotType.merchant)
         {
-            //Debug.Log("Moving item to slotid:" + id);
-            inv.EndMovingItem(id);
-
-            if(containsItem)
+            if (inv.isMovingAnItem)
+            {
+                if (inv.EndMovingItem(id))
+                {
+                    inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
+                }
+            }  
+            else
             {
                 inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
+                containsItem = false;
             }
-            else containsItem = true;
-            return;
+
+
+        }
+        else if(inv.isMovingAnItem && containsItem == false)
+        {
+            inv.EndMovingItem(id);
+            containsItem = true;
         }
 
         if(type == slotType.merchant)
@@ -52,6 +55,7 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
             return;
         }
     }
+
 
     // Called when slot is selected
     public void OnSelect(BaseEventData eventData)
