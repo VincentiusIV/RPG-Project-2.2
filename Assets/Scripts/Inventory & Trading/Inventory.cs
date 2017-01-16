@@ -67,7 +67,7 @@ public class Inventory : MonoBehaviour
     {
         Item itemToAdd = database.FetchItemByID(id);
 
-        if(itemToAdd == null || itemToAdd.Type != "Items")
+        if(itemToAdd == null)
         {
             Debug.Log("Item with ID: " + id + " does not exist");
             return;
@@ -120,7 +120,7 @@ public class Inventory : MonoBehaviour
         Item itemToEquip = database.FetchItemByID(id);
         Debug.Log(itemToEquip.Title + " " + itemToEquip.Slug);
 
-        if (itemToEquip == null || itemToEquip.Type != "Items")
+        if (itemToEquip == null)
         {
             Debug.Log("Item with ID: " + id + " does not exist");
             return;
@@ -162,7 +162,7 @@ public class Inventory : MonoBehaviour
     {
         // Setting state & position for moving
         isMovingAnItem = true;
-        Debug.Log("Started moving an item: " + isMovingAnItem);
+        //Debug.Log("Started moving an item: " + isMovingAnItem);
 
         movingItem = itemToMove;
         items[movingItem.slotID] = new Item();
@@ -173,16 +173,26 @@ public class Inventory : MonoBehaviour
     public void EndMovingItem(int new_slotID)
     {
         // Equips item on character if slot is equip slot
-        if (slots[new_slotID].GetComponent<Slot>().type == slotType.weaponEquip)
+        if (slots[new_slotID].GetComponent<Slot>().type == slotType.weaponEquip && movingItem.item.Type == ItemType.Weapon.ToString())
         {
-            Debug.Log("Equipping item...");
+            Debug.Log("Equipping weapon...");
             EquipItem(movingItem.item.ID);
         }
-        if(slots[new_slotID].GetComponent<Slot>().type == slotType.magicEquip)
+        else if(slots[new_slotID].GetComponent<Slot>().type == slotType.weaponEquip)
         {
-            // equip magic ability
+            Debug.Log("Cannot equip weapon because types do not match");
+            return;
         }
 
+        if (slots[new_slotID].GetComponent<Slot>().type == slotType.magicEquip && movingItem.item.Type == ItemType.Magic.ToString())
+        {
+            EquipItem(movingItem.item.ID);
+        }
+        else if (slots[new_slotID].GetComponent<Slot>().type == slotType.magicEquip)
+        {
+            Debug.Log("Cannot equip weapon because types do not match");
+            return;
+        }
         // TO-DO Equip magic ability in specified slot
 
         // Resetting Old data
@@ -192,7 +202,6 @@ public class Inventory : MonoBehaviour
         items[movingItem.slotID] = new Item();
         items[new_slotID] = movingItem.item;
         movingItem.slotID = new_slotID;
-
         // Placing held item onto slot
         movingItem.OnControllerDrop();
     }

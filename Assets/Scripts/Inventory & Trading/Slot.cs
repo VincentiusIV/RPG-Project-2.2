@@ -12,11 +12,13 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
     void Start()
     {
         inv = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
+        containsItem = false;
     }
 
     // Called when a slot is pressed
     public void OnControllerPress()
     {
+        Debug.Log("slot " + id + " contains item = " + containsItem);
         //Debug.Log("On pressed this slot "+ id+" isMoving =" + inv.isMovingAnItem);
         if (inv.isMovingAnItem == false && containsItem && type != slotType.merchant)
         {
@@ -73,10 +75,10 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
     void Update()
     {
         // prevents items from getting stuck in case a bug occurs that allows two seperate items to be stacked
-        if(transform.childCount > 0)
+        /*if(transform.childCount > 0)
         {
             containsItem = true;
-        }
+        }*/
     }
 }
 
