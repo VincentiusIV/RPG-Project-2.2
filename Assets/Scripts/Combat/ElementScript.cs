@@ -6,11 +6,14 @@ public class ElementScript : MonoBehaviour
 // Public & Serialized Fields
     [SerializeField]public ElementType thisElement;
 
+    // Private booleans
+    bool canSlow = false;
+    bool canDamage = false;
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.CompareTag("Element"))
         {
-            
             // interaction between elements
         }
 
@@ -29,7 +32,6 @@ public class ElementScript : MonoBehaviour
                 // does dmg based on % of the hp of enemies and player and their resistances
 
                 // look for  rigidbodies and their tags (enemy and player)
-                
             }
 
             if(newElement == ElementType.ice && thisElement == ElementType.water)
@@ -40,6 +42,17 @@ public class ElementScript : MonoBehaviour
                 // look for  rigidbodies and their tags (enemy and player)
             }
         }
+    }
+
+    void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.CompareTag("Player"))
+            col.GetComponent<PlayerMovement>().SlowPlayer(40, 1);
+    }
+
+    bool CheckForCollsions(Collider2D col)
+    {
+        return true;
     }
 }
 

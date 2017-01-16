@@ -38,7 +38,6 @@ public class PlayerStats
 
     void UpdateHealth()
     {
-        
         RectTransform bar = hpBar.GetComponent<RectTransform>();
         if (barLength == 0)
             barLength = bar.anchoredPosition.x;

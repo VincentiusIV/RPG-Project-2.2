@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     // Public Variables
     
     public PlayerStats playerStats;
+    public float speedMultiplier;
 
     // Public & Hidden Variables
     [HideInInspector]public bool canPlay;
@@ -98,20 +99,21 @@ public class PlayerMovement : MonoBehaviour
     
     void FixedUpdate(){
         if(canPlay && useController){
-            // Rotation with mouse
+            // Rotation with controller
             float angleRad = Mathf.Atan2(aim.transform.position.y - transform.position.y, aim.transform.position.x - transform.position.x);
             float angleDeg = (180 / Mathf.PI) * angleRad;
             transform.rotation = Quaternion.Euler(0, 0, angleDeg);
             transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
 
             // Movement
-            float xPos = Input.GetAxis("X360_LStickX");
-            float yPos = Input.GetAxis("X360_LStickY");
+            float xPos = Input.GetAxis("X360_LStickX") * moveSpeed.x;
+            float yPos = Input.GetAxis("X360_LStickY") * moveSpeed.y;
 
-            Vector3 movement = new Vector3(xPos, yPos, 0f).normalized;
-            rig.velocity = movement * moveSpeed.x;
+            Vector3 movement = new Vector3(xPos, yPos, 0f);
+            rig.velocity = movement * speedMultiplier;
         }
         if (canPlay && !useController){
+            // rotation with mouse
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
             float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
             float angleDeg = (180 / Mathf.PI) * angleRad;
@@ -119,11 +121,11 @@ public class PlayerMovement : MonoBehaviour
             transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
 
             // Movement
-            float xPos = Input.GetAxis("Horizontal");
-            float yPos = Input.GetAxis("Vertical");
+            float xPos = Input.GetAxis("Horizontal") * moveSpeed.x;
+            float yPos = Input.GetAxis("Vertical") * moveSpeed.y;
 
             Vector3 movement = new Vector3(xPos, yPos, 0f).normalized;
-            rig.velocity = movement * moveSpeed.x;
+            rig.velocity = movement * speedMultiplier;
         }
     }
 
@@ -149,8 +151,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void doDmg(int damage){
-        playerStats.hp -= damage;
+    public void SlowPlayer(float amount, float slowDuration)
+    {
+        Debug.Log("Slowing player for " + amount + "%");
+        speedMultiplier = amount /= 100;
+        StartCoroutine(Slow(slowDuration));
+    }
+
+    IEnumerator Slow(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        speedMultiplier = 1f;
     }
 
     void OnCollisionEnter2D(Collision2D coll){
