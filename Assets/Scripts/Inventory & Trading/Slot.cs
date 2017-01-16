@@ -25,17 +25,13 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
             if (inv.isMovingAnItem)
             {
                 if (inv.EndMovingItem(id))
-                {
                     inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
-                }
             }  
             else
             {
                 inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
                 containsItem = false;
             }
-
-
         }
         else if(inv.isMovingAnItem && containsItem == false)
         {
@@ -63,8 +59,7 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
         if (type == slotType.merchant)
             transform.FindChild("Item").gameObject.GetComponent<ItemData>().UpdateInfo();
         else if(containsItem)
-            transform.GetChild(0).gameObject.GetComponent<ItemData>().UpdateInfo();
-            
+            transform.GetChild(0).gameObject.GetComponent<ItemData>().UpdateInfo();  
     }
 
     // Called when slot is deselected
@@ -74,15 +69,6 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
             transform.FindChild("Item").gameObject.GetComponent<ItemData>().HideInfo();
         else if(containsItem)
             transform.GetChild(0).gameObject.GetComponent<ItemData>().HideInfo();
-    }
-
-    void Update()
-    {
-        // prevents items from getting stuck in case a bug occurs that allows two seperate items to be stacked
-        /*if(transform.childCount > 0)
-        {
-            containsItem = true;
-        }*/
     }
 }
 
