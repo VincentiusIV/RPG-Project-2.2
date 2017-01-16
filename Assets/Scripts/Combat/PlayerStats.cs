@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 [System.Serializable]
@@ -13,6 +14,8 @@ public class PlayerStats
     public float maxHP;
     public int luck;
     public Resistance[] resistances;
+
+    private float barLength = 0;
 
     public void doDamage(float amount, ElementType ele)
     {
@@ -30,11 +33,15 @@ public class PlayerStats
     public void doHeal(int amount)
     {
         hp += amount;
+        UpdateHealth();
     }
 
     void UpdateHealth()
     {
+        
         RectTransform bar = hpBar.GetComponent<RectTransform>();
+        if (barLength == 0)
+            barLength = bar.anchoredPosition.x;
         // Scale
         float xValue = hp / maxHP;
         if (xValue > 1f)
@@ -42,9 +49,11 @@ public class PlayerStats
         Vector3 scale = new Vector3(xValue, 1f, 1f);
         bar.localScale = scale;
         // Position
-        float xPos = bar.anchoredPosition.x * xValue;
+        float xPos = barLength * xValue;
         Vector3 pos = new Vector3(xPos, bar.anchoredPosition.y);
         bar.GetComponent<RectTransform>().anchoredPosition = pos;
+        // Text
+        bar.parent.FindChild("Text").GetComponent<Text>().text = hp + " / " + maxHP;
     }
 }
 
