@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        playerStats.doDamage(50, ElementType.fire);
         rig = GetComponent<Rigidbody2D>();
         ren = GetComponent<SpriteRenderer>();
         hotbar.transform.GetChild(0).GetComponent<Image>().sprite = hotbarSprites[0];
