@@ -9,12 +9,13 @@ public class PlayerMovement : MonoBehaviour
 
     // Public & Hidden Variables
     [HideInInspector]public bool canPlay;
-
+    
     // Serialized & Private Variables
     [SerializeField] private GameObject hotbar;
     [SerializeField] private Sprite[] hotbarSprites;
     [SerializeField] private Vector2 moveSpeed;
     [SerializeField] private GameObject aim;
+    [SerializeField] private bool useController = true;
 
     // Private Reference Variables
     private WeaponScript weapon;
@@ -34,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (canPlay)
+        if (canPlay && useController)
         {
             // Hotbar
             if (Input.GetButtonDown("X360_LeftButton"))
@@ -59,25 +60,44 @@ public class PlayerMovement : MonoBehaviour
                 if (Input.GetAxis("X360_Triggers") > 0)
                     weapon.MeleeAttack();
             }
-            // move hp to player stats at some point
-            //HP
-            ren.color = Color.Lerp(Color.red, Color.green, playerStats.hp / playerStats.maxHP);
-
-            /*if (playerStats.hp < 100 && playerStats.hp > 0)
-            {
-                playerStats.hp += 1 / 60f;
-            }*/
-            if (playerStats.hp <= 0)
-            {
-                //Respawn?? End Game?? Lifes??
+        }
+        if (canPlay && !useController){
+            // Hotbar
+            if (Input.GetKeyDown(KeyCode.Z)){
+                SelectHotbar(currentSelection - 1);
             }
+            if (Input.GetKeyDown(KeyCode.X)){
+                SelectHotbar(currentSelection + 1);
+            }
+            // Aiming
+            //float rStickH = Input.GetAxis("X360_RStickX");
+            //float rStickV = Input.GetAxis("X360_RStickY");
+            //aim.transform.position = new Vector3(transform.position.x + rStickH, transform.position.y + rStickV, 0f);
+
+            // Weapon
+            if (weapon != null){
+                if (Input.GetMouseButtonDown(0))
+                    weapon.RangedAttack();
+
+                if (Input.GetMouseButtonDown(1))
+                    weapon.MeleeAttack();
+            }
+        }
+        // move hp to player stats at some point
+        //HP
+        ren.color = Color.Lerp(Color.red, Color.green, playerStats.hp / playerStats.maxHP);
+
+        /*if (playerStats.hp < 100 && playerStats.hp > 0)
+        {
+            playerStats.hp += 1 / 60f;
+        }*/
+        if (playerStats.hp <= 0){
+            //Respawn?? End Game?? Lifes??
         }
     }
     
-    void FixedUpdate()
-    {
-        if(canPlay)
-        {
+    void FixedUpdate(){
+        if(canPlay && useController){
             // Rotation with mouse
             float angleRad = Mathf.Atan2(aim.transform.position.y - transform.position.y, aim.transform.position.x - transform.position.x);
             float angleDeg = (180 / Mathf.PI) * angleRad;
@@ -87,6 +107,19 @@ public class PlayerMovement : MonoBehaviour
             // Movement
             float xPos = Input.GetAxis("X360_LStickX");
             float yPos = Input.GetAxis("X360_LStickY");
+
+            Vector3 movement = new Vector3(xPos, yPos, 0f).normalized;
+            rig.velocity = movement * moveSpeed.x;
+        }
+        if (canPlay && !useController){
+            float angleRad = Mathf.Atan2(aim.transform.position.y - transform.position.y, aim.transform.position.x - transform.position.x);
+            float angleDeg = (180 / Mathf.PI) * angleRad;
+            transform.rotation = Quaternion.Euler(0, 0, angleDeg);
+            transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
+
+            // Movement
+            float xPos = Input.GetAxis("Horizontal");
+            float yPos = Input.GetAxis("Vertical");
 
             Vector3 movement = new Vector3(xPos, yPos, 0f).normalized;
             rig.velocity = movement * moveSpeed.x;
