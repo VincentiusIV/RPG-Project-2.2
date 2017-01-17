@@ -32,6 +32,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]private GameObject[] equipmentSlots;
 
     [SerializeField]private int slotAmount;
+    [SerializeField]private WeaponScript emptyHand;
 
     void Start()
     {
@@ -115,7 +116,7 @@ public class Inventory : MonoBehaviour
         // TO-DO write code to remove item from inventory
     }
 
-    public void EquipItem(int id)
+    public void EquipItem(int id, int slotID)
     {
         Item itemToEquip = database.FetchItemByID(id);
         Debug.Log(itemToEquip.Title + " " + itemToEquip.Slug);
@@ -126,24 +127,18 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        if(hand.transform.childCount > 0)
-        {
-            if (hand.transform.GetChild(0).CompareTag("Weapon"))
-            {
-                Destroy(hand.transform.GetChild(0).gameObject);
-            }
-        }
-
         if (itemToEquip.Stackable == false)
         {
-            equipmentItem.GetComponent<SpriteRenderer>().sprite = FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug);
-            GameObject weapon = Instantiate(equipmentItem, hand.transform.position, hand.transform.rotation) as GameObject;
-            weapon.transform.Rotate(new Vector3(0f, 0f, -90f));
-            weapon.transform.SetParent(hand.transform);
-            weapon.name = itemToEquip.Title;
+            int equipSlotID = slotID - slotAmount;
+            GameObject weapon = hand.transform.GetChild(equipSlotID).gameObject;
+            weapon.GetComponent<SpriteRenderer>().sprite = FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug);
+            weapon.tag = itemToEquip.Type;
             
-            WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
+            weapon.transform.Rotate(new Vector3(0f, 0f, -90f));
+            weapon.name = itemToEquip.Title + slots[id].GetComponent<Slot>().id;
 
+            WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
+            
             wepScript.melee = new Melee(database.StringToElement(itemToEquip.MeleeElement),
                                          itemToEquip.Power,
                                          itemToEquip.MeleeAttackSpeed,
@@ -154,35 +149,45 @@ public class Inventory : MonoBehaviour
                                             itemToEquip.RangeAttackSpeed,
                                             itemToEquip.RangeBulletSpeed,
                                             itemToEquip.RangeAttackRange);
-            player.GetWeapon(wepScript);
+            wepScript.CheckWeaponType();
+            if (weapon.tag == "Weapon")
+                player.GetWeapon();
+            else if (weapon.tag == "Magic")
+                player.GetMagic(equipSlotID);
         }
     }
 
-    public void StartMovingItem(ItemData itemToMove)
+    public void StartMovingItem(ItemData itemToMove, bool shouldUnequip)
     {
         // Setting state & position for moving
         isMovingAnItem = true;
 
         movingItem = itemToMove;
         items[movingItem.slotID] = new Item();
+
+        // Unequips old item if there was one equipped
+        if (shouldUnequip)
+            EquipItem(0, movingItem.slotID);
+
         movingItem.transform.SetParent(movingItem.transform.parent.parent);
         movingItem.OnControllerDrag();
     }
 
+    // Returns true if the item was dropped
     public bool EndMovingItem(int new_slotID)
     {
         // Equips item on character if slot is equip slot
         if (slots[new_slotID].GetComponent<Slot>().type == slotType.weaponEquip && movingItem.item.Type == ItemType.Weapon.ToString())
         {
             Debug.Log("Equipping weapon...");
-            EquipItem(movingItem.item.ID);
+            EquipItem(movingItem.item.ID, new_slotID);
             MoveItem(new_slotID);
             return true;
         }
         if (slots[new_slotID].GetComponent<Slot>().type == slotType.magicEquip && movingItem.item.Type == ItemType.Magic.ToString())
         {
             Debug.Log("Equipping magic...");
-            EquipItem(movingItem.item.ID);
+            EquipItem(movingItem.item.ID, new_slotID);
             MoveItem(new_slotID);
             return true;
         }
@@ -206,10 +211,12 @@ public class Inventory : MonoBehaviour
         // Placing held item onto slot
         movingItem.OnControllerDrop();
     }
+
     public void UpdateWallet(int change)
     {
         money += change;
         inventoryPanel.transform.FindChild("Wallet").GetComponent<Text>().text = "Wallet: " + money;
+        // Play small animation so the player sees how much 
     }
 
     bool CheckIfItemIsInInventory(Item item)

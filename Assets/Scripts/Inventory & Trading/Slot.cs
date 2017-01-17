@@ -19,24 +19,27 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
     public void OnControllerPress()
     {
         Debug.Log("slot " + id + " contains item = " + containsItem);
+        bool shouldUnequip = false;
+        if (containsItem && type == slotType.weaponEquip || containsItem && type == slotType.magicEquip)
+            shouldUnequip = true;
 
         if(containsItem && type != slotType.merchant)
         {
             if (inv.isMovingAnItem)
             {
                 if (inv.EndMovingItem(id))
-                    inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
+                    inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>(), shouldUnequip);
             }  
             else
             {
-                inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>());
+                inv.StartMovingItem(transform.GetChild(0).gameObject.GetComponent<ItemData>(), shouldUnequip);
                 containsItem = false;
             }
         }
         else if(inv.isMovingAnItem && containsItem == false)
         {
-            inv.EndMovingItem(id);
-            containsItem = true;
+            if(inv.EndMovingItem(id))
+                containsItem = true;
         }
 
         if(type == slotType.merchant)

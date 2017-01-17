@@ -19,8 +19,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool useController = true;
 
     // Private Reference Variables
-    private WeaponScript weaponSlot;
-    private WeaponScript[] magicSlots;
+    [SerializeField]private WeaponScript weaponSlot;
+    [SerializeField]private WeaponScript[] magicSlots;
 
     private Rigidbody2D rig;
     private Vector2 movement;
@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
         ren = GetComponent<SpriteRenderer>();
         hotbar.transform.GetChild(0).GetComponent<Image>().sprite = hotbarSprites[0];
+
     }
 
     void Update()
@@ -139,19 +140,13 @@ public class PlayerMovement : MonoBehaviour
         hotbar.transform.GetChild(currentSelection).gameObject.GetComponent<Image>().sprite = hotbarSprites[1];
     }
 
-    public void GetWeapon(WeaponScript wep)
+    public void GetWeapon()
     {
-        weaponSlot = wep;
-        Debug.Log("Equipped new weapon: " + weaponSlot.gameObject.name);
-
-        if(weaponSlot == null)
-        {
-            Debug.Log("Player is not holding any weapon");
-        }
+        weaponSlot = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
     }
-    public void GetMagic(WeaponScript magic, int spot)
+    public void GetMagic(int spot)
     {
-        magicSlots[spot] = magic;
+        magicSlots[spot] = transform.GetChild(0).GetChild(spot).GetComponent<WeaponScript>();
         // Show icon on hotbar
     }
     

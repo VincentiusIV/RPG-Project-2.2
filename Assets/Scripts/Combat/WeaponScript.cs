@@ -38,19 +38,20 @@ public class WeaponScript : MonoBehaviour
         meleeRange = transform.GetChild(2).gameObject;
 
         // Update this maybe in db later
+        
+
+        Debug.Log("This item canMelee:" + canMelee + " & canRange:" + canRange);
+    }
+
+    public void CheckWeaponType()
+    {
+        Debug.Log("Checking wep type");
         if (melee.attackSpeed == 0)
             canMelee = false;
         else canMelee = true;
         if (projectile.bulletSpeed == 0)
             canRange = false;
         else canRange = true;
-
-        Debug.Log("This item canMelee:" + canMelee + " & canRange:" + canRange);
-    }
-
-    void Update()
-    {
-
     }
 
     Sprite ChooseSprite(ElementType ele)
@@ -99,6 +100,7 @@ public class WeaponScript : MonoBehaviour
 
     void RangedAttack()
     {
+        Debug.Log("Ranged Attack");
         if (Time.time > nextShot)
         {
             nextShot = Time.time + (float)projectile.attackSpeed / 10;
