@@ -100,7 +100,7 @@ public class WeaponScript : MonoBehaviour
 
     void RangedAttack()
     {
-        Debug.Log("Ranged Attack");
+        Debug.Log("Ranged Attack with "+gameObject.name);
         if (Time.time > nextShot)
         {
             nextShot = Time.time + (float)projectile.attackSpeed / 10;

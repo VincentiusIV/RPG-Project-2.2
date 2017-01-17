@@ -17,8 +17,8 @@ public class CameraMovements : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Vector3 targetPosition = new Vector3(RoundToNearestPixel(target.transform.position.x), RoundToNearestPixel(target.transform.position.y), 0f )+ new Vector3(0f, 0f, -camDistance);
-        //Vector3 targetPosition = target.transform.position + new Vector3(0f, 0f, -camDistance);
+        //Vector3 targetPosition = new Vector3(RoundToNearestPixel(target.transform.position.x), RoundToNearestPixel(target.transform.position.y), 0f )+ new Vector3(0f, 0f, -camDistance);
+        Vector3 targetPosition = target.transform.position + new Vector3(0f, 0f, -camDistance);
         transform.position = Vector3.Lerp(transform.position, targetPosition, lerpIntensity);
     }
 

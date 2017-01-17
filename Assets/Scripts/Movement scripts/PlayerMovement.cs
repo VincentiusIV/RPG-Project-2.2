@@ -35,6 +35,11 @@ public class PlayerMovement : MonoBehaviour
         ren = GetComponent<SpriteRenderer>();
         hotbar.transform.GetChild(0).GetComponent<Image>().sprite = hotbarSprites[0];
 
+        GetWeapon();
+        for (int i = 1; i < 5; i++)
+        {
+            GetMagic(i);
+        }
     }
 
     void Update()
@@ -146,7 +151,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void GetMagic(int spot)
     {
-        magicSlots[spot] = transform.GetChild(0).GetChild(spot).GetComponent<WeaponScript>();
+        Debug.Log("placing item on " + spot);
+        magicSlots[spot - 1] = transform.GetChild(0).GetChild(spot).GetComponent<WeaponScript>();
         // Show icon on hotbar
     }
     
