@@ -134,7 +134,6 @@ public class Inventory : MonoBehaviour
             weapon.GetComponent<SpriteRenderer>().sprite = FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug);
             weapon.tag = itemToEquip.Type;
             
-            //weapon.transform.Rotate(new Vector3(0f, 0f, -90f));
             weapon.name = itemToEquip.Title;
 
             WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
@@ -153,7 +152,7 @@ public class Inventory : MonoBehaviour
             if (weapon.tag == "Weapon")
                 player.GetWeapon();
             else if (weapon.tag == "Magic")
-                player.GetMagic(equipSlotID);
+                player.GetMagic(equipSlotID, FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug));
         }
     }
 

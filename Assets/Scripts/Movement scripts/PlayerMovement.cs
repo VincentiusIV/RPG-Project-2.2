@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         GetWeapon();
         for (int i = 1; i < 5; i++)
         {
-            GetMagic(i);
+            GetMagic(i, new Sprite());
         }
     }
 
@@ -149,10 +149,11 @@ public class PlayerMovement : MonoBehaviour
     {
         weaponSlot = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
     }
-    public void GetMagic(int spot)
+    public void GetMagic(int spot, Sprite icon)
     {
         magicSlots[spot - 1] = transform.GetChild(0).GetChild(spot).GetComponent<WeaponScript>();
         // Show icon on hotbar
+        hotbar.transform.GetChild(spot - 1).GetChild(0).GetComponent<Image>().sprite = icon;
     }
     
     // Function that slows the player based on the given amount & duration

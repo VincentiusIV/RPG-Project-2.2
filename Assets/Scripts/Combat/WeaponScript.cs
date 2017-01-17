@@ -101,12 +101,7 @@ public class WeaponScript : MonoBehaviour
             nextShot = Time.time + (float)projectile.attackSpeed / 10;
 
             spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
-            if (spawnPos != null)
-                Debug.Log("Spawn position assigned succesfully");
-            else
-                Debug.Log("WARNING! No spawn position for projectile assigned");
 
-            //Debug.Log("Ranged attack with " + gameObject.name);
             destroyRange.radius = projectile.range;
 
             projectileGO.GetComponent<BulletScript>().thisData = projectile;
@@ -114,8 +109,6 @@ public class WeaponScript : MonoBehaviour
 
             if (projectileGO != null && spawnPos != null)
                 Instantiate(projectileGO, spawnPos.transform.position, spawnPos.transform.rotation);
-            else
-                Debug.Log("Projectile Game Object is empty");
         }
     }
     
