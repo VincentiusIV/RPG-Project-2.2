@@ -46,8 +46,8 @@ public class BulletScript : MonoBehaviour
     void OnTriggerExit2D(Collider2D col)
     {
         // If bullet leaves DestroyRange trigger, bullet is destroyed
-        if (col.CompareTag("DestroyRange"))
-            Destroy(gameObject);
+        //if (col.CompareTag("DestroyRange"))
+        //    Destroy(gameObject);
     }
 
     IEnumerator DestroyTime()

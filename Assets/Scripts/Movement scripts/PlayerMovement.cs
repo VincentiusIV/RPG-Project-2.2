@@ -153,7 +153,14 @@ public class PlayerMovement : MonoBehaviour
     {
         magicSlots[spot - 1] = transform.GetChild(0).GetChild(spot).GetComponent<WeaponScript>();
         // Show icon on hotbar
-        hotbar.transform.GetChild(spot - 1).GetChild(0).GetComponent<Image>().sprite = icon;
+        if (icon == new Sprite())
+            hotbar.transform.GetChild(spot - 1).GetChild(0).gameObject.SetActive(false);
+        else
+        {
+            hotbar.transform.GetChild(spot - 1).GetChild(0).gameObject.SetActive(true);
+            hotbar.transform.GetChild(spot - 1).GetChild(0).GetComponent<Image>().sprite = icon;
+        }
+            
     }
     
     // Function that slows the player based on the given amount & duration
