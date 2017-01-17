@@ -151,7 +151,6 @@ public class PlayerMovement : MonoBehaviour
     }
     public void GetMagic(int spot)
     {
-        Debug.Log("placing item on " + spot);
         magicSlots[spot - 1] = transform.GetChild(0).GetChild(spot).GetComponent<WeaponScript>();
         // Show icon on hotbar
     }

@@ -1962,8 +1962,8 @@
  },
  {
   "ID" : 98,
-  "Type" : "Items",
-  "Title" : "default",
+  "Type" : "Magic",
+  "Title" : "resetMagic",
   "Value" : 0,
   "Power" : 0,
   "Defence" : 0,
@@ -1975,15 +1975,15 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
-  "Description"      : "default",
+  "Description"      : "Magic used in script to reset previously equipped magic",
   "Stackable"        : false,
   "Rarity"           : 0,
   "Slug"             : "default_slug"
  },
  {
   "ID" : 99,
-  "Type" : "Items",
-  "Title" : "default",
+  "Type" : "Weapon",
+  "Title" : "resetWeapon",
   "Value" : 0,
   "Power" : 0,
   "Defence" : 0,
@@ -1995,7 +1995,7 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
-  "Description"      : "default",
+  "Description"      : "Weapon used in script to reset previously equipped weapon",
   "Stackable"        : false,
   "Rarity"           : 0,
   "Slug"             : "default_slug"

@@ -73,6 +73,14 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
         else if(containsItem)
             transform.GetChild(0).gameObject.GetComponent<ItemData>().HideInfo();
     }
+
+    void Update()
+    {
+        if (transform.childCount > 0)
+            containsItem = true;
+        else if (transform.childCount == 0)
+            containsItem = false;
+    }
 }
 
 public enum slotType

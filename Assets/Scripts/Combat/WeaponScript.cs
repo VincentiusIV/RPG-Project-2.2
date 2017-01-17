@@ -30,22 +30,12 @@ public class WeaponScript : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
-        if (spawnPos != null)
-            Debug.Log("Spawn position assigned succesfully");
-        else
-            Debug.Log("WARNING! No spawn position for projectile assigned");
         destroyRange = transform.GetChild(1).GetComponent<CircleCollider2D>();
         meleeRange = transform.GetChild(2).gameObject;
-
-        // Update this maybe in db later
-        
-
-        Debug.Log("This item canMelee:" + canMelee + " & canRange:" + canRange);
     }
 
     public void CheckWeaponType()
     {
-        Debug.Log("Checking wep type");
         if (melee.attackSpeed == 0)
             canMelee = false;
         else canMelee = true;
@@ -79,17 +69,22 @@ public class WeaponScript : MonoBehaviour
     }
     void MeleeAttack()
     {
-        Debug.Log("Melee attack with " + gameObject.name);
+        if (Time.time > nextShot)
+        {
+            nextShot = Time.time + (float)projectile.attackSpeed / 10;
 
-        meleeRange.SetActive(true);
-        StartCoroutine(MeleeAttackSpeed(melee.attackSpeed));
-        // start animation
+            Debug.Log("Melee attack with " + gameObject.name);
 
-        /* Modify collider radius with range
-            * change damage based on player stats
-            * Do dmg to rigidbodies with the right tags inside own collider
-            * 
-            * */
+            meleeRange.SetActive(true);
+            StartCoroutine(MeleeAttackSpeed(melee.attackSpeed));
+            // start animation
+
+            /* Modify collider radius with range
+                * change damage based on player stats
+                * Do dmg to rigidbodies with the right tags inside own collider
+                * 
+                * */
+        }
     }
 
     IEnumerator MeleeAttackSpeed(double attSp)

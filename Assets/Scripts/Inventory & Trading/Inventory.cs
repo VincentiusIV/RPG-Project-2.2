@@ -119,9 +119,9 @@ public class Inventory : MonoBehaviour
     public void EquipItem(int id, int slotID)
     {
         Item itemToEquip = database.FetchItemByID(id);
-        Debug.Log(itemToEquip.Title + " " + itemToEquip.Slug);
+        Debug.Log("equipping... "+itemToEquip.Title + " " + itemToEquip.Slug);
 
-        if (itemToEquip == null)
+        if (itemToEquip == null || itemToEquip.Type == "Items")
         {
             Debug.Log("Item with ID: " + id + " does not exist");
             return;
@@ -134,8 +134,8 @@ public class Inventory : MonoBehaviour
             weapon.GetComponent<SpriteRenderer>().sprite = FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug);
             weapon.tag = itemToEquip.Type;
             
-            weapon.transform.Rotate(new Vector3(0f, 0f, -90f));
-            weapon.name = itemToEquip.Title + slots[id].GetComponent<Slot>().id;
+            //weapon.transform.Rotate(new Vector3(0f, 0f, -90f));
+            weapon.name = itemToEquip.Title;
 
             WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
             
@@ -166,8 +166,10 @@ public class Inventory : MonoBehaviour
         items[movingItem.slotID] = new Item();
 
         // Unequips old item if there was one equipped
-        if (shouldUnequip)
-            EquipItem(0, movingItem.slotID);
+        if (shouldUnequip && itemToMove.item.Type == "Weapon")
+            EquipItem(99, movingItem.slotID);
+        else if (shouldUnequip && itemToMove.item.Type == "Magic")
+            EquipItem(98, movingItem.slotID);
 
         movingItem.transform.SetParent(movingItem.transform.parent.parent);
         movingItem.OnControllerDrag();
