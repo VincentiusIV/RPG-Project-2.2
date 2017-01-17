@@ -68,24 +68,27 @@ public class WeaponScript : MonoBehaviour
         }
         return new Sprite();
     }
-
-    public void MeleeAttack()
+    public void Attack()
     {
         if (canMelee)
-        {
-            Debug.Log("Melee attack with " + gameObject.name);
+            MeleeAttack();
+        else if (canRange)
+            RangedAttack();
 
-            meleeRange.SetActive(true);
-            StartCoroutine(MeleeAttackSpeed(melee.attackSpeed));
-            // start animation
+    }
+    void MeleeAttack()
+    {
+        Debug.Log("Melee attack with " + gameObject.name);
 
-            /* Modify collider radius with range
-             * change damage based on player stats
-             * Do dmg to rigidbodies with the right tags inside own collider
-             * 
-             * */
-        }
-        else Debug.Log("weapon or magic cannot melee attack");
+        meleeRange.SetActive(true);
+        StartCoroutine(MeleeAttackSpeed(melee.attackSpeed));
+        // start animation
+
+        /* Modify collider radius with range
+            * change damage based on player stats
+            * Do dmg to rigidbodies with the right tags inside own collider
+            * 
+            * */
     }
 
     IEnumerator MeleeAttackSpeed(double attSp)
@@ -94,31 +97,29 @@ public class WeaponScript : MonoBehaviour
         meleeRange.SetActive(false);
     }
 
-    public void RangedAttack()
+    void RangedAttack()
     {
-        if (canRange)
-            if (Time.time > nextShot)
-            {
-                nextShot = Time.time + (float)projectile.attackSpeed / 10;
+        if (Time.time > nextShot)
+        {
+            nextShot = Time.time + (float)projectile.attackSpeed / 10;
 
-                spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
-                if (spawnPos != null)
-                    Debug.Log("Spawn position assigned succesfully");
-                else
-                    Debug.Log("WARNING! No spawn position for projectile assigned");
+            spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
+            if (spawnPos != null)
+                Debug.Log("Spawn position assigned succesfully");
+            else
+                Debug.Log("WARNING! No spawn position for projectile assigned");
 
-                //Debug.Log("Ranged attack with " + gameObject.name);
-                destroyRange.radius = projectile.range;
+            //Debug.Log("Ranged attack with " + gameObject.name);
+            destroyRange.radius = projectile.range;
 
-                projectileGO.GetComponent<BulletScript>().thisData = projectile;
-                projectileGO.GetComponent<SpriteRenderer>().sprite = ChooseSprite(projectile.element);
+            projectileGO.GetComponent<BulletScript>().thisData = projectile;
+            projectileGO.GetComponent<SpriteRenderer>().sprite = ChooseSprite(projectile.element);
 
-                if (projectileGO != null && spawnPos != null)
-                    Instantiate(projectileGO, spawnPos.transform.position, spawnPos.transform.rotation);
-                else
-                    Debug.Log("Projectile Game Object is empty");
-            }
-            else Debug.Log("This weapon or magic cannot range attack");
+            if (projectileGO != null && spawnPos != null)
+                Instantiate(projectileGO, spawnPos.transform.position, spawnPos.transform.rotation);
+            else
+                Debug.Log("Projectile Game Object is empty");
+        }
     }
     
     public void SpecialAttack()

@@ -19,7 +19,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool useController = true;
 
     // Private Reference Variables
-    private WeaponScript weapon;
+    private WeaponScript weaponSlot;
+    private WeaponScript[] magicSlots;
+
     private Rigidbody2D rig;
     private Vector2 movement;
     private SpriteRenderer ren;
@@ -40,26 +42,23 @@ public class PlayerMovement : MonoBehaviour
         {
             // Hotbar
             if (Input.GetButtonDown("X360_LeftButton"))
-            {
                 SelectHotbar(currentSelection - 1);
-            }
             if (Input.GetButtonDown("X360_RightButton"))
-            {
                 SelectHotbar(currentSelection + 1);
-            }
+
             // Aiming
             float rStickH = Input.GetAxis("X360_RStickX");
             float rStickV = Input.GetAxis("X360_RStickY");
             aim.transform.position = new Vector3(transform.position.x + rStickH, transform.position.y + rStickV, 0f);
             
             // Weapon
-            if (weapon != null)
+            if (weaponSlot != null)
             {
                 if (Input.GetAxis("X360_Triggers") < 0)
-                    weapon.RangedAttack();
+                    magicSlots[currentSelection].Attack();
 
                 if (Input.GetAxis("X360_Triggers") > 0)
-                    weapon.MeleeAttack();
+                    weaponSlot.Attack();
             }
         }
         if (canPlay && !useController){
@@ -76,12 +75,12 @@ public class PlayerMovement : MonoBehaviour
             //aim.transform.position = new Vector3(transform.position.x + rStickH, transform.position.y + rStickV, 0f);
 
             // Weapon
-            if (weapon != null){
+            if (weaponSlot != null){
                 if (Input.GetMouseButtonDown(0))
-                    weapon.RangedAttack();
+                    magicSlots[currentSelection].Attack();
 
                 if (Input.GetMouseButtonDown(1))
-                    weapon.MeleeAttack();
+                    weaponSlot.Attack();
             }
         }
         // move hp to player stats at some point
@@ -142,15 +141,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void GetWeapon(WeaponScript wep)
     {
-        weapon = wep;
-        Debug.Log("Equipped new weapon: " + weapon.gameObject.name);
+        weaponSlot = wep;
+        Debug.Log("Equipped new weapon: " + weaponSlot.gameObject.name);
 
-        if(weapon == null)
+        if(weaponSlot == null)
         {
             Debug.Log("Player is not holding any weapon");
         }
     }
-
+    public void GetMagic(WeaponScript magic, int spot)
+    {
+        magicSlots[spot] = magic;
+        // Show icon on hotbar
+    }
+    
+    // Function that slows the player based on the given amount & duration
     public void SlowPlayer(float amount, float slowDuration)
     {
         Debug.Log("Slowing player for " + amount + "%");
