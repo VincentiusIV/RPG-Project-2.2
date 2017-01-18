@@ -21,7 +21,7 @@ public class EnemyScript : MonoBehaviour {
     private SpriteRenderer ren;
     private float counter = 0;
     private float random = 0;
-    public bool tooCloseToPlayer = false;
+    [HideInInspector] public bool tooCloseToPlayer = false;
 
     void Start () {
         inventory = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
@@ -83,7 +83,7 @@ public class EnemyScript : MonoBehaviour {
             currentHP += 1 / 60f;
         }
         if (currentHP <= 0){
-            SpawnLoot(1);
+            //SpawnLoot(1);
             Destroy(gameObject);
         }
         if (inRange && seesPlayer && isRanged && !tooCloseToPlayer) {
@@ -101,11 +101,11 @@ public class EnemyScript : MonoBehaviour {
     }
 
     void SpawnLoot(float dropChance){
-        Item itemToDropInfo = inventorySystem.FetchItemByID(this.GetComponent<NPCdata>().invData[0].id);
-        GameObject itemToDrop = new GameObject();
-        itemToDrop.AddComponent<SpriteRenderer>();
-        itemToDrop.GetComponent<SpriteRenderer>().sprite = inventory.FetchSpriteBySlug(itemToDropInfo.Type, itemToDropInfo.Slug);
-        GameObject droppedItem = (GameObject)Instantiate(itemToDrop, transform.position, transform.rotation);
+        //Item itemToDropInfo = inventorySystem.FetchItemByID(this.GetComponent<NPCdata>().invData[0].id);
+        //GameObject itemToDrop = new GameObject();
+        //itemToDrop.AddComponent<SpriteRenderer>();
+        //itemToDrop.GetComponent<SpriteRenderer>().sprite = inventory.FetchSpriteBySlug(itemToDropInfo.Type, itemToDropInfo.Slug);
+        //GameObject droppedItem = (GameObject)Instantiate(itemToDrop, transform.position, transform.rotation);
     }
 
     void OnTriggerStay2D(Collider2D coll) {
@@ -119,6 +119,18 @@ public class EnemyScript : MonoBehaviour {
         if (coll.gameObject.tag == player.tag) {
             seesPlayer = false;
             inRange = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D coll){
+        if (coll.gameObject.tag == "Player") {
+            ChangetooCloseToPlayer();
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D coll){
+        if (coll.gameObject.tag == "Player"){
+            ChangetooCloseToPlayer();
         }
     }
 

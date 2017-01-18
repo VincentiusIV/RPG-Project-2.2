@@ -1042,8 +1042,8 @@
  },
  {
   "ID" : 52,
-  "Type" : "Items",
-  "Title" : "default",
+  "Type" : "NPCs",
+  "Title" : "Enemy",
   "Value" : 0,
   "Power" : 0,
   "Defence" : 0,
@@ -1058,7 +1058,7 @@
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "EnemySprite"
  },
  {
   "ID" : 53,

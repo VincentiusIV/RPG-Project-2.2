@@ -75,11 +75,6 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X)){
                 SelectHotbar(currentSelection + 1);
             }
-            // Aiming
-            //float rStickH = Input.GetAxis("X360_RStickX");
-            //float rStickV = Input.GetAxis("X360_RStickY");
-            //aim.transform.position = new Vector3(transform.position.x + rStickH, transform.position.y + rStickV, 0f);
-
             // Weapon
             if (weaponSlot != null){
                 if (Input.GetMouseButtonDown(0))
@@ -113,7 +108,6 @@ public class PlayerMovement : MonoBehaviour
             // Movement
             float xPos = Input.GetAxis("X360_LStickX") * moveSpeed.x;
             float yPos = Input.GetAxis("X360_LStickY") * moveSpeed.y;
-
             Vector3 movement = new Vector3(xPos, yPos, 0f);
             rig.velocity = movement * speedMultiplier;
         }
@@ -128,7 +122,6 @@ public class PlayerMovement : MonoBehaviour
             // Movement
             float xPos = Input.GetAxis("Horizontal") * moveSpeed.x;
             float yPos = Input.GetAxis("Vertical") * moveSpeed.y;
-
             Vector3 movement = new Vector3(xPos, yPos, 0f).normalized;
             rig.velocity = movement * speedMultiplier;
         }
