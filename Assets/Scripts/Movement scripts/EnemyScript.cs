@@ -20,6 +20,7 @@ public class EnemyScript : MonoBehaviour {
     private float shootTime = 0;
     private SpriteRenderer ren;
     private float counter = 0;
+    private float followCounter = 0;
     private float random = 0;
     [HideInInspector] public bool tooCloseToPlayer = false;
 
@@ -83,10 +84,10 @@ public class EnemyScript : MonoBehaviour {
             currentHP += 1 / 60f;
         }
         if (currentHP <= 0){
-            //SpawnLoot(1);
+            SpawnLoot(1);
             Destroy(gameObject);
         }
-        if (inRange && seesPlayer && isRanged && !tooCloseToPlayer) {
+        /*if (inRange && seesPlayer && isRanged && !tooCloseToPlayer) {
             direction = transform.position - player.transform.position;
             direction.Normalize();
             transform.Translate((direction * Time.deltaTime) * movementSpeed);
@@ -97,15 +98,28 @@ public class EnemyScript : MonoBehaviour {
             direction.Normalize();
             transform.Translate((direction * Time.deltaTime) * movementSpeed);
             Debug.Log("Enemy: (should be true)" + tooCloseToPlayer);
+        }*/
+        if (followCounter >= 0) {
+            followCounter -= Time.deltaTime;
+        }
+        if (followCounter > 0){
+            //turning
+            float angleRad = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
+            float angleDeg = (180 / Mathf.PI) * angleRad;
+            transform.rotation = Quaternion.Euler(0, 0, angleDeg);
+            transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
+            //moving
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime);
         }
     }
 
     void SpawnLoot(float dropChance){
-        //Item itemToDropInfo = inventorySystem.FetchItemByID(this.GetComponent<NPCdata>().invData[0].id);
-        //GameObject itemToDrop = new GameObject();
-        //itemToDrop.AddComponent<SpriteRenderer>();
-        //itemToDrop.GetComponent<SpriteRenderer>().sprite = inventory.FetchSpriteBySlug(itemToDropInfo.Type, itemToDropInfo.Slug);
-        //GameObject droppedItem = (GameObject)Instantiate(itemToDrop, transform.position, transform.rotation);
+        Debug.Log("Loot should have spawned");
+        Item itemToDropInfo = inventorySystem.FetchItemByID(this.GetComponent<NPCdata>().invData[0].id);
+        GameObject itemToDrop = new GameObject();
+        itemToDrop.AddComponent<SpriteRenderer>();
+        itemToDrop.GetComponent<SpriteRenderer>().sprite = inventory.FetchSpriteBySlug(itemToDropInfo.Type, itemToDropInfo.Slug);
+        GameObject droppedItem = (GameObject)Instantiate(itemToDrop, transform.position, transform.rotation);
     }
 
     void OnTriggerStay2D(Collider2D coll) {
@@ -120,6 +134,7 @@ public class EnemyScript : MonoBehaviour {
             seesPlayer = false;
             inRange = false;
         }
+        followCounter = 4f;
     }
 
     private void OnCollisionEnter2D(Collision2D coll){
