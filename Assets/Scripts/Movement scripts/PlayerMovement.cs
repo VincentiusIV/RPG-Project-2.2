@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     // Public Variables
-    
     public PlayerStats playerStats;
     public float speedMultiplier;
 
@@ -19,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool useController = true;
 
     // Private Reference Variables
-    [SerializeField]private WeaponScript weaponSlot;
+    private WeaponScript weaponSlot;
     [SerializeField]private WeaponScript[] magicSlots;
 
     private Rigidbody2D rig;
@@ -27,10 +26,11 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer ren;
 
     private int currentSelection;
+    private bool buttonInUse;
 
     void Start()
     {
-        playerStats.doDamage(50, ElementType.fire);
+        //playerStats.doDamage(50, ElementType.fire);
         rig = GetComponent<Rigidbody2D>();
         ren = GetComponent<SpriteRenderer>();
         hotbar.transform.GetChild(0).GetComponent<Image>().sprite = hotbarSprites[0];
@@ -47,11 +47,19 @@ public class PlayerMovement : MonoBehaviour
         if (canPlay && useController)
         {
             // Hotbar
-            if (Input.GetButtonDown("X360_LeftButton"))
+            if (Input.GetAxisRaw("X360_DpadX") == 0)
+                buttonInUse = false;
+            if (Input.GetAxisRaw("X360_DpadX") < 0 && buttonInUse == false)
+            {
+                buttonInUse = true;
                 SelectHotbar(currentSelection - 1);
-            if (Input.GetButtonDown("X360_RightButton"))
+            }
+                
+            if (Input.GetAxisRaw("X360_DpadX") > 0 && buttonInUse == false)
+            {
+                buttonInUse = true;
                 SelectHotbar(currentSelection + 1);
-
+            }
             // Aiming
             float rStickH = Input.GetAxis("X360_RStickX");
             float rStickV = Input.GetAxis("X360_RStickY");
