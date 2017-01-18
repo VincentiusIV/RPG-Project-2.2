@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
             // Hotbar
             if (Input.GetAxisRaw("X360_DpadX") == 0)
                 buttonInUse = false;
-            if (Input.GetAxisRaw("X360_DpadX") < 0 && buttonInUse == false)
+           /* if (Input.GetAxisRaw("X360_DpadX") < 0 && buttonInUse == false)
             {
                 buttonInUse = true;
                 SelectHotbar(currentSelection - 1);
@@ -59,7 +59,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 buttonInUse = true;
                 SelectHotbar(currentSelection + 1);
-            }
+            }*/
+
+            if(Input.GetButtonDown("X360_LeftButton"))
+                SelectHotbar(currentSelection - 1);
+            if(Input.GetButtonDown("X360_RightButton"))
+                SelectHotbar(currentSelection + 1);
             // Aiming
             float rStickH = Input.GetAxis("X360_RStickX");
             float rStickV = Input.GetAxis("X360_RStickY");
