@@ -26,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer ren;
 
     private int currentSelection;
-    private bool buttonInUse;
 
     void Start()
     {
@@ -47,20 +46,6 @@ public class PlayerMovement : MonoBehaviour
         if (canPlay && useController)
         {
             // Hotbar
-            if (Input.GetAxisRaw("X360_DpadX") == 0)
-                buttonInUse = false;
-           /* if (Input.GetAxisRaw("X360_DpadX") < 0 && buttonInUse == false)
-            {
-                buttonInUse = true;
-                SelectHotbar(currentSelection - 1);
-            }
-                
-            if (Input.GetAxisRaw("X360_DpadX") > 0 && buttonInUse == false)
-            {
-                buttonInUse = true;
-                SelectHotbar(currentSelection + 1);
-            }*/
-
             if(Input.GetButtonDown("X360_LeftButton"))
                 SelectHotbar(currentSelection - 1);
             if(Input.GetButtonDown("X360_RightButton"))

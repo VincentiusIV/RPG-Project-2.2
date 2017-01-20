@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     public int id;
-    public slotType type;
+    public SlotType type;
     [HideInInspector]public bool containsItem;
 
     private Inventory inv;
@@ -20,10 +20,10 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         Debug.Log("slot " + id + " contains item = " + containsItem);
         bool shouldUnequip = false;
-        if (containsItem && type == slotType.weaponEquip || containsItem && type == slotType.magicEquip)
+        if (containsItem && type == SlotType.weaponEquip || containsItem && type == SlotType.magicEquip)
             shouldUnequip = true;
 
-        if(containsItem && type != slotType.merchant)
+        if (containsItem && type != SlotType.merchant)
         {
             if (inv.isMovingAnItem)
             {
@@ -42,24 +42,26 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
                 containsItem = true;
         }
 
-        if(type == slotType.merchant)
+        if(type == SlotType.merchant || type == SlotType.loot)
         {
             ItemData itemToBuy = transform.FindChild("Item").gameObject.GetComponent<ItemData>();
 
-            if (itemToBuy.item.Value <= inv.money)
+            if (itemToBuy.item.Value <= inv.money || type == SlotType.loot)
             {
                 inv.AddItem(itemToBuy.item.ID);
-                inv.UpdateWallet(-itemToBuy.item.Value);
+                if(type == SlotType.merchant)
+                    inv.UpdateWallet(-itemToBuy.item.Value);
             }
             return;
         }
+
     }
 
 
     // Called when slot is selected
     public void OnSelect(BaseEventData eventData)
     {
-        if (type == slotType.merchant)
+        if (type == SlotType.merchant)
             transform.FindChild("Item").gameObject.GetComponent<ItemData>().UpdateInfo();
         else if(containsItem)
             transform.GetChild(0).gameObject.GetComponent<ItemData>().UpdateInfo();  
@@ -68,7 +70,7 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
     // Called when slot is deselected
     public void OnDeselect(BaseEventData eventData)
     {
-        if (type == slotType.merchant)
+        if (type == SlotType.merchant)
             transform.FindChild("Item").gameObject.GetComponent<ItemData>().HideInfo();
         else if(containsItem)
             transform.GetChild(0).gameObject.GetComponent<ItemData>().HideInfo();
@@ -83,10 +85,11 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
     }
 }
 
-public enum slotType
+public enum SlotType
 {
     regular,
     weaponEquip,
     magicEquip,
     merchant,
+    loot,
 }

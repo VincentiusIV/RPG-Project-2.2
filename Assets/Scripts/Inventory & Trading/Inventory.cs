@@ -177,21 +177,21 @@ public class Inventory : MonoBehaviour
     public bool EndMovingItem(int new_slotID)
     {
         // Equips item on character if slot is equip slot
-        if (slots[new_slotID].GetComponent<Slot>().type == slotType.weaponEquip && movingItem.item.Type == ItemType.Weapon.ToString())
+        if (slots[new_slotID].GetComponent<Slot>().type == SlotType.weaponEquip && movingItem.item.Type == ItemType.Weapon.ToString())
         {
             Debug.Log("Equipping weapon...");
             EquipItem(movingItem.item.ID, new_slotID);
             MoveItem(new_slotID);
             return true;
         }
-        if (slots[new_slotID].GetComponent<Slot>().type == slotType.magicEquip && movingItem.item.Type == ItemType.Magic.ToString())
+        if (slots[new_slotID].GetComponent<Slot>().type == SlotType.magicEquip && movingItem.item.Type == ItemType.Magic.ToString())
         {
             Debug.Log("Equipping magic...");
             EquipItem(movingItem.item.ID, new_slotID);
             MoveItem(new_slotID);
             return true;
         }
-        if(slots[new_slotID].GetComponent<Slot>().type == slotType.regular)
+        if(slots[new_slotID].GetComponent<Slot>().type == SlotType.regular)
         {
             MoveItem(new_slotID);
             return true;
@@ -235,7 +235,7 @@ public class Inventory : MonoBehaviour
 
         for (int i = 0; i < items.Count; i++)
         {
-            if (slots[i].GetComponent<Slot>().containsItem == false && slots[i].GetComponent<Slot>().type == slotType.regular)
+            if (slots[i].GetComponent<Slot>().containsItem == false && slots[i].GetComponent<Slot>().type == SlotType.regular)
             {
                 emptySlotID = i;
                 Debug.Log("First empty slot is: " + emptySlotID);
