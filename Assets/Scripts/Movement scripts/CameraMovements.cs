@@ -18,7 +18,6 @@ public class CameraMovements : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //Vector3 targetPosition = new Vector3(RoundToNearestPixel(target.transform.position.x), RoundToNearestPixel(target.transform.position.y), 0f )+ new Vector3(0f, 0f, -camDistance);
         Vector3 targetPosition = target.transform.position + new Vector3(0f, 0f, -camDistance);
         transform.position = Vector3.Lerp(transform.position, targetPosition, lerpIntensity);
     }
@@ -26,14 +25,6 @@ public class CameraMovements : MonoBehaviour
     void Update()
     {
         minimap.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, minimap.transform.position.z);
-    }
-
-    public float RoundToNearestPixel(float unityUnits)
-    {
-        float valueInPixels = unityUnits * pixelToUnits;
-        valueInPixels = Mathf.Round(valueInPixels);
-        float roundedUnityUnits = valueInPixels * (1 / pixelToUnits);
-        return roundedUnityUnits;
     }
 
     public void SetTarget(GameObject newTarget, bool setPlayer = false)
