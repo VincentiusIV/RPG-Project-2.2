@@ -108,6 +108,9 @@ public class PlayerMovement : MonoBehaviour
         if (playerStats.hp <= 0){
             //Respawn?? End Game?? Lifes??
         }
+
+        if (!canPlay)
+            rig.velocity = Vector3.zero;
     }
     
     void FixedUpdate(){

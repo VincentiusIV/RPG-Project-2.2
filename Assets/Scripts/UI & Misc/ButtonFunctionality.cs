@@ -4,8 +4,8 @@ using System.Collections;
 
 public class ButtonFunctionality : MonoBehaviour
 {
-    PlayerMovement player;
-
+    private PlayerMovement player;
+    [SerializeField]private Animator ani;
     public GameObject[] uiPanels;
 
     void Start()
@@ -102,8 +102,6 @@ public class ButtonFunctionality : MonoBehaviour
         }
     }
 
-    
-
     bool CheckForActivePanel()
     {
         for (int i = 0; i < uiPanels.Length; i++)
@@ -112,5 +110,21 @@ public class ButtonFunctionality : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    public IEnumerator FadeIn()
+    {
+        player.canPlay = false;
+        Debug.Log("Fading in");
+        ani.SetBool("Fade", true);
+        yield return new WaitForSeconds(1f);
+    }
+
+    public IEnumerator FadeOut()
+    {
+        Debug.Log("Fading out");
+        ani.SetBool("Fade", false);
+        yield return new WaitForSeconds(1f);
+        player.canPlay = true;
     }
 }

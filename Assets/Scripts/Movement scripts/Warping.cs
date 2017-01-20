@@ -4,11 +4,11 @@ using System.Collections;
 public class Warping : MonoBehaviour {
 
     [SerializeField]private Transform targetWarp;
-    private ScreenFader sf;
+    private ButtonFunctionality sf;
 
     void Start()
     {
-        sf = GameObject.Find("ScreenFade").GetComponent<ScreenFader>();
+        sf = GameObject.Find("UI").GetComponent<ButtonFunctionality>();
     }
 
     IEnumerator OnTriggerEnter2D(Collider2D col)
