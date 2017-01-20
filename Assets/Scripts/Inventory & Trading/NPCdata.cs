@@ -60,6 +60,7 @@ public class NPCdata : MonoBehaviour
         if(Input.GetButtonDown("Interact") && canTrade)
         {
             CreateMerchantInventory();
+            Camera.main.GetComponent<CameraMovements>().SetTarget(transform.GetChild(0).gameObject);
         }
     }
 

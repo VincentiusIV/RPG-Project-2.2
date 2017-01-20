@@ -89,9 +89,12 @@ public class ButtonFunctionality : MonoBehaviour
         if(obj.activeInHierarchy)
         {
             obj.SetActive(false);
-            
-            if (CheckForActivePanel() == false)
+
+            if (!CheckForActivePanel())
+            {
                 player.canPlay = true;
+                Camera.main.GetComponent<CameraMovements>().SetTarget(new GameObject(), true);
+            }
         }
         else
         {
@@ -99,6 +102,7 @@ public class ButtonFunctionality : MonoBehaviour
 
             if (CheckForActivePanel())
                 player.canPlay = false;
+            
         }
     }
 

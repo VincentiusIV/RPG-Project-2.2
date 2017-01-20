@@ -4,8 +4,8 @@ using System.Collections;
 public class CameraMovements : MonoBehaviour
 {
     [SerializeField]private GameObject minimap;
-
-    public GameObject target;
+    [SerializeField]private GameObject playerTarget;
+    private GameObject target;
     public float camDistance;
     public float lerpIntensity;
     public float pixelToUnits;
@@ -14,6 +14,7 @@ public class CameraMovements : MonoBehaviour
     void Start()
     {
         GetComponent<Camera>().orthographicSize = (Screen.height / pixelToUnits) / 2;
+        target = playerTarget;
     }
     void FixedUpdate()
     {
@@ -33,5 +34,13 @@ public class CameraMovements : MonoBehaviour
         valueInPixels = Mathf.Round(valueInPixels);
         float roundedUnityUnits = valueInPixels * (1 / pixelToUnits);
         return roundedUnityUnits;
+    }
+
+    public void SetTarget(GameObject newTarget, bool setPlayer = false)
+    {
+        if (setPlayer)
+            target = playerTarget;
+        else
+            target = newTarget;
     }
 }
