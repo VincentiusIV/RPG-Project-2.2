@@ -131,7 +131,6 @@ public class Inventory : MonoBehaviour
         {
             int equipSlotID = slotID - slotAmount;
             GameObject weapon = hand.transform.GetChild(equipSlotID).gameObject;
-            weapon.GetComponent<SpriteRenderer>().sprite = FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug);
             weapon.tag = itemToEquip.Type;
             
             weapon.name = itemToEquip.Title;
