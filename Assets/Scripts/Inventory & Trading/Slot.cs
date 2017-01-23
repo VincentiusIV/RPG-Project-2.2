@@ -49,8 +49,10 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
             if (itemToBuy.item.Value <= inv.money || type == SlotType.loot)
             {
                 inv.AddItem(itemToBuy.item.ID);
-                if(type == SlotType.merchant)
+                if (type == SlotType.merchant)
                     inv.UpdateWallet(-itemToBuy.item.Value);
+                else if (type == SlotType.loot)
+                    Destroy(gameObject);
             }
             return;
         }

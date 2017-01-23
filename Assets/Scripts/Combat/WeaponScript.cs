@@ -74,7 +74,6 @@ public class WeaponScript : MonoBehaviour
 
             meleeRange.GetComponent<MeleeScript>().thisData = melee;
             meleeRange.GetComponent<MeleeScript>().MeleeAttack();
-
         }
     }
 

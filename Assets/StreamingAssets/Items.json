@@ -72,7 +72,7 @@
   "MeleeAttackRange" : 0,
   "MeleeElement"     : "none",
   "RangeAttackSpeed" : 1,
-  "RangeAttackRange" : 10,
+  "RangeAttackRange" : 100,
   "RangeBulletSpeed" : 1.0,
   "RangeElement"     : "fire",
   "Description"      : "A fiercy bolt, hot to the touch",

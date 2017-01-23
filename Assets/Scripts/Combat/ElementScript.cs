@@ -9,8 +9,15 @@ public class ElementScript : MonoBehaviour
     public bool canDamage = false;
 
     // Private booleans
+    [SerializeField]private Sprite[] states;
+    private SpriteRenderer sr;
 
-
+    void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+        if(states.Length > 0)
+            sr.sprite = states[0];
+    }
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.CompareTag("Element"))
@@ -30,7 +37,7 @@ public class ElementScript : MonoBehaviour
             if(newElement == ElementType.fire && thisElement == ElementType.oil)
             {
                 Debug.Log("The fire has ignited the oil");
-
+                sr.sprite = states[1];
             }
 
             if(newElement == ElementType.ice && thisElement == ElementType.water)

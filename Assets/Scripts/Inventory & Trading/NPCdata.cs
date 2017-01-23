@@ -10,6 +10,7 @@ public class NPCdata : MonoBehaviour
 // Public Variables
     public int id;
     public bool isMerchant;
+    public bool isLoot;
     public GameObject merchantSlot;
     public InventoryData[] invData;
 
@@ -30,12 +31,15 @@ public class NPCdata : MonoBehaviour
         notification.SetActive(false);
 
         db = GameObject.FindWithTag("Inventory").GetComponent<DatabaseHandler>();
-        thisNPC = db.FetchItemByID(id);
+
+        if (id != -1)
+        {
+            thisNPC = db.FetchItemByID(id);
+            Sprite spriteData = Resources.Load<Sprite>("Sprites/" + thisNPC.Type + "/" + thisNPC.Slug);
+            GetComponent<SpriteRenderer>().sprite = spriteData;
+        }
 
         ui = GameObject.Find("UI").GetComponent<ButtonFunctionality>();
-
-        Sprite spriteData = Resources.Load<Sprite>("Sprites/" + thisNPC.Type + "/" + thisNPC.Slug);
-        GetComponent<SpriteRenderer>().sprite = spriteData;
 
         if(isMerchant)
         {
@@ -101,7 +105,11 @@ public class NPCdata : MonoBehaviour
 
             itemObj.name = itemToAdd.Title;
             itemObj.transform.FindChild("Title_Text").GetComponent<Text>().text = itemToAdd.Title;
-            itemObj.transform.FindChild("Cost_Text").GetComponent<Text>().text = itemToAdd.Value.ToString();
+
+            if (!isLoot)
+                itemObj.transform.FindChild("Cost_Text").GetComponent<Text>().text = itemToAdd.Value.ToString();
+            else if (isLoot)
+                itemObj.transform.FindChild("Cost_Text").GetComponent<Text>().text = "";
         }
 
         slotPanel.transform.SetParent(merchantPanel.transform);
