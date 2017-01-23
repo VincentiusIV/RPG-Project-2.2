@@ -49,7 +49,7 @@ public class ItemData : MonoBehaviour
         if (canDrag)
         {
             // drags item if selected game object is a slot
-            if (e.currentSelectedGameObject.CompareTag("Slot"))
+            if (e.currentSelectedGameObject.CompareTag("Slot")) // null ref
                 transform.position = e.currentSelectedGameObject.transform.position + dragOffset;
             else
             {

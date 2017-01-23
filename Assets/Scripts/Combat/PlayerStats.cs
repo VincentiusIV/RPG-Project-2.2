@@ -5,7 +5,7 @@ using System.Collections;
 [System.Serializable]
 public class PlayerStats
 {
-    public GameObject playerStatsUIPanel;
+    public bool worldSpaceBar;
     public GameObject hpBar;
 
     public int power;
@@ -27,7 +27,13 @@ public class PlayerStats
         Debug.Log("Resist %: " + resistances[(int)ele].resistanceValue+ " against "+ele.ToString());
         Debug.Log("new Dmg= " + dmg);
         hp -= dmg;
-        UpdateHealth();
+        if (hp <= 0)
+            hp = 0;
+
+        if (!worldSpaceBar)
+            UpdateHealth();
+        else if (worldSpaceBar)
+            UpdateWorldSpaceHealth();
     }
 
     public void doHeal(int amount)
@@ -41,18 +47,36 @@ public class PlayerStats
         RectTransform bar = hpBar.GetComponent<RectTransform>();
         if (barLength == 0)
             barLength = bar.anchoredPosition.x;
+
         // Scale
         float xValue = hp / maxHP;
         if (xValue > 1f)
             xValue = 1f;
         Vector3 scale = new Vector3(xValue, 1f, 1f);
         bar.localScale = scale;
+
         // Position
         float xPos = barLength * xValue;
         Vector3 pos = new Vector3(xPos, bar.anchoredPosition.y);
         bar.GetComponent<RectTransform>().anchoredPosition = pos;
+        
         // Text
         bar.parent.FindChild("Text").GetComponent<Text>().text = hp + " / " + maxHP;
+    }
+
+    void UpdateWorldSpaceHealth()
+    {
+        Transform bar = hpBar.GetComponent<Transform>();
+        if (barLength == 0)
+            barLength = bar.localScale.x;
+
+        // Scale
+        float xValue = hp / maxHP;
+        if (xValue > 1f)
+            xValue = 1f;
+        Vector3 scale = new Vector3(xValue, bar.localScale.y, 1f);
+        bar.localScale = scale;
+
     }
 }
 

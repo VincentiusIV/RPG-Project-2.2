@@ -70,12 +70,11 @@ public class WeaponScript : MonoBehaviour
     {
         if (Time.time > nextShot)
         {
-            nextShot = Time.time + (float)projectile.attackSpeed / 10;
+            nextShot = Time.time + (float)melee.attackSpeed / 100;
 
             meleeRange.GetComponent<MeleeScript>().thisData = melee;
             meleeRange.GetComponent<MeleeScript>().MeleeAttack();
 
-            //StartCoroutine(MeleeAttackSpeed(melee.attackSpeed));
         }
     }
 

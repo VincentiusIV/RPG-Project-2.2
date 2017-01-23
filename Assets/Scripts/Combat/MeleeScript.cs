@@ -22,9 +22,10 @@ public class MeleeScript : MonoBehaviour
     IEnumerator CollEnabler()
     {
         collider.enabled = true;
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForSeconds(1f);
         collider.enabled = false;
     }
+
 	void OnTriggerEnter2D(Collider2D col)
     {
         Debug.Log("Hit with Melee on " + col.name);
@@ -32,6 +33,7 @@ public class MeleeScript : MonoBehaviour
         {
             MobScript e = col.GetComponent<MobScript>();
             e.enemyStats.doDamage(thisData.damage, thisData.element);
+            collider.enabled = false;
         }
     }
 }

@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Sprite[] hotbarSprites;
     [SerializeField] private Vector2 moveSpeed;
     [SerializeField] private GameObject aim;
-    [SerializeField] private bool useController = true;
 
     // Private Reference Variables
     private WeaponScript weaponSlot;
@@ -76,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     }
     
     void FixedUpdate(){
-        if(canPlay && useController){
+        if(canPlay){
             // Rotation with controller
             float angleRad = Mathf.Atan2(aim.transform.position.y - transform.position.y, aim.transform.position.x - transform.position.x);
             float angleDeg = (180 / Mathf.PI) * angleRad;
