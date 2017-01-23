@@ -3,12 +3,13 @@ using System.Collections;
 
 public class ElementScript : MonoBehaviour
 {
-// Public & Serialized Fields
-    [SerializeField]public ElementType thisElement;
+    // Public & Serialized Fields
+    public ElementType thisElement;
+    public bool canSlow = false;
+    public bool canDamage = false;
 
     // Private booleans
-    bool canSlow = false;
-    bool canDamage = false;
+
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -29,31 +30,29 @@ public class ElementScript : MonoBehaviour
             if(newElement == ElementType.fire && thisElement == ElementType.oil)
             {
                 Debug.Log("The fire has ignited the oil");
-                // does dmg based on % of the hp of enemies and player and their resistances
 
-                // look for  rigidbodies and their tags (enemy and player)
             }
 
             if(newElement == ElementType.ice && thisElement == ElementType.water)
             {
                 Debug.Log("The ice has frozen "+gameObject.name);
-                // does dmg based on % of the hp of enemies and player and their resistances
 
-                // look for  rigidbodies and their tags (enemy and player)
             }
         }
     }
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.CompareTag("Player"))
-            col.GetComponent<PlayerMovement>().SlowPlayer(40, 1);
+        if (col.CompareTag("Player") && canSlow)
+            col.GetComponent<PlayerMovement>().SlowPlayer(40);
     }
 
-    bool CheckForCollsions(Collider2D col)
+    void OnTriggerExit2D(Collider2D col)
     {
-        return true;
+        if (col.CompareTag("Player") && canSlow)
+            col.GetComponent<PlayerMovement>().SlowPlayer(100);
     }
+    
 }
 
 public enum ElementType

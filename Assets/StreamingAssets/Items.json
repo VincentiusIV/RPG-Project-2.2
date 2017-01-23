@@ -52,7 +52,7 @@
   "MeleeAttackRange" : 0,
   "MeleeElement"     : "none",
   "RangeAttackSpeed" : 1,
-  "RangeAttackRange" : 10,
+  "RangeAttackRange" : 100,
   "RangeBulletSpeed" : 0.3,
   "RangeElement"     : "aether",
   "Description"      : "default",

@@ -27,6 +27,9 @@ public class PlayerMovement : MonoBehaviour
 
     private int currentSelection;
 
+    // Combat bools
+    private float slowAmount = 100;
+
     void Start()
     {
         //playerStats.doDamage(50, ElementType.fire);
@@ -43,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (canPlay && useController)
+        if (canPlay)
         {
             // Hotbar
             if(Input.GetButtonDown("X360_LeftButton"))
@@ -65,37 +68,11 @@ public class PlayerMovement : MonoBehaviour
                     weaponSlot.Attack();
             }
         }
-        if (canPlay && !useController){
-            // Hotbar
-            if (Input.GetKeyDown(KeyCode.Z)){
-                SelectHotbar(currentSelection - 1);
-            }
-            if (Input.GetKeyDown(KeyCode.X)){
-                SelectHotbar(currentSelection + 1);
-            }
-            // Weapon
-            if (weaponSlot != null){
-                if (Input.GetMouseButtonDown(0))
-                    magicSlots[currentSelection].Attack();
-
-                if (Input.GetMouseButtonDown(1))
-                    weaponSlot.Attack();
-            }
-        }
-        // move hp to player stats at some point
-        //HP
-        ren.color = Color.Lerp(Color.red, Color.green, playerStats.hp / playerStats.maxHP);
-
-        /*if (playerStats.hp < 100 && playerStats.hp > 0)
-        {
-            playerStats.hp += 1 / 60f;
-        }*/
-        if (playerStats.hp <= 0){
-            //Respawn?? End Game?? Lifes??
-        }
-
-        if (!canPlay)
+        else if (!canPlay)
             rig.velocity = Vector3.zero;
+
+        // Slows player
+        speedMultiplier = slowAmount / 100;
     }
     
     void FixedUpdate(){
@@ -107,23 +84,9 @@ public class PlayerMovement : MonoBehaviour
             transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
 
             // Movement
-            float xPos = Input.GetAxis("X360_LStickX") * moveSpeed.x;
-            float yPos = Input.GetAxis("X360_LStickY") * moveSpeed.y;
+            float xPos = Input.GetAxis("X360_LStickX") * moveSpeed.x / 10;
+            float yPos = Input.GetAxis("X360_LStickY") * moveSpeed.y / 10;
             Vector3 movement = new Vector3(xPos, yPos, 0f);
-            rig.velocity = movement * speedMultiplier;
-        }
-        if (canPlay && !useController){
-            // rotation with mouse
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
-            float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
-            float angleDeg = (180 / Mathf.PI) * angleRad;
-            transform.rotation = Quaternion.Euler(0, 0, angleDeg);
-            transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
-
-            // Movement
-            float xPos = Input.GetAxis("Horizontal") * moveSpeed.x;
-            float yPos = Input.GetAxis("Vertical") * moveSpeed.y;
-            Vector3 movement = new Vector3(xPos, yPos, 0f).normalized;
             rig.velocity = movement * speedMultiplier;
         }
     }
@@ -157,34 +120,10 @@ public class PlayerMovement : MonoBehaviour
             
     }
     
-    // Function that slows the player based on the given amount & duration
-    public void SlowPlayer(float amount, float slowDuration)
+    // Function that slows the player based on the given amount
+    public void SlowPlayer(float amount)
     {
-        Debug.Log("Slowing player for " + amount + "%");
-        speedMultiplier = amount /= 100;
-        StartCoroutine(Slow(slowDuration));
-    }
-
-    IEnumerator Slow(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        speedMultiplier = 1f;
-    }
-
-    void OnCollisionEnter2D(Collision2D coll){
-        if (coll.transform.parent != null && coll.transform.parent.name == "MeleeEnemy(Clone)"){
-            playerStats.hp -= coll.transform.parent.GetComponent<EnemyScript>().dmg;
-        }
-        if (coll.transform.name == "Bullet(Clone)"){
-            //currentHP -= coll.gameObject.GetComponent<BulletScript>().enemyScript.dmg;
-        }
-        if (coll.gameObject.tag == "Teleporter"){
-            //reload lvl and move player to opposite side of the lvl
-            GeneratingDungeon gameManagerScript = FindObjectOfType<GeneratingDungeon>();
-            gameManagerScript.DestroyLevel();
-            gameManagerScript.GenerateLevel();
-            transform.parent.transform.position = new Vector2(0f, 0f);
-        }
+        slowAmount = amount;
     }
 
     private void OnTriggerEnter(Collider col){

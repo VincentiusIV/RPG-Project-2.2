@@ -30,8 +30,7 @@ public class WeaponScript : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
-        destroyRange = transform.GetChild(1).GetComponent<CircleCollider2D>();
-        meleeRange = transform.GetChild(2).gameObject;
+        meleeRange = transform.GetChild(1).gameObject;
     }
 
     public void CheckWeaponType()
@@ -73,17 +72,10 @@ public class WeaponScript : MonoBehaviour
         {
             nextShot = Time.time + (float)projectile.attackSpeed / 10;
 
-            Debug.Log("Melee attack with " + gameObject.name);
+            meleeRange.GetComponent<MeleeScript>().thisData = melee;
+            meleeRange.GetComponent<MeleeScript>().MeleeAttack();
 
-            meleeRange.SetActive(true);
-            StartCoroutine(MeleeAttackSpeed(melee.attackSpeed));
-            // start animation
-
-            /* Modify collider radius with range
-                * change damage based on player stats
-                * Do dmg to rigidbodies with the right tags inside own collider
-                * 
-                * */
+            //StartCoroutine(MeleeAttackSpeed(melee.attackSpeed));
         }
     }
 
@@ -101,8 +93,6 @@ public class WeaponScript : MonoBehaviour
             nextShot = Time.time + (float)projectile.attackSpeed / 10;
 
             spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
-
-            destroyRange.radius = projectile.range;
 
             projectileGO.GetComponent<BulletScript>().thisData = projectile;
             projectileGO.GetComponent<SpriteRenderer>().sprite = ChooseSprite(projectile.element);

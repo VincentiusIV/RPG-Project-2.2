@@ -3,15 +3,35 @@ using System.Collections;
 
 public class MeleeScript : MonoBehaviour
 {
-// Public Fields
-    public int dmg;
+    // Public Fields
+    public Melee thisData;
 
-	void OnTriggerStay2D(Collider2D col)
+    private PolygonCollider2D collider;
+
+    void Start()
     {
-        if(col.CompareTag("AI"))
+        collider = GetComponent<PolygonCollider2D>();
+        collider.enabled = false;
+    }
+
+    public void MeleeAttack()
+    {
+        StartCoroutine(CollEnabler());
+    }
+
+    IEnumerator CollEnabler()
+    {
+        collider.enabled = true;
+        yield return new WaitForFixedUpdate();
+        collider.enabled = false;
+    }
+	void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log("Hit with Melee on " + col.name);
+        if(col.CompareTag("Enemy"))
         {
-            col.gameObject.GetComponent<EnemyScript>().doDmg(dmg);
-            gameObject.SetActive(false);
+            MobScript e = col.GetComponent<MobScript>();
+            e.enemyStats.doDamage(thisData.damage, thisData.element);
         }
     }
 }

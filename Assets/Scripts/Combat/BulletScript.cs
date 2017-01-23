@@ -9,10 +9,7 @@ public class BulletScript : MonoBehaviour
 
     void Start()
     {
-        //transform.parent = null;
-        //range += transform.position.z;
-        StartCoroutine(DestroyTime());
-        Debug.Log("bullet speed:" + thisData.bulletSpeed);
+        Destroy(gameObject, thisData.range / 100);
     }
 
     void Update()
@@ -41,18 +38,5 @@ public class BulletScript : MonoBehaviour
                 return;
             }
         }
-    }
-
-    void OnTriggerExit2D(Collider2D col)
-    {
-        // If bullet leaves DestroyRange trigger, bullet is destroyed
-        //if (col.CompareTag("DestroyRange"))
-        //    Destroy(gameObject);
-    }
-
-    IEnumerator DestroyTime()
-    {
-        yield return new WaitForSeconds(thisData.range/10);
-        Destroy(this.gameObject);
     }
 }
