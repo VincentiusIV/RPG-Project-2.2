@@ -45,7 +45,7 @@
   "Type" : "Magic",
   "Title" : "Aether Shot",
   "Value" : 0,
-  "Power" : 0,
+  "Power" : 20,
   "Defence" : 0,
   "Vitality" : 0,
   "MeleeAttackSpeed" : 0,

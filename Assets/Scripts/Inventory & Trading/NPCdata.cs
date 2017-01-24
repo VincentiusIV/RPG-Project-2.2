@@ -63,8 +63,8 @@ public class NPCdata : MonoBehaviour
     {
         if(Input.GetButtonDown("Interact") && canTrade)
         {
+            Camera.main.GetComponent<CameraMovements>().SetTarget(false, transform.FindChild("CamTarget").gameObject);
             CreateMerchantInventory();
-            Camera.main.GetComponent<CameraMovements>().SetTarget(transform.GetChild(0).gameObject);
         }
     }
 
@@ -93,23 +93,30 @@ public class NPCdata : MonoBehaviour
             ui.SwitchActive("Merchant_Inventory_Panel");
             ui.SwitchActive("Inventory_Panel");
 
-            Item itemToAdd = db.FetchItemByID(invData[i].id);
+            if(merchantPanel.activeInHierarchy)
+            {
+                Item itemToAdd = db.FetchItemByID(invData[i].id);
 
-            GameObject itemObj = Instantiate(merchantSlot) as GameObject;
-            itemObj.transform.FindChild("Item").GetComponent<ItemData>().item = itemToAdd;
-            itemObj.transform.SetParent(slotPanel.transform);
-            itemObj.transform.position = slotPanel.transform.position;
+                GameObject itemObj = Instantiate(merchantSlot) as GameObject;
+                itemObj.transform.FindChild("Item").GetComponent<ItemData>().item = itemToAdd;
+                itemObj.transform.SetParent(slotPanel.transform);
+                itemObj.transform.position = slotPanel.transform.position;
 
-            Sprite spriteData = Resources.Load<Sprite>("Sprites/" + itemToAdd.Type + "/" + itemToAdd.Slug);
-            itemObj.transform.FindChild("Item").GetComponent<Image>().sprite = spriteData;
+                Sprite spriteData = Resources.Load<Sprite>("Sprites/" + itemToAdd.Type + "/" + itemToAdd.Slug);
+                itemObj.transform.FindChild("Item").GetComponent<Image>().sprite = spriteData;
 
-            itemObj.name = itemToAdd.Title;
-            itemObj.transform.FindChild("Title_Text").GetComponent<Text>().text = itemToAdd.Title;
+                itemObj.name = itemToAdd.Title;
+                itemObj.transform.FindChild("Title_Text").GetComponent<Text>().text = itemToAdd.Title;
 
-            if (!isLoot)
-                itemObj.transform.FindChild("Cost_Text").GetComponent<Text>().text = itemToAdd.Value.ToString();
-            else if (isLoot)
-                itemObj.transform.FindChild("Cost_Text").GetComponent<Text>().text = "";
+                if (!isLoot)
+                    itemObj.transform.FindChild("Cost_Text").GetComponent<Text>().text = itemToAdd.Value.ToString();
+                else if (isLoot)
+                    itemObj.transform.FindChild("Cost_Text").GetComponent<Text>().text = "";
+            }
+            else
+            {
+                Camera.main.GetComponent<CameraMovements>().SetTarget(true);
+            }
         }
 
         slotPanel.transform.SetParent(merchantPanel.transform);

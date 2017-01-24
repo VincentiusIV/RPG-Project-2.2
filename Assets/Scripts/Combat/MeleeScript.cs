@@ -24,7 +24,7 @@ public class MeleeScript : MonoBehaviour
     IEnumerator CollEnabler()
     {
         polyCollider.enabled = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         polyCollider.enabled = false;
     }
 
@@ -39,12 +39,16 @@ public class MeleeScript : MonoBehaviour
 
             // Knockback
             Rigidbody2D enemyRB = col.GetComponent<Rigidbody2D>();
-            enemyRB.isKinematic = false;
-            Vector3 forceDirection = (player.position + col.transform.position) / 2;
-            enemyRB.velocity = -forceDirection * 5;
-            yield return new WaitForSeconds(.5f);
-            enemyRB.velocity = Vector3.zero;
-            enemyRB.isKinematic = true;
+            if(enemyRB != null)
+            {
+                enemyRB.isKinematic = false;
+                Vector3 forceDirection = (player.position + col.transform.position) / 2;
+                enemyRB.velocity = -forceDirection * 5;
+                yield return new WaitForSeconds(.5f);
+                enemyRB.velocity = Vector3.zero;
+                enemyRB.isKinematic = true;
+            }
+            
         }
     }
 }

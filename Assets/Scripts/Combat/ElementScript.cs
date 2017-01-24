@@ -66,10 +66,10 @@ public enum ElementType
 {
     none = 7,
     fire = 0,
-    earth = 1,
-    water = 2,
-    ice = 3,
-    aether = 4,
-    electricity = 5,
+    earth = 5,
+    water = 1,
+    ice = 4,
+    aether = 3,
+    electricity = 2,
     oil = 6,
 }

@@ -27,7 +27,7 @@ public class CameraMovements : MonoBehaviour
         minimap.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, minimap.transform.position.z);
     }
 
-    public void SetTarget(GameObject newTarget, bool setPlayer = false)
+    public void SetTarget(bool setPlayer, GameObject newTarget = null)
     {
         if (setPlayer)
             target = playerTarget;

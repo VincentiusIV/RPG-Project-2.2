@@ -93,7 +93,7 @@ public class ButtonFunctionality : MonoBehaviour
             if (!CheckForActivePanel())
             {
                 player.canPlay = true;
-                Camera.main.GetComponent<CameraMovements>().SetTarget(new GameObject(), true);
+                Camera.main.GetComponent<CameraMovements>().SetTarget(true);
             }
         }
         else

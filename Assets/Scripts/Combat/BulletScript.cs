@@ -17,24 +17,30 @@ public class BulletScript : MonoBehaviour
         transform.Translate(new Vector2(0f,(float)thisData.bulletSpeed));
     }
 
-    private void OnCollisionEnter2D(Collision2D coll)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (coll.gameObject.layer == 8 || coll.gameObject.layer == 9)
+        if (col.gameObject.CompareTag("Enemy"))
         {
-            if (coll.gameObject.tag == "Player")
+            col.gameObject.GetComponent<MobScript>().enemyStats.doDamage(thisData.damage, thisData.element);
+            Destroy(gameObject);
+        }
+        if (col.gameObject.layer == 8 || col.gameObject.layer == 9)
+        {
+            if (col.gameObject.tag == "Player")
             {
                 Debug.Log("hithihtihtihithitihtihit");
             }
-            if (coll.gameObject.CompareTag("AI"))
+            if (col.gameObject.CompareTag("AI"))
             {
                 Debug.Log("destroyed " + gameObject.name);
-                coll.gameObject.GetComponent<EnemyScript>().doDmg(thisData.damage);
+                col.gameObject.GetComponent<EnemyScript>().doDmg(thisData.damage);
                 Destroy(gameObject);
                 return;
             }
-            if (coll.gameObject.CompareTag("Breakable"))
+            
+            if (col.gameObject.CompareTag("Breakable"))
             {
-                Destroy(coll.gameObject);
+                Destroy(col.gameObject);
                 return;
             }
         }
