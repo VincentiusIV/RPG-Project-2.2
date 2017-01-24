@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     public float speedMultiplier;
 
     // Public & Hidden Variables
-    [HideInInspector]public bool canPlay;
     
     // Serialized & Private Variables
     [SerializeField] private GameObject hotbar;
@@ -17,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject aim;
 
     // Private Reference Variables
+    private ButtonFunctionality userInterface;
     private WeaponScript weaponSlot;
     [SerializeField]private WeaponScript[] magicSlots;
 
@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        userInterface = GameObject.FindWithTag("UI").GetComponent<ButtonFunctionality>();
         //playerStats.doDamage(50, ElementType.fire);
         rig = GetComponent<Rigidbody2D>();
         ren = GetComponent<SpriteRenderer>();
@@ -45,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (canPlay)
+        if (userInterface.canPlay)
         {
             // Hotbar
             if(Input.GetButtonDown("X360_LeftButton"))
@@ -67,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
                     weaponSlot.Attack();
             }
         }
-        else if (!canPlay)
+        else if (!userInterface.canPlay)
             rig.velocity = Vector3.zero;
 
         // Slows player
@@ -75,7 +76,8 @@ public class PlayerMovement : MonoBehaviour
     }
     
     void FixedUpdate(){
-        if(canPlay){
+        if(userInterface.canPlay)
+        {
             // Rotation with controller
             float angleRad = Mathf.Atan2(aim.transform.position.y - transform.position.y, aim.transform.position.x - transform.position.x);
             float angleDeg = (180 / Mathf.PI) * angleRad;

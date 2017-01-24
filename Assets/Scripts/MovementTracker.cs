@@ -15,6 +15,9 @@ public class MovementTracker : MonoBehaviour {
 
     void Start()
     {
+        if(target == null)
+            target = this.gameObject;
+
         track = true;
         trackedPositions.Add(new Node(0, target.transform.position));
         StartCoroutine(Tracking());

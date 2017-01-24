@@ -30,13 +30,6 @@ public class BulletScript : MonoBehaviour
             {
                 Debug.Log("hithihtihtihithitihtihit");
             }
-            if (col.gameObject.CompareTag("AI"))
-            {
-                Debug.Log("destroyed " + gameObject.name);
-                col.gameObject.GetComponent<EnemyScript>().doDmg(thisData.damage);
-                Destroy(gameObject);
-                return;
-            }
             
             if (col.gameObject.CompareTag("Breakable"))
             {

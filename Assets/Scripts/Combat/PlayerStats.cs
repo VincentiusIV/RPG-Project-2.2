@@ -7,6 +7,7 @@ public class PlayerStats
 {
     public bool worldSpaceBar;
     public GameObject hpBar;
+    public DmgToScreen dmgText;
 
     public int power;
     public int defence;
@@ -16,6 +17,11 @@ public class PlayerStats
     public Resistance[] resistances;
 
     private float barLength = 0;
+
+    void Awake()
+    {
+        dmgText = GameObject.Find("DamageNumber").GetComponent<DmgToScreen>();
+    }
 
     public void doDamage(float amount, ElementType ele)
     {
@@ -28,14 +34,15 @@ public class PlayerStats
         Debug.Log("new Dmg= " + dmg);
         hp -= dmg;
         if (hp <= 0)
-        {
             hp = 0;
-        }
 
         if (!worldSpaceBar)
             UpdateHealth();
         else if (worldSpaceBar)
             UpdateWorldSpaceHealth();
+
+        // show damage in game
+        dmgText.ShowDmg(dmg, hpBar.transform.position);
     }
 
     public void doHeal(int amount)

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyScript : MonoBehaviour {
+public class EnemyScript : MonoBehaviour
+{
     [SerializeField] private bool isRanged;
     [SerializeField] private GameObject bulletPreFab;
     [SerializeField] private GameObject bulletSpawnPoint;
@@ -34,11 +35,6 @@ public class EnemyScript : MonoBehaviour {
     void Update() {
         //movement & combat
         if (seesPlayer && inRange && isRanged){
-            //turning
-            float angleRad = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
-            float angleDeg = (180 / Mathf.PI) * angleRad;
-            transform.rotation = Quaternion.Euler(0, 0, angleDeg);
-            transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
             //shooting
             shootTime += ((1f / 60f) * 100) * firingSpeedPerSec;
             if (shootTime >= 100){
@@ -46,12 +42,8 @@ public class EnemyScript : MonoBehaviour {
                 shootTime = 0f;
             }
         }
-        if (seesPlayer && !isRanged){
-            //turning
-            float angleRad = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
-            float angleDeg = (180 / Mathf.PI) * angleRad;
-            transform.rotation = Quaternion.Euler(0, 0, angleDeg);
-            transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
+        if (seesPlayer && !isRanged)
+        { 
             //moving
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime);
         }
@@ -87,7 +79,7 @@ public class EnemyScript : MonoBehaviour {
             SpawnLoot(1);
             Destroy(gameObject);
         }
-        /*if (inRange && seesPlayer && isRanged && !tooCloseToPlayer) {
+        if (inRange && seesPlayer && isRanged && !tooCloseToPlayer) {
             direction = transform.position - player.transform.position;
             direction.Normalize();
             transform.Translate((direction * Time.deltaTime) * movementSpeed);
@@ -98,16 +90,12 @@ public class EnemyScript : MonoBehaviour {
             direction.Normalize();
             transform.Translate((direction * Time.deltaTime) * movementSpeed);
             Debug.Log("Enemy: (should be true)" + tooCloseToPlayer);
-        }*/
+        }
         if (followCounter >= 0) {
             followCounter -= Time.deltaTime;
         }
         if (followCounter > 0){
             //turning
-            float angleRad = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
-            float angleDeg = (180 / Mathf.PI) * angleRad;
-            transform.rotation = Quaternion.Euler(0, 0, angleDeg);
-            transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
             //moving
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime);
         }

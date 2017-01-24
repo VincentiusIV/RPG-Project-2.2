@@ -8,6 +8,8 @@ public class ButtonFunctionality : MonoBehaviour
     [SerializeField]private Animator ani;
     public GameObject[] uiPanels;
 
+    public bool canPlay;
+
     void Start()
     {
         for (int i = 1; i < 4; i++)
@@ -15,7 +17,7 @@ public class ButtonFunctionality : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(false);
         }
         player = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
-        player.canPlay = true;
+        canPlay = true;
     }
 
     public void Update()
@@ -92,7 +94,7 @@ public class ButtonFunctionality : MonoBehaviour
 
             if (!CheckForActivePanel())
             {
-                player.canPlay = true;
+                canPlay = true;
                 Camera.main.GetComponent<CameraMovements>().SetTarget(true);
             }
         }
@@ -101,7 +103,7 @@ public class ButtonFunctionality : MonoBehaviour
             obj.SetActive(true);
 
             if (CheckForActivePanel())
-                player.canPlay = false;
+                canPlay = false;
             
         }
     }
@@ -118,17 +120,15 @@ public class ButtonFunctionality : MonoBehaviour
 
     public IEnumerator FadeIn()
     {
-        player.canPlay = false;
-        Debug.Log("Fading in");
+        canPlay = false;
         ani.SetBool("Fade", true);
         yield return new WaitForSeconds(1f);
     }
 
     public IEnumerator FadeOut()
     {
-        Debug.Log("Fading out");
         ani.SetBool("Fade", false);
         yield return new WaitForSeconds(1f);
-        player.canPlay = true;
+        canPlay = true;
     }
 }
