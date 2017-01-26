@@ -10,6 +10,7 @@ public class DmgToScreen : MonoBehaviour {
     {
         GameObject newText = Instantiate(text, Camera.main.WorldToScreenPoint(worldPos), Quaternion.identity) as GameObject;
         newText.GetComponent<Text>().text = dmg.ToString();
-
+        newText.transform.SetParent(transform);
+        Destroy(newText, .5f);
     }
 }

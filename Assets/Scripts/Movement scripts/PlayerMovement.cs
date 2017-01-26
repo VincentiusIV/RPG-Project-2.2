@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rig;
     private Vector2 movement;
     private SpriteRenderer ren;
+    private Animator ani;
 
     private int currentSelection;
 
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        ani = GetComponent<Animator>();
         userInterface = GameObject.FindWithTag("UI").GetComponent<ButtonFunctionality>();
         //playerStats.doDamage(50, ElementType.fire);
         rig = GetComponent<Rigidbody2D>();
@@ -56,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
             // Aiming
             float rStickH = Input.GetAxis("X360_RStickX");
             float rStickV = Input.GetAxis("X360_RStickY");
+
             aim.transform.position = new Vector3(transform.position.x + rStickH, transform.position.y + rStickV, 0f);
             
             // Weapon
@@ -75,20 +78,37 @@ public class PlayerMovement : MonoBehaviour
         speedMultiplier = slowAmount / 100;
     }
     
-    void FixedUpdate(){
+    void FixedUpdate()
+    {
+        float xPos = 0;
+        float yPos = 0;
+
         if(userInterface.canPlay)
         {
             // Rotation with controller
             float angleRad = Mathf.Atan2(aim.transform.position.y - transform.position.y, aim.transform.position.x - transform.position.x);
             float angleDeg = (180 / Mathf.PI) * angleRad;
-            transform.rotation = Quaternion.Euler(0, 0, angleDeg);
+            //transform.rotation = Quaternion.Euler(0, 0, angleDeg);
             transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
 
             // Movement
-            float xPos = Input.GetAxis("X360_LStickX") * moveSpeed.x / 10;
-            float yPos = Input.GetAxis("X360_LStickY") * moveSpeed.y / 10;
+            xPos = Input.GetAxis("X360_LStickX") * moveSpeed.x / 10;
+            yPos = Input.GetAxis("X360_LStickY") * moveSpeed.y / 10;
             Vector3 movement = new Vector3(xPos, yPos, 0f);
             rig.velocity = movement * speedMultiplier;
+        }
+
+        // Animator
+        bool isWalking = true;
+        if (Mathf.Abs(xPos) + Mathf.Abs(yPos) > 0)
+            isWalking = true;
+        else isWalking = false;
+
+        ani.SetBool("isWalking", isWalking);
+        if (isWalking)
+        {
+            ani.SetFloat("X", xPos);
+            ani.SetFloat("Y", yPos);
         }
     }
 

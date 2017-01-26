@@ -34,7 +34,10 @@ public class PlayerStats
         Debug.Log("new Dmg= " + dmg);
         hp -= dmg;
         if (hp <= 0)
+        {
             hp = 0;
+        }
+            
 
         if (!worldSpaceBar)
             UpdateHealth();

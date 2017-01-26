@@ -13,7 +13,7 @@ public class CameraMovements : MonoBehaviour
 
     void Start()
     {
-        GetComponent<Camera>().orthographicSize = (Screen.height / pixelToUnits) / 2;
+        //GetComponent<Camera>().orthographicSize = (Screen.height / pixelToUnits) / 2;
         target = playerTarget;
     }
     void FixedUpdate()

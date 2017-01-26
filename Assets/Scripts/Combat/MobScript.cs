@@ -21,10 +21,11 @@ public class MobScript : MonoBehaviour {
     private ButtonFunctionality bf;
 
     private bool inCombat;
-
+    private bool isAlive;
 
     void Start ()
     {
+        isAlive = true;
         bf = GameObject.FindWithTag("UI").GetComponent<ButtonFunctionality>();
         db = GameObject.FindWithTag("Inventory").GetComponent<DatabaseHandler>();
         player = GameObject.FindWithTag("Player");
@@ -44,13 +45,15 @@ public class MobScript : MonoBehaviour {
     public void HealthCheck()
     {
         // Regeneration when out of combat
-        if (enemyStats.hp < enemyStats.maxHP && enemyStats.hp > 0 && !inCombat)
+        /*if (enemyStats.hp < enemyStats.maxHP && enemyStats.hp > 0 && !inCombat)
         {
             enemyStats.hp += enemyStats.maxHP / 10;
-        }
-        if (enemyStats.hp <= 0)
+        }*/
+        if (enemyStats.hp <= 0 && isAlive)
         {
-            Instantiate(lootBox, transform, true);
+            isAlive = false;
+            Instantiate(lootBox, transform.position, Quaternion.identity);
+            lootBox.GetComponent<NPCdata>().Initialise();
             Destroy(gameObject);
         }
     }

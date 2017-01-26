@@ -23,9 +23,14 @@ public class NPCdata : MonoBehaviour
     private GameObject slotPanel;
     private GameObject notification;
 
-    private bool canTrade;
+    [SerializeField]private bool canTrade;
 
     void Start()
+    {
+        Initialise();
+    }
+    // Put into a public function so when lootboxes are spawned it still acquires the references
+    public void Initialise()
     {
         notification = transform.GetChild(0).gameObject;
         notification.SetActive(false);
@@ -41,9 +46,10 @@ public class NPCdata : MonoBehaviour
 
         ui = GameObject.Find("UI").GetComponent<ButtonFunctionality>();
 
-        if(isMerchant)
+        if (isMerchant)
         {
-            merchantPanel = GameObject.Find("Merchant_Inventory_Panel");
+            merchantPanel = GameObject.Find("UI").GetComponent<ButtonFunctionality>().uiPanels[1];
+            Debug.Log("merchant panel on " + gameObject.name + " is " + merchantPanel);
             slotPanel = merchantPanel.transform.FindChild("Merchant_Slot_Panel").gameObject;
             canTrade = false;
         }
@@ -87,12 +93,11 @@ public class NPCdata : MonoBehaviour
         {
             Destroy(slotPanel.transform.GetChild(i).gameObject);
         }
+        ui.SwitchActive("Merchant_Inventory_Panel");
+        ui.SwitchActive("Inventory_Panel");
 
         for (int i = 0; i < invData.Length; i++)
         {
-            ui.SwitchActive("Merchant_Inventory_Panel");
-            ui.SwitchActive("Inventory_Panel");
-
             if(merchantPanel.activeInHierarchy)
             {
                 Item itemToAdd = db.FetchItemByID(invData[i].id);

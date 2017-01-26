@@ -43,7 +43,7 @@ public class MeleeScript : MonoBehaviour
             {
                 enemyRB.isKinematic = false;
                 Vector3 forceDirection = (player.position + col.transform.position) / 2;
-                Debug.DrawRay(col.transform.position, forceDirection);
+                Debug.DrawRay(col.transform.position, forceDirection.normalized);
                 enemyRB.velocity = -forceDirection * 5;
                 yield return new WaitForSeconds(.5f);
                 enemyRB.velocity = Vector3.zero;

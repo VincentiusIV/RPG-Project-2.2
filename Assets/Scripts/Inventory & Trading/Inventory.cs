@@ -130,13 +130,13 @@ public class Inventory : MonoBehaviour
         if (itemToEquip.Stackable == false)
         {
             int equipSlotID = slotID - slotAmount;
-            GameObject weapon = hand.transform.GetChild(equipSlotID).gameObject;
+            GameObject weapon = player.transform.GetChild(0).GetChild(equipSlotID).gameObject;
             weapon.tag = itemToEquip.Type;
             
             weapon.name = itemToEquip.Title;
 
             WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
-            
+            Debug.Log("wepscript = " + wepScript + " slot id"+ equipSlotID);
             wepScript.melee = new Melee(database.StringToElement(itemToEquip.MeleeElement),
                                          itemToEquip.Power,
                                          itemToEquip.MeleeAttackSpeed,
