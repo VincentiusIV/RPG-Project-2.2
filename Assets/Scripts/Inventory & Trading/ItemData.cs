@@ -19,7 +19,7 @@ public class ItemData : MonoBehaviour
     {
         e = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         InfoPanel = transform.parent.parent.parent.FindChild("Info_Panel").gameObject;
-        TextPanel = transform.parent.parent.parent.FindChild("Info_Panel").FindChild("Text_Panel").gameObject;
+        TextPanel = transform.parent.parent.parent.FindChild("Info_Panel").gameObject;
         InfoPanel.SetActive(false);
         inv = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
     }
@@ -54,7 +54,7 @@ public class ItemData : MonoBehaviour
             else
             {
                 Debug.LogError("Cannot move item there because it is not a slot");
-                Debug.Log("slotID was:" + slotID);
+                //Debug.Log("slotID was:" + slotID);
                 inv.EndMovingItem(inv.SearchForEmptySlot());
                 inv.slots[slotID].GetComponent<Slot>().containsItem = true;
                 canDrag = false;

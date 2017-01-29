@@ -119,7 +119,7 @@ public class Inventory : MonoBehaviour
     public void EquipItem(int id, int slotID)
     {
         Item itemToEquip = database.FetchItemByID(id);
-        Debug.Log("equipping... "+itemToEquip.Title + " " + itemToEquip.Slug);
+        //Debug.Log("equipping... "+itemToEquip.Title + " " + itemToEquip.Slug);
 
         if (itemToEquip == null || itemToEquip.Type == "Items")
         {
@@ -136,7 +136,7 @@ public class Inventory : MonoBehaviour
             weapon.name = itemToEquip.Title;
 
             WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
-            Debug.Log("wepscript = " + wepScript + " slot id"+ equipSlotID);
+            //Debug.Log("wepscript = " + wepScript + " slot id"+ equipSlotID);
             wepScript.melee = new Melee(database.StringToElement(itemToEquip.MeleeElement),
                                          itemToEquip.Power,
                                          itemToEquip.MeleeAttackSpeed,
@@ -169,7 +169,7 @@ public class Inventory : MonoBehaviour
         else if (shouldUnequip && itemToMove.item.Type == "Magic")
             EquipItem(98, movingItem.slotID);
 
-        movingItem.transform.SetParent(movingItem.transform.parent.parent);
+        movingItem.transform.SetParent(movingItem.transform.parent.parent.parent);
         movingItem.OnControllerDrag();
     }
 

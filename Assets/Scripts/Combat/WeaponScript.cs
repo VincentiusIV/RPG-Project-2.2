@@ -15,7 +15,7 @@ public class WeaponScript : MonoBehaviour
     private string wepName;
     private SpriteRenderer sr; // change this to animator in the future
 
-    private PlayerStats ps; // maybe not needed if dmg is calculated beforehand
+    private CombatStats ps; // maybe not needed if dmg is calculated beforehand
     private GameObject spawnPos;
 
     private CircleCollider2D destroyRange;

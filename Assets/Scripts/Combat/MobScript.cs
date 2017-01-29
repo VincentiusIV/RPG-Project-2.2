@@ -5,7 +5,7 @@ public class MobScript : MonoBehaviour {
 
     // Public Variables
     public int npcID;
-    public PlayerStats enemyStats;
+    public CombatStats enemyStats;
     public float moveSpeed;
 
     // Public & Hidden

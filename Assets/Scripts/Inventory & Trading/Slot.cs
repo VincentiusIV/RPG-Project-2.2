@@ -18,7 +18,7 @@ public class Slot : MonoBehaviour, ISelectHandler, IDeselectHandler
     // Called when a slot is pressed
     public void OnControllerPress()
     {
-        Debug.Log("slot " + id + " contains item = " + containsItem);
+        //Debug.Log("slot " + id + " contains item = " + containsItem);
         bool shouldUnequip = false;
         if (containsItem && type == SlotType.weaponEquip || containsItem && type == SlotType.magicEquip)
             shouldUnequip = true;

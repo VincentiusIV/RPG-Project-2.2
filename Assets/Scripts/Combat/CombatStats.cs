@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 [System.Serializable]
-public class PlayerStats
+public class CombatStats
 {
     public bool worldSpaceBar;
     public GameObject hpBar;

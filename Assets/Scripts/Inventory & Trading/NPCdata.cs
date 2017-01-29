@@ -49,7 +49,6 @@ public class NPCdata : MonoBehaviour
         if (isMerchant)
         {
             merchantPanel = GameObject.Find("UI").GetComponent<ButtonFunctionality>().uiPanels[1];
-            Debug.Log("merchant panel on " + gameObject.name + " is " + merchantPanel);
             slotPanel = merchantPanel.transform.FindChild("Merchant_Slot_Panel").gameObject;
             canTrade = false;
         }
@@ -76,14 +75,17 @@ public class NPCdata : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D col)
     {
-        canTrade = false;
-
-        if(notification.activeInHierarchy)
-            notification.SetActive(false);
-        else if(merchantPanel.activeInHierarchy)
+        if(col.CompareTag("Player"))
         {
-            ui.SwitchActive("Merchant_Inventory_Panel");
-            ui.SwitchActive("Inventory_Panel");
+            canTrade = false;
+
+            if (notification.activeInHierarchy)
+                notification.SetActive(false);
+            else if (merchantPanel.activeInHierarchy)
+            {
+                ui.SwitchActive("Merchant_Inventory_Panel");
+                ui.SwitchActive("Inventory_Panel");
+            }
         }
     }
 

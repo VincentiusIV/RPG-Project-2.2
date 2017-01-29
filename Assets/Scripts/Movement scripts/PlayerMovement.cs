@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     // Public Variables
-    public PlayerStats playerStats;
+    public CombatStats playerStats;
     public float speedMultiplier;
 
     // Public & Hidden Variables
@@ -88,7 +88,6 @@ public class PlayerMovement : MonoBehaviour
             // Rotation with controller
             float angleRad = Mathf.Atan2(aim.transform.position.y - transform.position.y, aim.transform.position.x - transform.position.x);
             float angleDeg = (180 / Mathf.PI) * angleRad;
-            //transform.rotation = Quaternion.Euler(0, 0, angleDeg);
             transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
 
             // Movement
@@ -147,14 +146,25 @@ public class PlayerMovement : MonoBehaviour
         slowAmount = amount;
     }
 
-    private void OnTriggerEnter(Collider col){
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.CompareTag("Drone"))
+        {
+            col.GetComponent<DroneAI>().reachedPlayer = true;
+        }
         if (col.transform.gameObject.tag == "AI") {
             col.gameObject.GetComponent<EnemyScript>().ChangetooCloseToPlayer();
             Debug.Log("Player: (should be true)" + GetComponent<EnemyScript>().tooCloseToPlayer);
         }
     }
 
-    private void OnTriggerExit(Collider col){
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.CompareTag("Drone"))
+        {
+            col.GetComponent<DroneAI>().reachedPlayer = false;
+        }
+
         if (col.transform.gameObject.tag == "AI"){
             col.gameObject.GetComponent<EnemyScript>().ChangetooCloseToPlayer();
             Debug.Log("Player: (should be false)" + GetComponent<EnemyScript>().tooCloseToPlayer);

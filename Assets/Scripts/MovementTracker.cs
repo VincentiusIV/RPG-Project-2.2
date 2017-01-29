@@ -11,7 +11,7 @@ public class MovementTracker : MonoBehaviour {
     public bool track;
 
     // Storing positions
-    public List<Node> trackedPositions;
+    public List<NodePosition> trackedPositions;
 
     void Start()
     {
@@ -19,7 +19,7 @@ public class MovementTracker : MonoBehaviour {
             target = this.gameObject;
 
         track = true;
-        trackedPositions.Add(new Node(0, target.transform.position));
+        trackedPositions.Add(new NodePosition(0, target.transform.position));
         StartCoroutine(Tracking());
     }
 	
@@ -27,7 +27,7 @@ public class MovementTracker : MonoBehaviour {
     {
         while(track)
         {
-            Node nodeToAdd = new Node(trackedPositions.Count, target.transform.position);
+            NodePosition nodeToAdd = new NodePosition(trackedPositions.Count, target.transform.position);
             trackedPositions.Add(nodeToAdd);
             if (trackedPositions.Count > amountOfTicks)
                 trackedPositions.RemoveAt(0);
@@ -42,12 +42,12 @@ public class MovementTracker : MonoBehaviour {
 	}
 }
 [System.Serializable]
-public class Node
+public class NodePosition
 {
     public Vector2 position;
     private int count;
 
-    public Node(int count, Vector2 position)
+    public NodePosition(int count, Vector2 position)
     {
         this.count = count;
         this.position = position;
