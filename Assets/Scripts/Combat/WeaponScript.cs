@@ -85,9 +85,10 @@ public class WeaponScript : MonoBehaviour
 
     void RangedAttack()
     {
-        Debug.Log("Ranged Attack with "+gameObject.name);
+        
         if (Time.time > nextShot)
         {
+            Debug.Log("Ranged Attack with " + gameObject.name);
             nextShot = Time.time + (float)projectile.attackSpeed / 10;
 
             spawnPos = transform.FindChild("ProjectileSpawnPoint").gameObject;
@@ -97,6 +98,7 @@ public class WeaponScript : MonoBehaviour
 
             if (projectileGO != null && spawnPos != null)
                 Instantiate(projectileGO, spawnPos.transform.position, spawnPos.transform.rotation);
+            else Debug.LogError("cant shoot, either projectile or spawnpos is null");
         }
     }
     

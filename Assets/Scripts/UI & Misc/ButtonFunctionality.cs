@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-
+using UnityEngine.EventSystems;
 public class ButtonFunctionality : MonoBehaviour
 {
     private PlayerMovement player;
@@ -10,8 +10,11 @@ public class ButtonFunctionality : MonoBehaviour
 
     public bool canPlay;
 
+    private EventSystem e;
+
     void Start()
     {
+        e = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         for (int i = 1; i < 4; i++)
         {
             transform.GetChild(i).gameObject.SetActive(false);
@@ -26,6 +29,7 @@ public class ButtonFunctionality : MonoBehaviour
         if (Input.GetButtonDown("Inventory"))
         {
             SwitchActive("Inventory_Panel");
+            e.SetSelectedGameObject(uiPanels[0].transform.GetChild(0).GetChild(0).gameObject);
         }
         if (Input.GetButtonDown("Cancel"))
         {

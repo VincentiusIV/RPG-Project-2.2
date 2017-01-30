@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class AStarPathfinding : MonoBehaviour {
 
-    public Transform seeker, target;
+    public int maxAmountOfPaths;
+    public int AmountOfPathsBeingCalculated;
 
     Grid grid;
 
@@ -13,13 +14,15 @@ public class AStarPathfinding : MonoBehaviour {
         grid = GetComponent<Grid>();
     }
 
-    void Update()
+    public List<Node> FindPath(Vector3 startPos, Vector3 targetPos)
     {
-        FindPath(seeker.position, target.position);
-    }
+        if(AmountOfPathsBeingCalculated >= maxAmountOfPaths)
+        {
+            Debug.LogError("Too many paths are being calculated: "+AmountOfPathsBeingCalculated);
+            return new List<Node>();
+        }
+        AmountOfPathsBeingCalculated += 1;
 
-	void FindPath(Vector3 startPos, Vector3 targetPos)
-    {
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
 
@@ -43,8 +46,8 @@ public class AStarPathfinding : MonoBehaviour {
 
             if(currentNode == targetNode)
             {
-                RetracePath(startNode, currentNode);
-                return;
+                AmountOfPathsBeingCalculated -= 1;
+                return RetracePath(startNode, currentNode);
             }
 
             foreach(Node neighbour in grid.GetNeighbours(currentNode))
@@ -52,10 +55,10 @@ public class AStarPathfinding : MonoBehaviour {
                 if (!neighbour.walkable || closedSet.Contains(neighbour))
                     continue;
 
-                int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
-                if(newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
+                int newMoveCostG = currentNode.gCost + GetDistance(currentNode, neighbour);
+                if(newMoveCostG < neighbour.gCost || !openSet.Contains(neighbour))
                 {
-                    neighbour.gCost = newMovementCostToNeighbour;
+                    neighbour.gCost = newMoveCostG;
                     neighbour.hCost = GetDistance(neighbour, targetNode);
                     neighbour.parent = currentNode;
 
@@ -66,13 +69,26 @@ public class AStarPathfinding : MonoBehaviour {
                 }
             }
         }
+        Debug.LogError("Could not find path");
+        AmountOfPathsBeingCalculated -= 1;
+        return new List<Node>();
     }
 
-    void RetracePath(Node startNode, Node endNode)
+    List<Node> RetracePath(Node startNode, Node endNode)
     {
         List<Node> path = new List<Node>();
         Node currentNode = endNode;
 
+        // If two objects are already on the same node
+        if(startNode == endNode)
+        {
+            Debug.LogError("Startnode equal to endnode");
+            List<Node> neighbors = grid.GetNeighbours(startNode);
+
+            int index = Random.Range(0, neighbors.Count);
+            path.Add(grid.nodeGrid[neighbors[index].gridX, neighbors[index].gridY]);
+            return path;
+        }
         while (currentNode != startNode)
         {
             path.Add(currentNode);
@@ -81,6 +97,7 @@ public class AStarPathfinding : MonoBehaviour {
 
         path.Reverse();
         grid.path = path;
+        return path;
     }
 
     int GetDistance(Node a, Node b)

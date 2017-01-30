@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DroneAI : MonoBehaviour
 {
-    private Transform targetToFollow;
+    public Transform targetToFollow;
     public Vector3 targetOffset;
     public float followDelay;
     public float moveSpeed;

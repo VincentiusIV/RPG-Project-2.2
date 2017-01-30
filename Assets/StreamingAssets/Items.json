@@ -18,12 +18,12 @@
   "Description"      : "This sword is made out of flaming silver",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "sword_silver"
+  "Slug"             : "sabre_silver"
  },
  {
   "ID" : 1,
   "Type" : "Weapon",
-  "Title" : "Bronze Gloves of Water",
+  "Title" : "Pistol Of Hazard",
   "Value" : 0,
   "Power" : 11,
   "Defence" : 1,
@@ -31,14 +31,14 @@
   "MeleeAttackSpeed" : 0,
   "MeleeAttackRange" : 0,
   "MeleeElement"     : "none",
-  "RangeAttackSpeed" : 1,
-  "RangeAttackRange" : 10,
-  "RangeBulletSpeed" : 1.0,
-  "RangeElement"     : "water",
-  "Description"      : "this glove is made of bronze",
+  "RangeAttackSpeed" : 2,
+  "RangeAttackRange" : 100,
+  "RangeBulletSpeed" : 0.3,
+  "RangeElement"     : "aether",
+  "Description"      : "A unique aetherized pistol",
   "Stackable"        : false,
-  "Rarity"           : 0,
-  "Slug"             : "bronze_gloves"
+  "Rarity"           : 20,
+  "Slug"             : "pistol"
  },
  {
   "ID" : 2,
@@ -503,7 +503,7 @@
  {
   "ID" : 25,
   "Type" : "Items",
-  "Title" : "default",
+  "Title" : "Voltz",
   "Value" : 0,
   "Power" : 0,
   "Defence" : 0,
@@ -515,8 +515,8 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
-  "Description"      : "default",
-  "Stackable"        : false,
+  "Description"      : "This is a sparky currency",
+  "Stackable"        : true,
   "Rarity"           : 0,
   "Slug"             : "default_slug"
  },

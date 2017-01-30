@@ -84,9 +84,6 @@ public class BirdAI : MonoBehaviour {
             nearBirds.Add(col.gameObject);
             UpdateVelocity();
         }
-            
-        if (col.CompareTag("Wall"))
-            velocity = -velocity;
     }
 
     void OnTriggerExit2D(Collider2D col)

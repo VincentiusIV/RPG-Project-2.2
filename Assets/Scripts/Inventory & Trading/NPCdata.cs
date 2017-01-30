@@ -40,8 +40,8 @@ public class NPCdata : MonoBehaviour
         if (id != -1)
         {
             thisNPC = db.FetchItemByID(id);
-            Sprite spriteData = Resources.Load<Sprite>("Sprites/" + thisNPC.Type + "/" + thisNPC.Slug);
-            GetComponent<SpriteRenderer>().sprite = spriteData;
+            //Sprite spriteData = Resources.Load<Sprite>("Sprites/" + thisNPC.Type + "/" + thisNPC.Slug);
+            //GetComponent<SpriteRenderer>().sprite = spriteData;
         }
 
         ui = GameObject.Find("UI").GetComponent<ButtonFunctionality>();

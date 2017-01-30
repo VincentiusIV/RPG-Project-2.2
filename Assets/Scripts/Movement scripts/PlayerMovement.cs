@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movement;
     private SpriteRenderer ren;
     private Animator ani;
+    private GameController gc;
 
     private int currentSelection;
 
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         //playerStats.doDamage(50, ElementType.fire);
         rig = GetComponent<Rigidbody2D>();
         ren = GetComponent<SpriteRenderer>();
+        gc = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         hotbar.transform.GetChild(0).GetComponent<Image>().sprite = hotbarSprites[0];
 
         GetWeapon();
@@ -70,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
                 if (Input.GetAxis("X360_Triggers") > 0)
                     weaponSlot.Attack();
             }
+
+            CheckHealth();
         }
         else if (!userInterface.canPlay)
             rig.velocity = Vector3.zero;
@@ -126,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
     {
         weaponSlot = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
     }
+
     public void GetMagic(int spot, Sprite icon)
     {
         magicSlots[spot - 1] = transform.GetChild(0).GetChild(spot).GetComponent<WeaponScript>();
@@ -138,6 +143,21 @@ public class PlayerMovement : MonoBehaviour
             hotbar.transform.GetChild(spot - 1).GetChild(0).GetComponent<Image>().sprite = icon;
         }
             
+    }
+
+    void CheckHealth()
+    {
+        if(playerStats.hp <= 0)
+        {
+            Debug.Log("Player died");
+            // death animation?
+            // fade to black
+            StartCoroutine(gc.RespawnPlayer());
+            // reset health
+            // respawn
+            
+        
+        }
     }
     
     // Function that slows the player based on the given amount
@@ -165,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
             col.GetComponent<DroneAI>().reachedPlayer = false;
         }
 
-        if (col.transform.gameObject.tag == "AI"){
+        if (col.CompareTag("AI")){
             col.gameObject.GetComponent<EnemyScript>().ChangetooCloseToPlayer();
             Debug.Log("Player: (should be false)" + GetComponent<EnemyScript>().tooCloseToPlayer);
         }

@@ -10,7 +10,7 @@ public class Grid : MonoBehaviour {
     public Vector2 gridWorldSize;
     // space each node covers
     public float nodeRadius;
-    Node[,] grid;
+    public Node[,] nodeGrid;
 
     float nodeDiameter;
     int gridSizeX, gridSizeY;
@@ -26,15 +26,14 @@ public class Grid : MonoBehaviour {
 
     void CreateGrid()
     {
-        grid = new Node[gridSizeX, gridSizeY];
-        Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
+        nodeGrid = new Node[gridSizeX, gridSizeY];
 
         for (int x = 0; x < gridSizeX; x++)
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = new Vector3(transform.position.x, transform.position.y, 0f) + Vector3.right * (x * nodeDiameter) + Vector3.up * (y * nodeDiameter);
                 bool walkable = !(Physics2D.CircleCast(worldPoint, nodeRadius, Vector2.one, 1, unwalkableLayer));
-                grid[x, y] = new Node(walkable, worldPoint, x, y);
+                nodeGrid[x, y] = new Node(walkable, worldPoint, x, y);
             }
     }
 
@@ -53,7 +52,7 @@ public class Grid : MonoBehaviour {
 
                 if(checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
-                    neighbours.Add(grid[checkX, checkY]);
+                    neighbours.Add(nodeGrid[checkX, checkY]);
                 }
             }
 
@@ -74,7 +73,8 @@ public class Grid : MonoBehaviour {
         */
         int x = Mathf.RoundToInt(worldPos.x - transform.position.x);
         int y = Mathf.RoundToInt(worldPos.y - transform.position.y);
-        return grid[x, y];
+        //Debug.Log("x " + x + " y " + y);
+        return nodeGrid[x, y];
     }
 
     public List<Node> path;
@@ -83,12 +83,12 @@ public class Grid : MonoBehaviour {
         Vector3 center = transform.position + Vector3.right * gridWorldSize.x / 2 + Vector3.up  * gridWorldSize.y / 2 + -Vector3.one * nodeRadius;
         Gizmos.DrawWireCube(center, new Vector3(gridWorldSize.x, gridWorldSize.y,0));
 
-        if (grid != null)
+        if (nodeGrid != null)
         {
             Node playerNode = NodeFromWorldPoint(player.position);
             Node targetNode = NodeFromWorldPoint(target.position);
 
-            foreach (Node node in grid)
+            foreach (Node node in nodeGrid)
             {
                 Gizmos.color = (node.walkable) ? Color.white : Color.red;
                 if (path != null)

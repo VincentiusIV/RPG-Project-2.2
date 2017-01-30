@@ -38,4 +38,12 @@ public class BulletScript : MonoBehaviour
             }
         }
     }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if(col.CompareTag("DestroyRange"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }

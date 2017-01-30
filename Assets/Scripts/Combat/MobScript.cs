@@ -6,6 +6,9 @@ public class MobScript : MonoBehaviour {
     // Public Variables
     public int npcID;
     public CombatStats enemyStats;
+    public ElementType attackElement;
+    public float attackSpeed;
+
     public float moveSpeed;
 
     // Public & Hidden
@@ -14,7 +17,6 @@ public class MobScript : MonoBehaviour {
     // Serialized Private Variables
     [SerializeField]private GameObject lootBox;
     [SerializeField]private InventoryData[] lootItemIDs;
-
 
     private DatabaseHandler db;
     private GameObject player;
@@ -42,13 +44,13 @@ public class MobScript : MonoBehaviour {
             HealthCheck();
     }
 
+    public void StopAttackAnimation()
+    {
+        GetComponent<Animator>().SetBool("isAttacking", false);
+    }
+
     public void HealthCheck()
     {
-        // Regeneration when out of combat
-        /*if (enemyStats.hp < enemyStats.maxHP && enemyStats.hp > 0 && !inCombat)
-        {
-            enemyStats.hp += enemyStats.maxHP / 10;
-        }*/
         if (enemyStats.hp <= 0 && isAlive)
         {
             isAlive = false;
@@ -57,9 +59,6 @@ public class MobScript : MonoBehaviour {
             Destroy(gameObject);
         }
     }
-    
-
-
     public void CheckToAttack()
     {
 
