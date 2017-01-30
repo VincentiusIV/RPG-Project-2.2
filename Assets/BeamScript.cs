@@ -50,7 +50,7 @@ public class BeamScript : MonoBehaviour {
             {
                 Debug.Log("Fire beam nananana");
                 beamLine.SetPosition(0, start);
-                beamLine.SetPosition(1, start - end * weaponRange);
+                beamLine.SetPosition(1, end);
             }
         }
 	}

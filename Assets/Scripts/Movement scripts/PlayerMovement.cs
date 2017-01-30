@@ -84,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
     
     void FixedUpdate()
     {
+        Vector2 oldPos = new Vector2(transform.position.x, transform.position.y); 
         float xPos = 0;
         float yPos = 0;
 
@@ -112,6 +113,15 @@ public class PlayerMovement : MonoBehaviour
         {
             ani.SetFloat("X", xPos);
             ani.SetFloat("Y", yPos);
+
+            if (xPos < 0)
+                xPos *= -1;
+            if (yPos < 0)
+                yPos *= -1;
+
+            if (xPos > yPos)
+                ani.speed = xPos;
+            else ani.speed = yPos * .45f;
         }
     }
 
