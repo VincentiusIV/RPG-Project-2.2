@@ -4,34 +4,41 @@ using System.Collections;
 using UnityEngine.EventSystems;
 public class ButtonFunctionality : MonoBehaviour
 {
+    private Cutscene cut;
     private PlayerMovement player;
     [SerializeField]private Animator ani;
     public GameObject[] uiPanels;
 
-    public bool canPlay;
+    [HideInInspector]public bool canPlay;
+    public bool isMainMenu;
 
     private EventSystem e;
 
     void Start()
     {
+        cut = GetComponent<Cutscene>();
         e = GameObject.Find("EventSystem").GetComponent<EventSystem>();
-        for (int i = 1; i < 4; i++)
+        if(!isMainMenu)
         {
-            transform.GetChild(i).gameObject.SetActive(false);
+            for (int i = 1; i < 4; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+            player = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
         }
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
+            
         canPlay = true;
     }
 
     public void Update()
     {
         //Menus
-        if (Input.GetButtonDown("Inventory"))
+        if (Input.GetButtonDown("Y_1"))
         {
             SwitchActive("Inventory_Panel");
             e.SetSelectedGameObject(uiPanels[0].transform.GetChild(0).GetChild(0).gameObject);
         }
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("B_1"))
         {
             for (int i = 0; i < uiPanels.Length; i++)
             {
@@ -43,7 +50,7 @@ public class ButtonFunctionality : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Escape"))
+        if (Input.GetButtonDown("Start_1"))
         {
             SwitchActive("Menu_Panel");
         }
@@ -53,6 +60,11 @@ public class ButtonFunctionality : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void PlayGame()
+    {
+        StartCoroutine(cut.ShowCutScene());
     }
 
     public void ExitGame()
@@ -99,7 +111,7 @@ public class ButtonFunctionality : MonoBehaviour
             if (!CheckForActivePanel())
             {
                 canPlay = true;
-                Camera.main.GetComponent<CameraMovements>().SetTarget(true);
+                if(!isMainMenu)Camera.main.GetComponent<CameraMovements>().SetTarget(true);
             }
         }
         else

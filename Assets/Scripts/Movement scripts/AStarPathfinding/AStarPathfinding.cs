@@ -82,7 +82,6 @@ public class AStarPathfinding : MonoBehaviour {
         // If two objects are already on the same node
         if(startNode == endNode)
         {
-            Debug.LogError("Startnode equal to endnode");
             List<Node> neighbors = grid.GetNeighbours(startNode);
 
             int index = Random.Range(0, neighbors.Count);

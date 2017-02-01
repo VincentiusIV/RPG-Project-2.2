@@ -4,26 +4,32 @@ using System.Collections;
 
 public class NPCdata : MonoBehaviour
 {
-// Public & Hidden Variables
+    // Public & Hidden Variables
     [HideInInspector]public Item thisNPC = new Item();
+    
 
-// Public Variables
+    // Public Variables
     public int id;
+    public bool isTalking;
     public bool isMerchant;
     public bool isLoot;
     public GameObject merchantSlot;
     public InventoryData[] invData;
+    public DialogueSection[] dialogue;
 
-// Private Variables
+    // Private Variables
     private DatabaseHandler db;
     private ButtonFunctionality ui;
 
-// Private UI objects
+    // Private UI objects
     private GameObject merchantPanel;
     private GameObject slotPanel;
     private GameObject notification;
+    [SerializeField]private GameObject dialoguePanel;
+    private int currentSelection;
 
     [SerializeField]private bool canTrade;
+    [SerializeField]private bool canTalk;
 
     void Start()
     {
@@ -52,6 +58,11 @@ public class NPCdata : MonoBehaviour
             slotPanel = merchantPanel.transform.FindChild("Merchant_Slot_Panel").gameObject;
             canTrade = false;
         }
+        if(isTalking)
+        {
+            dialoguePanel = GameObject.Find("Dialogue_Panel");
+            dialoguePanel.SetActive(false);
+        }
     }
 
     void OnTriggerStay2D(Collider2D col)
@@ -62,26 +73,48 @@ public class NPCdata : MonoBehaviour
             if (notification.activeInHierarchy == false)
                 notification.SetActive(true);
         }
+        else if (col.CompareTag("Player") && isTalking)
+            canTalk = true;
     }
 
     void Update()
     {
-        if(Input.GetButtonDown("Interact") && canTrade)
+        if (Input.GetButtonDown("A_1") && canTrade && !merchantPanel.activeInHierarchy)
         {
             Camera.main.GetComponent<CameraMovements>().SetTarget(false, transform.FindChild("CamTarget").gameObject);
             CreateMerchantInventory();
         }
+        else if (Input.GetButtonDown("A_1") && canTalk && !dialoguePanel.activeInHierarchy)
+        {
+            dialoguePanel.SetActive(true);
+            NextSection();
+        }
+        else if (Input.GetButtonDown("A_1") && canTalk && dialoguePanel.activeInHierarchy)
+            NextSection();
+    }
+
+    public void NextSection()
+    {
+        if (currentSelection > dialogue.Length -1)
+        {
+            currentSelection = 0;
+            dialoguePanel.SetActive(false);
+        }
+
+        dialoguePanel.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = dialogue[currentSelection].npcText;
+        dialoguePanel.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = dialogue[currentSelection].respondText;
+        currentSelection += 1;
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
         if(col.CompareTag("Player"))
         {
-            canTrade = false;
+            canTrade = canTalk = false;
 
             if (notification.activeInHierarchy)
                 notification.SetActive(false);
-            else if (merchantPanel.activeInHierarchy)
+            else if (isMerchant && merchantPanel.activeInHierarchy)
             {
                 ui.SwitchActive("Merchant_Inventory_Panel");
                 ui.SwitchActive("Inventory_Panel");
@@ -135,4 +168,11 @@ public struct InventoryData
 {
     public int id;
     public int amount;
+}
+
+[System.Serializable]
+public struct DialogueSection
+{
+    public string npcText;
+    public string respondText;
 }

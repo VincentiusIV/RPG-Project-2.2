@@ -4,19 +4,21 @@ using System.Collections;
 public class ElementScript : MonoBehaviour
 {
     // Public & Serialized Fields
+    public ElementType triggerElement;
     public ElementType thisElement;
+    public ElementType unTriggerElement;
+
     public bool canSlow = false;
     public bool canDamage = false;
 
-    // Private booleans
-    [SerializeField]private Sprite[] states;
     private SpriteRenderer sr;
+    private Animator ani;
+    private bool triggered;
 
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        if(states.Length > 0)
-            sr.sprite = states[0];
+        ani = GetComponent<Animator>();
     }
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -27,17 +29,15 @@ public class ElementScript : MonoBehaviour
 
         if(col.CompareTag("Bullet"))
         {
-            //col.GetComponent<BulletScript>().
-            ElementType newElement = col.GetComponent<BulletScript>().thisData.element;
-            if (newElement == thisElement)
+            ElementType newElement = col.GetComponent<BulletScript>().ele;
+            if (newElement == triggerElement)
             {
-                Debug.Log("The elements are identical");
+                //Triggered();
             }
 
             if(newElement == ElementType.fire && thisElement == ElementType.oil)
             {
                 Debug.Log("The fire has ignited the oil");
-                sr.sprite = states[1];
             }
 
             if(newElement == ElementType.ice && thisElement == ElementType.water)
@@ -50,14 +50,46 @@ public class ElementScript : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.CompareTag("Player") && canSlow)
-            col.GetComponent<PlayerMovement>().SlowPlayer(40);
+        if (col.CompareTag("Player") && canSlow && triggered)
+        {
+            if (col.CompareTag("Player"))
+                col.GetComponent<PlayerMovement>().SlowPlayer(40);
+            else if (col.CompareTag("Enemy"))
+                col.transform.GetChild(0).GetComponent<AIMovement>().speedMultiplier = 0f;
+        }
+        if(col.CompareTag("Element"))
+        {
+            col.GetComponent<ElementScript>().Triggered();
+        }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.CompareTag("Player") && canSlow)
-            col.GetComponent<PlayerMovement>().SlowPlayer(100);
+        if (canSlow)
+        {
+            if (col.CompareTag("Player"))
+                col.GetComponent<PlayerMovement>().SlowPlayer(100);
+            else if (col.CompareTag("Enemy"))
+                col.transform.GetChild(0).GetComponent<AIMovement>().speedMultiplier = 1;
+        }
+    }
+
+    public void Triggered()
+    {
+        if(!triggered)
+        {
+            ani.SetBool("isTriggered", true);
+            triggered = true;
+            StartCoroutine(ReturnToDefault());
+        }
+    }
+
+    IEnumerator ReturnToDefault()
+    {
+        yield return new WaitForSeconds(5f);
+        ani.SetBool("isTriggered", false);
+        triggered = false;
+
     }
     
 }

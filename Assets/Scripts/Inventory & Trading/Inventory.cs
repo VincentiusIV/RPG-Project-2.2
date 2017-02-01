@@ -130,28 +130,32 @@ public class Inventory : MonoBehaviour
         if (itemToEquip.Stackable == false)
         {
             int equipSlotID = slotID - slotAmount;
-            GameObject weapon = player.transform.GetChild(0).GetChild(equipSlotID).gameObject;
+            GameObject weapon = player.transform.GetChild(0).GetChild(1).gameObject;
             weapon.tag = itemToEquip.Type;
-            
             weapon.name = itemToEquip.Title;
 
             WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
-            //Debug.Log("wepscript = " + wepScript + " slot id"+ equipSlotID);
-            wepScript.melee = new Melee(database.StringToElement(itemToEquip.MeleeElement),
-                                         itemToEquip.Power,
-                                         itemToEquip.MeleeAttackSpeed,
-                                         itemToEquip.MeleeAttackRange);
 
-            wepScript.projectile = new Projectile(database.StringToElement(itemToEquip.RangeElement),
-                                            itemToEquip.Power,
-                                            itemToEquip.RangeAttackSpeed,
-                                            itemToEquip.RangeBulletSpeed,
-                                            itemToEquip.RangeAttackRange);
-            wepScript.CheckWeaponType();
-            if (weapon.tag == "Weapon")
-                player.GetWeapon();
-            else if (weapon.tag == "Magic")
+            if (weapon.tag == "Weapon")// equip weapon
+            {
+                
+                wepScript.thisWeapon = itemToEquip;
+                if (itemToEquip.Title != "resetweapon")
+                    wepScript.hasWeaponEquipped = true;
+                else wepScript.hasWeaponEquipped = false;
+                //player.GetWeapon();
+            }
+            else if (weapon.tag == "Magic")// equip ammo
+            {
                 player.GetMagic(equipSlotID, FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug));
+
+                wepScript.projectiles[equipSlotID - 1] = new Projectile(database.StringToElement(itemToEquip.RangeElement),
+                                                database.StringToProjType(itemToEquip.RangeProjType),
+                                                itemToEquip.Power,
+                                                itemToEquip.RangeAttackSpeed,
+                                                itemToEquip.RangeBulletSpeed,
+                                                itemToEquip.RangeAttackRange);
+            }
         }
     }
 
@@ -238,7 +242,6 @@ public class Inventory : MonoBehaviour
             if (slots[i].GetComponent<Slot>().containsItem == false && slots[i].GetComponent<Slot>().type == SlotType.regular)
             {
                 emptySlotID = i;
-                Debug.Log("First empty slot is: " + emptySlotID);
                 return emptySlotID;
             }
         }

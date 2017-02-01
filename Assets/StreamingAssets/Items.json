@@ -3,47 +3,7 @@
  {
   "ID" : 0,
   "Type" : "Weapon",
-  "Title" : "Silver Sword of the Pyro",
-  "Value" : 100,
-  "Power" : 60,
-  "Defence" : 0,
-  "Vitality" : 0,
-  "MeleeAttackSpeed" : 50,
-  "MeleeAttackRange" : 0,
-  "MeleeElement"     : "fire",
-  "RangeAttackSpeed" : 0,
-  "RangeAttackRange" : 0,
-  "RangeBulletSpeed" : 0.0,
-  "RangeElement"     : "none",
-  "Description"      : "This sword is made out of flaming silver",
-  "Stackable"        : false,
-  "Rarity"           : 0,
-  "Slug"             : "sabre_silver"
- },
- {
-  "ID" : 1,
-  "Type" : "Weapon",
-  "Title" : "Pistol Of Hazard",
-  "Value" : 0,
-  "Power" : 11,
-  "Defence" : 1,
-  "Vitality" : 22,
-  "MeleeAttackSpeed" : 0,
-  "MeleeAttackRange" : 0,
-  "MeleeElement"     : "none",
-  "RangeAttackSpeed" : 2,
-  "RangeAttackRange" : 100,
-  "RangeBulletSpeed" : 0.3,
-  "RangeElement"     : "aether",
-  "Description"      : "A unique aetherized pistol",
-  "Stackable"        : false,
-  "Rarity"           : 20,
-  "Slug"             : "pistol"
- },
- {
-  "ID" : 2,
-  "Type" : "Magic",
-  "Title" : "Aether Shot",
+  "Title" : "Sniper",
   "Value" : 0,
   "Power" : 20,
   "Defence" : 0,
@@ -51,74 +11,138 @@
   "MeleeAttackSpeed" : 0,
   "MeleeAttackRange" : 0,
   "MeleeElement"     : "none",
-  "RangeAttackSpeed" : 1,
+  "RangeAttackSpeed" : 20,
   "RangeAttackRange" : 100,
-  "RangeBulletSpeed" : 0.3,
+  "RangeBulletSpeed" : 1.0,
+  "RangeElement"     : "fire",
+  "RangeProjType"    : "beam",
+  "Description"      : "A beam sniper rifle",
+  "Stackable"        : false,
+  "Rarity"           : 123123,
+  "Slug"             : "sniper",
+  "LifeSteal"        : true,
+  "KnockBack"        : true,
+  "SlowAmount"       : 50.0
+ },
+ {
+  "ID" : 1,
+  "Type" : "Magic",
+  "Title" : "Aether Ammo",
+  "Value" : 0,
+  "Power" : 10,
+  "Defence" : 0,
+  "Vitality" : 0,
+  "MeleeAttackSpeed" : 0,
+  "MeleeAttackRange" : 0,
+  "MeleeElement"     : "none",
+  "RangeAttackSpeed" : 6,
+  "RangeAttackRange" : 100,
+  "RangeBulletSpeed" : 1.0,
   "RangeElement"     : "aether",
-  "Description"      : "default",
+  "RangeProjType"    : "beam",
+  "Description"      : "Aether ammo",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "10"
+  "Slug"             : "6",
+  "LifeSteal"        : true,
+  "KnockBack"        : true,
+  "SlowAmount"       : 20.0
+ },
+ {
+  "ID" : 2,
+  "Type" : "Magic",
+  "Title" : "Fire Ammo",
+  "Value" : 0,
+  "Power" : 12,
+  "Defence" : 0,
+  "Vitality" : 0,
+  "MeleeAttackSpeed" : 0,
+  "MeleeAttackRange" : 0,
+  "MeleeElement"     : "none",
+  "RangeAttackSpeed" : 5,
+  "RangeAttackRange" : 100,
+  "RangeBulletSpeed" : 1.0,
+  "RangeElement"     : "fire",
+  "RangeProjType"    : "beam",
+  "Description"      : "fire ammo",
+  "Stackable"        : false,
+  "Rarity"           : 0,
+  "Slug"             : "2",
+  "LifeSteal"        : false,
+  "KnockBack"        : true,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 3,
   "Type" : "Magic",
-  "Title" : "Fire Bolt",
-  "Value" : 12,
-  "Power" : 1,
-  "Defence" : 1,
-  "Vitality" : 1,
+  "Title" : "Water Ammo",
+  "Value" : 0,
+  "Power" : 12,
+  "Defence" : 0,
+  "Vitality" : 0,
   "MeleeAttackSpeed" : 0,
   "MeleeAttackRange" : 0,
   "MeleeElement"     : "none",
-  "RangeAttackSpeed" : 1,
-  "RangeAttackRange" : 100,
+  "RangeAttackSpeed" : 6,
+  "RangeAttackRange" : 1,
   "RangeBulletSpeed" : 1.0,
-  "RangeElement"     : "fire",
-  "Description"      : "A fiercy bolt, hot to the touch",
+  "RangeElement"     : "water",
+  "RangeProjType"    : "beam",
+  "Description"      : "water ammo",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "3"
+  "Slug"             : "10",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 4,
-  "Type" : "Items",
-  "Title" : "default",
+  "Type" : "Magic",
+  "Title" : "Electric Ammo",
   "Value" : 0,
-  "Power" : 0,
+  "Power" : 10,
   "Defence" : 0,
   "Vitality" : 0,
   "MeleeAttackSpeed" : 0,
   "MeleeAttackRange" : 0,
   "MeleeElement"     : "none",
-  "RangeAttackSpeed" : 0,
-  "RangeAttackRange" : 0,
-  "RangeBulletSpeed" : 0.0,
-  "RangeElement"     : "none",
-  "Description"      : "default",
+  "RangeAttackSpeed" : 6,
+  "RangeAttackRange" : 100,
+  "RangeBulletSpeed" : 6.0,
+  "RangeElement"     : "electricity",
+  "RangeProjType"    : "beam",
+  "Description"      : "electrified ammo",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "25",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 5,
-  "Type" : "Items",
-  "Title" : "default",
+  "Type" : "Weapon",
+  "Title" : "Melee Weapon",
   "Value" : 0,
-  "Power" : 0,
+  "Power" : 5,
   "Defence" : 0,
   "Vitality" : 0,
-  "MeleeAttackSpeed" : 0,
+  "MeleeAttackSpeed" : 1,
   "MeleeAttackRange" : 0,
   "MeleeElement"     : "none",
   "RangeAttackSpeed" : 0,
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : true,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 6,
@@ -135,10 +159,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 7,
@@ -155,10 +183,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 8,
@@ -175,10 +207,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 9,
@@ -195,10 +231,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 10,
@@ -215,10 +255,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 11,
@@ -235,10 +279,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 12,
@@ -255,10 +303,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 13,
@@ -275,10 +327,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 14,
@@ -295,10 +351,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 15,
@@ -315,10 +375,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 16,
@@ -335,10 +399,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 17,
@@ -355,10 +423,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 18,
@@ -375,10 +447,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 19,
@@ -395,10 +471,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 20,
@@ -415,10 +495,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 21,
@@ -435,10 +519,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 22,
@@ -455,10 +543,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 23,
@@ -475,10 +567,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 24,
@@ -495,15 +591,19 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 25,
   "Type" : "Items",
-  "Title" : "Voltz",
+  "Title" : "Energy",
   "Value" : 0,
   "Power" : 0,
   "Defence" : 0,
@@ -515,10 +615,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
-  "Description"      : "This is a sparky currency",
+  "RangeProjType"    : "bullet",
+  "Description"      : "Energy in Voltz, can be used to charge anything including your airship!",
   "Stackable"        : true,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 26,
@@ -535,10 +639,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 27,
@@ -555,10 +663,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 28,
@@ -575,10 +687,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 29,
@@ -595,10 +711,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 30,
@@ -615,10 +735,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 31,
@@ -635,10 +759,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 32,
@@ -655,10 +783,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 33,
@@ -675,10 +807,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 34,
@@ -695,10 +831,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 35,
@@ -715,10 +855,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 36,
@@ -735,10 +879,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 37,
@@ -755,10 +903,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 38,
@@ -775,10 +927,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 39,
@@ -795,10 +951,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 40,
@@ -815,10 +975,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 41,
@@ -835,10 +999,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 42,
@@ -855,10 +1023,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 43,
@@ -875,10 +1047,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 44,
@@ -895,10 +1071,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 45,
@@ -915,10 +1095,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 46,
@@ -935,10 +1119,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 47,
@@ -955,10 +1143,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 48,
@@ -975,10 +1167,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 49,
@@ -995,70 +1191,86 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 50,
-  "Type" : "NPCs",
-  "Title" : "old man",
+  "Type" : "Items",
+  "Title" : "RoboPunch",
   "Value" : 0,
   "Power" : 0,
   "Defence" : 0,
-  "Vitality" : 0,
-  "MeleeAttackSpeed" : 0,
+  "Vitality" : 250,
+  "MeleeAttackSpeed" : 1,
   "MeleeAttackRange" : 0,
-  "MeleeElement"     : "none",
+  "MeleeElement"     : "electricity",
   "RangeAttackSpeed" : 0,
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "old_man"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : true,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 51,
   "Type" : "NPCs",
-  "Title" : "dwarf",
+  "Title" : "SpinMine",
   "Value" : 0,
-  "Power" : 0,
+  "Power" : 5,
   "Defence" : 0,
-  "Vitality" : 0,
-  "MeleeAttackSpeed" : 0,
+  "Vitality" : 50,
+  "MeleeAttackSpeed" : 1,
   "MeleeAttackRange" : 0,
-  "MeleeElement"     : "none",
+  "MeleeElement"     : "aether",
   "RangeAttackSpeed" : 0,
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "dwarf1"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : true,
+  "SlowAmount"       : 30.0
  },
  {
   "ID" : 52,
   "Type" : "NPCs",
-  "Title" : "Enemy",
+  "Title" : "Sniper",
   "Value" : 0,
-  "Power" : 0,
+  "Power" : 1,
   "Defence" : 0,
-  "Vitality" : 0,
+  "Vitality" : 100,
   "MeleeAttackSpeed" : 0,
   "MeleeAttackRange" : 0,
   "MeleeElement"     : "none",
-  "RangeAttackSpeed" : 0,
+  "RangeAttackSpeed" : 5,
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
-  "RangeElement"     : "none",
+  "RangeElement"     : "aether",
+  "RangeProjType"    : "beam",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "EnemySprite"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : true,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 53,
@@ -1075,10 +1287,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 54,
@@ -1095,10 +1311,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 55,
@@ -1115,10 +1335,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 56,
@@ -1135,10 +1359,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 57,
@@ -1155,10 +1383,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 58,
@@ -1175,10 +1407,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 59,
@@ -1195,10 +1431,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 60,
@@ -1215,10 +1455,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 61,
@@ -1235,10 +1479,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 62,
@@ -1255,10 +1503,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 63,
@@ -1275,10 +1527,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 64,
@@ -1295,10 +1551,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 65,
@@ -1315,10 +1575,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 66,
@@ -1335,10 +1599,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 67,
@@ -1355,10 +1623,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 68,
@@ -1375,10 +1647,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 69,
@@ -1395,10 +1671,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 70,
@@ -1415,10 +1695,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 71,
@@ -1435,10 +1719,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 72,
@@ -1455,10 +1743,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 73,
@@ -1475,10 +1767,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 74,
@@ -1495,10 +1791,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 75,
@@ -1515,10 +1815,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 76,
@@ -1535,10 +1839,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 77,
@@ -1555,10 +1863,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 78,
@@ -1575,10 +1887,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 79,
@@ -1595,10 +1911,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 80,
@@ -1615,10 +1935,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 81,
@@ -1635,10 +1959,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 82,
@@ -1655,10 +1983,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 83,
@@ -1675,10 +2007,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 84,
@@ -1695,10 +2031,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 85,
@@ -1715,10 +2055,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 86,
@@ -1735,10 +2079,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 87,
@@ -1755,10 +2103,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 88,
@@ -1775,10 +2127,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 89,
@@ -1795,10 +2151,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 90,
@@ -1815,10 +2175,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 91,
@@ -1835,10 +2199,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 92,
@@ -1855,10 +2223,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 93,
@@ -1875,10 +2247,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 94,
@@ -1895,10 +2271,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 95,
@@ -1915,10 +2295,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 96,
@@ -1935,10 +2319,14 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 97,
@@ -1955,15 +2343,19 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
+  "RangeProjType"    : "bullet",
   "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 98,
   "Type" : "Magic",
-  "Title" : "resetMagic",
+  "Title" : "resetmagic",
   "Value" : 0,
   "Power" : 0,
   "Defence" : 0,
@@ -1975,15 +2367,19 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
-  "Description"      : "Magic used in script to reset previously equipped magic",
+  "RangeProjType"    : "bullet",
+  "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  },
  {
   "ID" : 99,
   "Type" : "Weapon",
-  "Title" : "resetWeapon",
+  "Title" : "resetweapon",
   "Value" : 0,
   "Power" : 0,
   "Defence" : 0,
@@ -1995,9 +2391,13 @@
   "RangeAttackRange" : 0,
   "RangeBulletSpeed" : 0.0,
   "RangeElement"     : "none",
-  "Description"      : "Weapon used in script to reset previously equipped weapon",
+  "RangeProjType"    : "bullet",
+  "Description"      : "default",
   "Stackable"        : false,
   "Rarity"           : 0,
-  "Slug"             : "default_slug"
+  "Slug"             : "default_slug",
+  "LifeSteal"        : false,
+  "KnockBack"        : false,
+  "SlowAmount"       : 0.0
  }
 ]

@@ -26,19 +26,26 @@ public class CombatStats
     public void doDamage(float amount, ElementType ele)
     {
         Debug.Log("Raw dmg:" + amount + " & ele: " + ele.ToString());
+        Debug.Log((int)ele);
 
-        float resist = resistances[(int)ele].resistanceValue / 100;
+        float resist = 0;
+        if ((int)ele < resistances.Length)
+        {
+            Debug.Log("Resist %: " + resistances[(int)ele].resistanceValue + " against " + ele.ToString());
+            resist = resistances[(int)ele].resistanceValue / 100;
+        }
+        
         float dmg = amount - (amount * resist);
         
-        Debug.Log("Resist %: " + resistances[(int)ele].resistanceValue+ " against "+ele.ToString());
+        
         Debug.Log("new Dmg= " + dmg);
         hp -= dmg;
+
         if (hp <= 0)
         {
             hp = 0;
         }
             
-
         if (!worldSpaceBar)
             UpdateHealth();
         else if (worldSpaceBar)

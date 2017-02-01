@@ -7,12 +7,10 @@ public class MobScript : MonoBehaviour {
     public int npcID;
     public CombatStats enemyStats;
     public ElementType attackElement;
-    public float attackSpeed;
-
-    public float moveSpeed;
 
     // Public & Hidden
     [HideInInspector]public Item thisEnemy;
+    [HideInInspector]public AIMovement moveScript;
 
     // Serialized Private Variables
     [SerializeField]private GameObject lootBox;
@@ -24,6 +22,7 @@ public class MobScript : MonoBehaviour {
 
     private bool inCombat;
     private bool isAlive;
+    private float nextAttack;
 
     void Start ()
     {
@@ -31,6 +30,7 @@ public class MobScript : MonoBehaviour {
         bf = GameObject.FindWithTag("UI").GetComponent<ButtonFunctionality>();
         db = GameObject.FindWithTag("Inventory").GetComponent<DatabaseHandler>();
         player = GameObject.FindWithTag("Player");
+        moveScript = transform.GetChild(0).GetComponent<AIMovement>();
         thisEnemy = db.FetchItemByID(npcID);
 
         // Setting up loot
@@ -58,9 +58,5 @@ public class MobScript : MonoBehaviour {
             lootBox.GetComponent<NPCdata>().Initialise();
             Destroy(gameObject);
         }
-    }
-    public void CheckToAttack()
-    {
-
     }
 }

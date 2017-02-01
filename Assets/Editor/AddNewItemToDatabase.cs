@@ -12,6 +12,9 @@ public class AddNewItemToDatabase : ScriptableWizard
     public int power;
     public int defence;
     public int vitality;
+    public bool lifesteal;
+    public bool knockback;
+    public double slowAmount;
 
     public bool hasMelee; // add to db
     public Melee melee;
@@ -24,7 +27,7 @@ public class AddNewItemToDatabase : ScriptableWizard
     public string slug = "with _ please";
 
     private int currentID = 0;
-    private DatabaseHandler db; 
+    private DatabaseHandler db;
 
     [MenuItem ("Tools/Inventory/Database")]
     static void AddNewItemWizard()
@@ -41,7 +44,7 @@ public class AddNewItemToDatabase : ScriptableWizard
     {
         if(Application.isPlaying)
         {
-            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(),cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, melee.element, ranged.attackSpeed, ranged.range, ranged.bulletSpeed, ranged.element);
+            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(),cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, melee.element, ranged.attackSpeed, ranged.range, ranged.bulletSpeed, ranged.element, ranged.projectileType, lifesteal, knockback, slowAmount);
             db.WriteToDatabase();
         }
         else
@@ -54,7 +57,7 @@ public class AddNewItemToDatabase : ScriptableWizard
     {
         if (Application.isPlaying)
         {
-            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(), cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, melee.element, ranged.attackSpeed, ranged.range, ranged.bulletSpeed, ranged.element);
+            db.ChangeItemInDatabase(ID, itemName, itemType.ToString(), cost, power, defence, vitality, description, stackable, rarity, slug, melee.attackSpeed, melee.range, melee.element, ranged.attackSpeed, ranged.range, ranged.bulletSpeed, ranged.element, ranged.projectileType, lifesteal, knockback, slowAmount);
         }
         else
         {
@@ -93,6 +96,11 @@ public class AddNewItemToDatabase : ScriptableWizard
             ranged.range = itemToUpdate.RangeAttackRange;
             ranged.bulletSpeed = itemToUpdate.RangeBulletSpeed;
             ranged.element = db.StringToElement(itemToUpdate.RangeElement);
+            ranged.projectileType = db.StringToProjType(itemToUpdate.RangeProjType);
+
+            lifesteal = itemToUpdate.LifeSteal;
+            knockback = itemToUpdate.KnockBack;
+            slowAmount = itemToUpdate.SlowAmount;
 
             description = itemToUpdate.Description;
             stackable = itemToUpdate.Stackable;

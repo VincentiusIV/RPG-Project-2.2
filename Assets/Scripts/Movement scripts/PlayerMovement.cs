@@ -8,25 +8,31 @@ public class PlayerMovement : MonoBehaviour
     public float speedMultiplier;
 
     // Public & Hidden Variables
-    
+    public GameObject drone;
+
     // Serialized & Private Variables
     [SerializeField] private GameObject hotbar;
     [SerializeField] private Sprite[] hotbarSprites;
     [SerializeField] private Vector2 moveSpeed;
     [SerializeField] private GameObject aim;
+    [SerializeField] private GameObject gunEnd;
 
     // Private Reference Variables
     private ButtonFunctionality userInterface;
-    private WeaponScript weaponSlot;
-    [SerializeField]private WeaponScript[] magicSlots;
+
+    private MeleeScript meleeWeapon;
+    [SerializeField]private WeaponScript weaponSlot;
 
     private Rigidbody2D rig;
     private Vector2 movement;
-    private SpriteRenderer ren;
+    private HandRotation hand;
     private Animator ani;
     private GameController gc;
 
     private int currentSelection;
+
+    private bool isSlowRunning;
+    IEnumerator slow;
 
     // Combat bools
     private float slowAmount = 100;
@@ -37,15 +43,19 @@ public class PlayerMovement : MonoBehaviour
         userInterface = GameObject.FindWithTag("UI").GetComponent<ButtonFunctionality>();
         //playerStats.doDamage(50, ElementType.fire);
         rig = GetComponent<Rigidbody2D>();
-        ren = GetComponent<SpriteRenderer>();
         gc = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         hotbar.transform.GetChild(0).GetComponent<Image>().sprite = hotbarSprites[0];
 
-        GetWeapon();
+        hand = transform.GetChild(0).GetComponent<HandRotation>();
+        meleeWeapon = transform.GetChild(0).FindChild("MeleeWeapon").GetComponent<MeleeScript>();
+        //GetWeapon();
+
         for (int i = 1; i < 5; i++)
         {
             GetMagic(i, new Sprite());
         }
+
+        slow = SlowDuration();
     }
 
     void Update()
@@ -53,33 +63,57 @@ public class PlayerMovement : MonoBehaviour
         if (userInterface.canPlay)
         {
             // Hotbar
-            if(Input.GetButtonDown("X360_LeftButton"))
+            if(Input.GetButtonDown("LB_1"))
                 SelectHotbar(currentSelection - 1);
-            if(Input.GetButtonDown("X360_RightButton"))
+            if(Input.GetButtonDown("RB_1"))
                 SelectHotbar(currentSelection + 1);
-            // Aiming
-            float rStickH = Input.GetAxis("X360_RStickX");
-            float rStickV = Input.GetAxis("X360_RStickY");
-
-            aim.transform.position = new Vector3(transform.position.x + rStickH, transform.position.y + rStickV, 0f);
             
-            // Weapon
+            // ranged combo attack
             if (weaponSlot != null)
             {
-                if (Input.GetAxis("X360_Triggers") < 0)
-                    magicSlots[currentSelection].Attack();
+                //Input.GetAxis("X360_Triggers") > 0
+                if (Input.GetAxisRaw("TriggersL_1") != 0)
+                {
+                    //aim
+                    float lStickH = Input.GetAxis("L_XAxis_1");
+                    float lStickV = Input.GetAxis("L_YAxis_1");
 
-                if (Input.GetAxis("X360_Triggers") > 0)
-                    weaponSlot.Attack();
+                    ani.enabled = false;
+                    hand.isAiming = true;
+
+                    aim.transform.position = new Vector3(transform.position.x + lStickH, transform.position.y + lStickV, 0f);
+                    
+                    // fixing player in position to aim
+                    slowAmount = 0;
+
+                    // fire selected ammunition
+                    if (Input.GetAxisRaw("TriggersR_1") != 0)
+                        weaponSlot.RangedAttack(currentSelection);
+                }
+                else if (Input.GetAxis("TriggersR_1") == 0)
+                {
+                    slowAmount = 100;
+                    ani.enabled = true;
+                    hand.isAiming = false;
+                }
+                    
             }
+            // melee attack
+            if (Input.GetButtonDown("X_1"))
+            {
+                if(meleeWeapon.MeleeAttack())
+                {
+                    ani.SetBool("isAttacking", true);
+                }
+            }
+                
 
             CheckHealth();
+
+            speedMultiplier = slowAmount / 100;
         }
         else if (!userInterface.canPlay)
             rig.velocity = Vector3.zero;
-
-        // Slows player
-        speedMultiplier = slowAmount / 100;
     }
     
     void FixedUpdate()
@@ -90,14 +124,9 @@ public class PlayerMovement : MonoBehaviour
 
         if(userInterface.canPlay)
         {
-            // Rotation with controller
-            float angleRad = Mathf.Atan2(aim.transform.position.y - transform.position.y, aim.transform.position.x - transform.position.x);
-            float angleDeg = (180 / Mathf.PI) * angleRad;
-            transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angleDeg);
-
             // Movement
-            xPos = Input.GetAxis("X360_LStickX") * moveSpeed.x / 10;
-            yPos = Input.GetAxis("X360_LStickY") * moveSpeed.y / 10;
+            xPos = Input.GetAxis("L_XAxis_1") * moveSpeed.x / 10;
+            yPos = Input.GetAxis("L_YAxis_1") * moveSpeed.y / 10;
             Vector3 movement = new Vector3(xPos, yPos, 0f);
             rig.velocity = movement * speedMultiplier;
         }
@@ -109,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
         else isWalking = false;
 
         ani.SetBool("isWalking", isWalking);
-        if (isWalking)
+        if (isWalking && !ani.GetBool("isAttacking"))
         {
             ani.SetFloat("X", xPos);
             ani.SetFloat("Y", yPos);
@@ -134,16 +163,11 @@ public class PlayerMovement : MonoBehaviour
         hotbar.transform.GetChild(currentSelection).gameObject.GetComponent<Image>().sprite = hotbarSprites[0];
         currentSelection = nextSelection;
         hotbar.transform.GetChild(currentSelection).gameObject.GetComponent<Image>().sprite = hotbarSprites[1];
-    }
-
-    public void GetWeapon()
-    {
-        weaponSlot = transform.GetChild(0).GetChild(0).GetComponent<WeaponScript>();
+        GetComponent<AudioSource>().Play();
     }
 
     public void GetMagic(int spot, Sprite icon)
     {
-        magicSlots[spot - 1] = transform.GetChild(0).GetChild(spot).GetComponent<WeaponScript>();
         // Show icon on hotbar
         if (icon == new Sprite())
             hotbar.transform.GetChild(spot - 1).GetChild(0).gameObject.SetActive(false);
@@ -152,7 +176,6 @@ public class PlayerMovement : MonoBehaviour
             hotbar.transform.GetChild(spot - 1).GetChild(0).gameObject.SetActive(true);
             hotbar.transform.GetChild(spot - 1).GetChild(0).GetComponent<Image>().sprite = icon;
         }
-            
     }
 
     void CheckHealth()
@@ -161,19 +184,31 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Player died");
             // death animation?
-            // fade to black
             StartCoroutine(gc.RespawnPlayer());
-            // reset health
-            // respawn
-            
-        
         }
     }
     
     // Function that slows the player based on the given amount
-    public void SlowPlayer(float amount)
+    public void SlowPlayer(float amount, bool resetAfterTime = false)
     {
         slowAmount = amount;
+
+        if (isSlowRunning && resetAfterTime)
+        {
+            StopCoroutine(slow);
+            slow = SlowDuration();
+            StartCoroutine(slow);
+        }
+        else if (!isSlowRunning && resetAfterTime)
+            StartCoroutine(slow);
+    }
+
+    IEnumerator SlowDuration()
+    {
+        isSlowRunning = true;
+        yield return new WaitForSeconds(3f);
+        slowAmount = 100;
+        isSlowRunning = false;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -181,10 +216,6 @@ public class PlayerMovement : MonoBehaviour
         if(col.CompareTag("Drone"))
         {
             col.GetComponent<DroneAI>().reachedPlayer = true;
-        }
-        if (col.transform.gameObject.tag == "AI") {
-            col.gameObject.GetComponent<EnemyScript>().ChangetooCloseToPlayer();
-            Debug.Log("Player: (should be true)" + GetComponent<EnemyScript>().tooCloseToPlayer);
         }
     }
 
@@ -194,11 +225,11 @@ public class PlayerMovement : MonoBehaviour
         {
             col.GetComponent<DroneAI>().reachedPlayer = false;
         }
+    }
 
-        if (col.CompareTag("AI")){
-            col.gameObject.GetComponent<EnemyScript>().ChangetooCloseToPlayer();
-            Debug.Log("Player: (should be false)" + GetComponent<EnemyScript>().tooCloseToPlayer);
-        }
+    public void EndAttackAnimation()
+    {
+        ani.SetBool("isAttacking", false);
     }
 }
 

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour {
 
-    public Transform player, target;
     public LayerMask unwalkableLayer;
     public Vector2 gridWorldSize;
     // space each node covers
@@ -32,7 +31,8 @@ public class Grid : MonoBehaviour {
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = new Vector3(transform.position.x, transform.position.y, 0f) + Vector3.right * (x * nodeDiameter) + Vector3.up * (y * nodeDiameter);
-                bool walkable = !(Physics2D.CircleCast(worldPoint, nodeRadius, Vector2.one, 1, unwalkableLayer));
+                //bool walkable = !(Physics2D.CircleCast(worldPoint, nodeRadius, Vector2.one, 1, unwalkableLayer));
+                bool walkable = !(Physics2D.BoxCast(worldPoint, Vector2.one * nodeRadius, 0, Vector2.zero, 1, unwalkableLayer));
                 nodeGrid[x, y] = new Node(walkable, worldPoint, x, y);
             }
     }
@@ -85,8 +85,6 @@ public class Grid : MonoBehaviour {
 
         if (nodeGrid != null)
         {
-            Node playerNode = NodeFromWorldPoint(player.position);
-            Node targetNode = NodeFromWorldPoint(target.position);
 
             foreach (Node node in nodeGrid)
             {
@@ -94,10 +92,7 @@ public class Grid : MonoBehaviour {
                 if (path != null)
                     if (path.Contains(node))
                         Gizmos.color = Color.black;
-                if (targetNode == node)
-                    Gizmos.color = Color.green;
-                if (playerNode == node)
-                    Gizmos.color = Color.cyan;
+
                 Gizmos.DrawCube(node.worldPosition, Vector3.one * (nodeDiameter - .1f));
             }
         }

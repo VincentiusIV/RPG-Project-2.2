@@ -1,0 +1,81 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: AMD Radeon R9 200 Series (ID=0x67b1)
+    Vendor:   ATI
+    VRAM:     3072 MB
+    Driver:   21.19.407.0
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\LitJson.dll (this message is harmless)
+Loading C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\LitJson.dll into Unity Child Domain
+- Completed reload, in  0.036 seconds
+Platform assembly: C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Vincent\Documents\RPG-Project-2.2\testrpg1_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3840x1080 at -1920,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.800000 ms
+out da zone
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+following player...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+following player...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Could not find path
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Path is too short or empty
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
