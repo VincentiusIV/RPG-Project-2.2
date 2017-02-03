@@ -33,6 +33,9 @@ public class GameController : MonoBehaviour {
     public IEnumerator RespawnPlayer()
     {
         yield return StartCoroutine(ui.FadeIn());
+        SetAmbience(0);
+        player.GetComponent<SpriteRenderer>().sortingOrder = 4;
+        player.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 5;
         player.transform.position = respawnLocation.position;
         Camera.main.transform.position = player.transform.position;
         player.playerStats.doHeal((int)player.playerStats.maxHP);

@@ -20,8 +20,8 @@ public class Flock : MonoBehaviour {
     {
         for (int i = 0; i < birdCount; i++)
         {
-            Vector2 pos = Random.insideUnitCircle * spawnRadius;
-            Vector2 vel = new Vector2(Random.Range(0, 1), Random.Range(0, 1));
+            Vector2 pos = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * spawnRadius;
+            Vector2 vel = new Vector2(transform.position.x, transform.position.y) + new Vector2(Random.Range(0, 1), Random.Range(0, 1));
             Vector3 pos3D = new Vector3(pos.x, pos.y, 0f);
 
             GameObject go = Instantiate(birdPrefab, pos3D, Quaternion.identity) as GameObject;

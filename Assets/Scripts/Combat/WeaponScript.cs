@@ -124,7 +124,7 @@ public class WeaponScript : MonoBehaviour
                     Debug.Log("ELECTRICITY + AETHER");
                 }
 
-                hitEnemy.enemyStats.doDamage(projectiles[ammo].damage, projectiles[ammo].element);
+                hitEnemy.enemyStats.doDamage(projectiles[ammo].damage + thisWeapon.Power, projectiles[ammo].element);
             }
 
             if (hit.collider.CompareTag("Element"))

@@ -227,7 +227,7 @@ public class AIMovement : MonoBehaviour {
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, col.transform.position - transform.position, 100);
         Debug.Log("trying to cast");
-        Debug.DrawRay(transform.position, (col.transform.position - transform.position) * 100);
+        //Debug.DrawRay(transform.position, (col.transform.position - transform.position) * 100);
 
         if (hit)
         {
@@ -275,9 +275,9 @@ public class AIMovement : MonoBehaviour {
         {
             rifleEnd.GetComponent<LineRenderer>().enabled = true;
             RaycastHit2D hit = Physics2D.Raycast(rifleEnd.position, player.transform.position - transform.position, 100);
-            Debug.DrawRay(rifleEnd.position, player.transform.position - transform.position, Color.green);////////////////////////////
-            rifleEnd.GetComponent<LineRenderer>().SetPosition(0, rifleEnd.position);
-            rifleEnd.GetComponent<LineRenderer>().SetPosition(1, player.position);
+            //Debug.DrawRay(rifleEnd.position, player.transform.position - transform.position, Color.green);////////////////////////////
+            rifleEnd.GetComponent<LineRenderer>().SetPosition(1, rifleEnd.position + Vector3.forward* -1);
+            rifleEnd.GetComponent<LineRenderer>().SetPosition(0, player.position + Vector3.forward*-1);
         }
         if(!inRange && behaviour.HasAimAttack)
             rifleEnd.GetComponent<LineRenderer>().enabled = false;

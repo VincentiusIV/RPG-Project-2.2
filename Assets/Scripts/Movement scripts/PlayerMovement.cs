@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         hand = transform.GetChild(0).GetComponent<HandRotation>();
         meleeWeapon = transform.GetChild(0).FindChild("MeleeWeapon").GetComponent<MeleeScript>();
         //GetWeapon();
-
+        aim.GetComponent<SpriteRenderer>().enabled = false;
         for (int i = 1; i < 5; i++)
         {
             GetMagic(i, new Sprite());
@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
                     ani.enabled = false;
                     hand.isAiming = true;
-
+                    aim.GetComponent<SpriteRenderer>().enabled = true;
                     aim.transform.position = new Vector3(transform.position.x + lStickH, transform.position.y + lStickV, 0f);
                     
                     // fixing player in position to aim
@@ -92,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (Input.GetAxis("TriggersR_1") == 0)
                 {
+                    aim.GetComponent<SpriteRenderer>().enabled = false;
                     slowAmount = 100;
                     ani.enabled = true;
                     hand.isAiming = false;
