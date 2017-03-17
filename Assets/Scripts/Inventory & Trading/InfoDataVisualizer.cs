@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+// Updates the useful information of an item in the inventory
 public class InfoDataVisualizer : MonoBehaviour
 {
     [SerializeField]
@@ -34,7 +35,7 @@ public class InfoDataVisualizer : MonoBehaviour
         UpdateText(13, itemToVisual.Description.ToString());
     }
 
-// Checks if the text provided holds any value, otherwise textfield will be left invisible
+    // Checks if the text provided holds any value, otherwise textfield will be left invisible
     void UpdateText(int index, string text)
     {
         if (text != null && text != "" && text != "0" && text != "none")

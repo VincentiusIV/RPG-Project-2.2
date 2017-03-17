@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.EventSystems;
+
 public class ButtonFunctionality : MonoBehaviour
 {
     private Cutscene cut;
@@ -20,9 +21,9 @@ public class ButtonFunctionality : MonoBehaviour
         e = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         if(!isMainMenu)
         {
-            for (int i = 1; i < 4; i++)
+            foreach (GameObject item in uiPanels)
             {
-                transform.GetChild(i).gameObject.SetActive(false);
+                item.SetActive(false);
             }
             player = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
         }
@@ -35,16 +36,16 @@ public class ButtonFunctionality : MonoBehaviour
         //Menus
         if (Input.GetButtonDown("Y_1"))
         {
-            SwitchActive("Inventory_Panel");
+            SwitchActive(UI_Panels.Inventory);
             e.SetSelectedGameObject(uiPanels[0].transform.GetChild(0).GetChild(0).gameObject);
         }
         if (Input.GetButtonDown("B_1"))
         {
             for (int i = 0; i < uiPanels.Length; i++)
             {
-                if (uiPanels[i].activeInHierarchy && uiPanels[i].name != "Menu_Panel")
+                if (uiPanels[i].activeInHierarchy && uiPanels[i].name != UI_Panels.Menu.ToString())
                 {
-                    SwitchActive(uiPanels[i].name);
+                    SwitchActive((UI_Panels)i);
                     return;
                 }
             }
@@ -52,7 +53,7 @@ public class ButtonFunctionality : MonoBehaviour
 
         if (Input.GetButtonDown("Start_1"))
         {
-            SwitchActive("Menu_Panel");
+            SwitchActive(UI_Panels.Menu);
         }
     }
 
@@ -82,24 +83,22 @@ public class ButtonFunctionality : MonoBehaviour
         // TO-DO Load game functionality
     }
 
-    public void SwitchActive(string objName)
+    public void SwitchActive(UI_Panels panel)
     {
         GameObject obj = null;
 
         // Finds UI panel gameobject
         for (int i = 0; i < uiPanels.Length; i++)
-        {
-            if (objName == uiPanels[i].name)
+            if (panel.ToString() == uiPanels[i].name)
             {
                 obj = uiPanels[i];
                 break;
             }
-        }
 
         // If UI panel was not found, return
         if (obj == null)
         {
-            Debug.Log("Panel with name " + objName + " was not found in array");
+            Debug.Log("Panel with name " + panel.ToString() + " was not found in array");
             return;
         }   
 
@@ -117,11 +116,33 @@ public class ButtonFunctionality : MonoBehaviour
         else
         {
             obj.SetActive(true);
-
+            e.SetSelectedGameObject(obj.transform.GetChild(0).gameObject);
             if (CheckForActivePanel())
                 canPlay = false;
             
         }
+    }
+
+    public GameObject FetchGOByName(UI_Panels panelName)
+    {
+        for (int i = 0; i < uiPanels.Length; i++)
+            if (panelName.ToString() == uiPanels[i].name)
+                return uiPanels[i];
+        return null;
+    }
+
+    public bool IsPanelActive(UI_Panels panelName)
+    {
+        bool isActive = false;
+
+        for (int i = 0; i < uiPanels.Length; i++)
+            if (panelName.ToString() == uiPanels[i].name)
+            {
+                isActive = uiPanels[i].activeInHierarchy;
+                break;
+            }
+
+        return isActive;
     }
 
     bool CheckForActivePanel()
@@ -147,4 +168,13 @@ public class ButtonFunctionality : MonoBehaviour
         yield return new WaitForSeconds(1f);
         canPlay = true;
     }
+}
+
+public enum UI_Panels
+{
+    Inventory,
+    Merchant_Inventory,
+    Menu,
+    Dialogue,
+    Interaction_Menu
 }

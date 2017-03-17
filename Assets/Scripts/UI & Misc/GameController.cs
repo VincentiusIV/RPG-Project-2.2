@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Author Vincent Versnel
+// Controls the game by setting ambient sounds and respawning the player
+// could hold future implementations 
 public class GameController : MonoBehaviour {
 
     public AudioClip[] ambientSounds;
@@ -23,6 +25,7 @@ public class GameController : MonoBehaviour {
         inv = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
 	}
 	
+    // sets the ambient music
 	public void SetAmbience(int id)
     {
         GetComponent<AudioSource>().Stop();
@@ -30,6 +33,7 @@ public class GameController : MonoBehaviour {
         GetComponent<AudioSource>().Play();
     }
 
+    // respawns the player
     public IEnumerator RespawnPlayer()
     {
         yield return StartCoroutine(ui.FadeIn());

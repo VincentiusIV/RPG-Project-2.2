@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+// Author: Vincent Versnel
+// Plays through a cutscene
+// in the inspector you can set the amount of cutscene frames, the view time and audio
 public class Cutscene : MonoBehaviour {
 
     public Image img;
@@ -21,7 +23,7 @@ public class Cutscene : MonoBehaviour {
         // fade to black
         yield return StartCoroutine(ui.FadeIn());
         // turn off menu
-        ui.SwitchActive("ButtonPanel");
+        GameObject.Find("ButtonPanel").SetActive(false);
         img.sprite = cutscenes[0].scene;
         yield return StartCoroutine(ui.FadeOut());
         audio.clip = cutscenes[0].audio;

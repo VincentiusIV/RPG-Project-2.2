@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Author: Fimme Neeleman
+// This script was initially for enemies, but is not used
 public class EnemyScript : MonoBehaviour
 {
     [SerializeField] private bool isRanged;

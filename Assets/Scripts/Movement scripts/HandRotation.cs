@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// Author: Vincent Versnel
+// rotates the hand around the shoulder of the player character based on where he is aiming
 public class HandRotation : MonoBehaviour {
 
     private Transform aim;
@@ -30,6 +31,7 @@ public class HandRotation : MonoBehaviour {
         float degrees = (180 / Mathf.PI) * angle;
         transform.rotation = Quaternion.Euler(0f, 0f, degrees + rotationOffset);
 
+        // switches sprites based on where player is looking
         if (isAiming)
         {
             if (aim.localPosition.x > 0)

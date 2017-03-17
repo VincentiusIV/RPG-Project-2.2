@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Author: Vincent Versnel
+// Script to trigger when the player is in range
+// needs to be in a seperate script from AIMovement so the trigger colliders can be seperated
 public class AICombat : MonoBehaviour
 {
     AIMovement aiMovement;

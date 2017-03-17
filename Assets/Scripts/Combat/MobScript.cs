@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Author: Vincent Versnel
+// Mobscript holds enemy combat data
 public class MobScript : MonoBehaviour {
 
     // Public Variables
@@ -40,15 +41,17 @@ public class MobScript : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(bf.canPlay)
+        if (bf.canPlay)
             HealthCheck();
     }
 
+    // public stop attack animation is called on the last frame of the attacking animation
     public void StopAttackAnimation()
     {
         GetComponent<Animator>().SetBool("isAttacking", false);
     }
 
+    // drops loot on death
     public void HealthCheck()
     {
         if (enemyStats.hp <= 0 && isAlive)

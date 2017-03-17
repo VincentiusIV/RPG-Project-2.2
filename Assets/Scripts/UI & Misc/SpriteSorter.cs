@@ -2,6 +2,9 @@
 using System.Collections;
 using Tiled2Unity;
 
+// Author: Vincent Versnel
+// Simple script that sorts sprites on the order based on y position
+// Wrote this when I did not understand how layers worked, and is not really used in game
 public class SpriteSorter : MonoBehaviour {
 
     public bool takeParent;

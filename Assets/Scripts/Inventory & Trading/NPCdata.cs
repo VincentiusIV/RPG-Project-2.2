@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
+// Author: Vincent Versnel
+// Holds functionality for an NPC
+// (also used for lootboxes)
 public class NPCdata : MonoBehaviour
 {
     // Public & Hidden Variables
-    [HideInInspector]public Item thisNPC = new Item();
-    
+    [HideInInspector]
+    public Item thisNPC = new Item();
+
 
     // Public Variables
     public int id;
@@ -25,11 +30,12 @@ public class NPCdata : MonoBehaviour
     private GameObject merchantPanel;
     private GameObject slotPanel;
     private GameObject notification;
-    [SerializeField]private GameObject dialoguePanel;
+    [SerializeField]
+    private GameObject dialoguePanel;
     private int currentSelection;
 
-    [SerializeField]private bool canTrade;
-    [SerializeField]private bool canTalk;
+    [SerializeField]
+    private bool canTalk;
 
     void Start()
     {
@@ -56,84 +62,69 @@ public class NPCdata : MonoBehaviour
         {
             merchantPanel = GameObject.Find("UI").GetComponent<ButtonFunctionality>().uiPanels[1];
             slotPanel = merchantPanel.transform.FindChild("Merchant_Slot_Panel").gameObject;
-            canTrade = false;
         }
-        if(isTalking)
+        if (isTalking)
         {
             dialoguePanel = GameObject.Find("Dialogue_Panel");
-            dialoguePanel.SetActive(false);
         }
-    }
-
-    void OnTriggerStay2D(Collider2D col)
-    {
-        if (col.CompareTag("Player") && isMerchant)
-        {
-            canTrade = true;
-            if (notification.activeInHierarchy == false)
-                notification.SetActive(true);
-        }
-        else if (col.CompareTag("Player") && isTalking)
-            canTalk = true;
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("A_1") && canTrade && !merchantPanel.activeInHierarchy)
-        {
-            Camera.main.GetComponent<CameraMovements>().SetTarget(false, transform.FindChild("CamTarget").gameObject);
-            CreateMerchantInventory();
-        }
-        else if (Input.GetButtonDown("A_1") && canTalk && !dialoguePanel.activeInHierarchy)
-        {
-            dialoguePanel.SetActive(true);
+        if (canTalk && Input.GetButtonDown("A_1") && !ui.IsPanelActive(UI_Panels.Interaction_Menu))
+            ShowInteractionMenu();
+
+        if (ui.IsPanelActive(UI_Panels.Dialogue) && Input.GetButtonDown("A_1"))
             NextSection();
-        }
-        else if (Input.GetButtonDown("A_1") && canTalk && dialoguePanel.activeInHierarchy)
-            NextSection();
+
     }
 
-    public void NextSection()
+    private void ShowInteractionMenu()
     {
-        if (currentSelection > dialogue.Length -1)
-        {
-            currentSelection = 0;
-            dialoguePanel.SetActive(false);
-        }
+        // focus camera
+        Camera.main.GetComponent<CameraMovements>().SetTarget(false, gameObject);
+        // show menu
+        ui.SwitchActive(UI_Panels.Interaction_Menu);
+        Debug.Log(ui.FetchGOByName(UI_Panels.Interaction_Menu).name);
+        ui.FetchGOByName(UI_Panels.Interaction_Menu).GetComponent<NPC_Interaction>().SetCurrentNPC(this);
+    }
 
-        dialoguePanel.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = dialogue[currentSelection].npcText;
-        dialoguePanel.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = dialogue[currentSelection].respondText;
-        currentSelection += 1;
+    void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            canTalk = true;
+
+            if (!notification.activeInHierarchy)
+                notification.SetActive(true);
+        }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if(col.CompareTag("Player"))
+        if (col.CompareTag("Player"))
         {
-            canTrade = canTalk = false;
+            canTalk = false;
 
             if (notification.activeInHierarchy)
                 notification.SetActive(false);
-            else if (isMerchant && merchantPanel.activeInHierarchy)
-            {
-                ui.SwitchActive("Merchant_Inventory_Panel");
-                ui.SwitchActive("Inventory_Panel");
-            }
         }
     }
 
-    void CreateMerchantInventory()
+    public void CreateMerchantInventory()
     {
+        ui.SwitchActive(UI_Panels.Interaction_Menu);
+
         for (int i = 0; i < slotPanel.transform.childCount; i++)
         {
             Destroy(slotPanel.transform.GetChild(i).gameObject);
         }
-        ui.SwitchActive("Merchant_Inventory_Panel");
-        ui.SwitchActive("Inventory_Panel");
+        ui.SwitchActive(UI_Panels.Merchant_Inventory);
+        ui.SwitchActive(UI_Panels.Inventory);
 
         for (int i = 0; i < invData.Length; i++)
         {
-            if(merchantPanel.activeInHierarchy)
+            if (merchantPanel.activeInHierarchy)
             {
                 Item itemToAdd = db.FetchItemByID(invData[i].id);
 
@@ -160,6 +151,25 @@ public class NPCdata : MonoBehaviour
         }
 
         slotPanel.transform.SetParent(merchantPanel.transform);
+    }
+
+    public void Engage_Dialogue()
+    {
+        ui.SwitchActive(UI_Panels.Dialogue);
+        NextSection();
+    }
+
+    public void NextSection()
+    {
+        if (currentSelection > dialogue.Length - 1)
+        {
+            currentSelection = 0;
+            ui.FetchGOByName(UI_Panels.Dialogue).SetActive(false);
+        }
+
+        ui.FetchGOByName(UI_Panels.Dialogue).transform.GetChild(1).GetChild(0).GetComponent<Text>().text = dialogue[currentSelection].npcText;
+        ui.FetchGOByName(UI_Panels.Dialogue).transform.GetChild(2).GetChild(0).GetComponent<Text>().text = dialogue[currentSelection].respondText;
+        currentSelection += 1;
     }
 }
 

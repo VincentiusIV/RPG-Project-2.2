@@ -2,6 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
+// Author: Vincent Versnel
+// Generates a 2D world based on perlin noise in chunks 
+// reason for chunks is that multiple coroutines work a lot faster than one
+// Was not used for the final demo because it was too basic and making maps with tiled
+// displayed our goal with the game better.
+// In world gen testing room scene you can generate 2d worlds
 public class WorldGenerator : MonoBehaviour
 {
     public List<TerrainPrefab> terrainType = new List<TerrainPrefab>();
@@ -25,9 +31,7 @@ public class WorldGenerator : MonoBehaviour
 
     public void GenerateWorld()
     {
-        //xChunkAmount = worldWidth / 10;
-        //yChunkAmount = worldHeight / 10;
-
+        // Generates the amount of chunks
         for (int y = 0; y < yChunkAmount; y++)
         {
             for (int x = 0; x < xChunkAmount; x++)
@@ -49,7 +53,7 @@ public class WorldGenerator : MonoBehaviour
 
         worldHolder = new GameObject();
         Instantiate(worldHolder, new Vector3(0f, 0f, 0f), Quaternion.identity);
-        worldHolder.name = "Chunk(" + row +"," + column + ")";
+        worldHolder.name = "Chunk(" + row + "," + column + ")";
 
         for (int y = 0; y < chunkHeight; y++)
         {
@@ -64,7 +68,7 @@ public class WorldGenerator : MonoBehaviour
 
                 for (int i = 0; i < AmountOfPerlinLayers; i++)
                 {
-                    float perlin = Mathf.PerlinNoise( xValue / scale * frequency, yValue / scale * frequency) ;
+                    float perlin = Mathf.PerlinNoise(xValue / scale * frequency, yValue / scale * frequency);
                     height += perlin * amplitude;
 
                     amplitude *= increasingAmplitudePerLayer;
@@ -73,7 +77,7 @@ public class WorldGenerator : MonoBehaviour
 
                 height -= manualHeightAdjustment;
 
-                Vector2 position = new Vector2( xValue , yValue);
+                Vector2 position = new Vector2(xValue, yValue);
 
                 for (int i = 0; i < terrainType.Count; i++)
                 {
@@ -86,6 +90,7 @@ public class WorldGenerator : MonoBehaviour
                         break;
                     }
                 }
+                // this little bit of waiting prevents the game from completely freezing
                 yield return new WaitForSeconds(0f);
             }
         }
@@ -94,10 +99,10 @@ public class WorldGenerator : MonoBehaviour
         generating = false;
         computeTime = 0f;
     }
-
+    // Picks a random sprite out of the given sprite type array
     Sprite PickRandomSprite(SpriteType type)
     {
-        switch(type)
+        switch (type)
         {
             case SpriteType.grass:
                 return spriteArrays.grassTiles[(int)Random.Range(0, spriteArrays.grassTiles.Length)];

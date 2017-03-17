@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Author Vincent Versnel
 // Spawns a border around a map
 public class MapBorder : MonoBehaviour {
 

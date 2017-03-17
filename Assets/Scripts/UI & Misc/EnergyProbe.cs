@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Author Vincent Versnel
+// COntrols the energy probe interactable
 public class EnergyProbe : MonoBehaviour {
 
     public Transform droneTf;
@@ -38,19 +39,7 @@ public class EnergyProbe : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit2D(Collider2D col)
-    {
-       /* if(col.CompareTag("Player"))
-        {
-            if(isSappingRunning)
-            {
-                StopCoroutine(sapping);
-                isSappingRunning = false;
-            }
-                
-        }*/
-    }
-
+    // drains the energy and adds it towards the player' inventory
     IEnumerator DrainEnergy()
     {
         while (energyAmount > 0)

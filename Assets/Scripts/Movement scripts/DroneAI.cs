@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Author: Vincent Versnel
+// Basic follow instructions for the drone.
+// can switch target to for example target an energy probe instead when interacting
 public class DroneAI : MonoBehaviour
 {
     public Sprite[] bodySprites;
