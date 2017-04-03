@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+// Author: Vincent Versnel
+// Script for the player to interact with the player character
 public class PlayerMovement : MonoBehaviour
 {
     // Public Variables
@@ -155,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Selects the hotbar counter based on left or right controller button
     void SelectHotbar(int nextSelection)
     {
         if (nextSelection < 0)
@@ -167,6 +170,7 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<AudioSource>().Play();
     }
 
+    // sets the image for an equipped magic icon
     public void GetMagic(int spot, Sprite icon)
     {
         // Show icon on hotbar
@@ -178,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
             hotbar.transform.GetChild(spot - 1).GetChild(0).GetComponent<Image>().sprite = icon;
         }
     }
-
+    // checks the health of the player
     void CheckHealth()
     {
         if(playerStats.hp <= 0)
@@ -227,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
             col.GetComponent<DroneAI>().reachedPlayer = false;
         }
     }
-
+    // called on the last frame of the attacking animation
     public void EndAttackAnimation()
     {
         ani.SetBool("isAttacking", false);

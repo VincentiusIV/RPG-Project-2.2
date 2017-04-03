@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
+// Author: Vincent Versnel
+// Creates a grid for pathfinding
 public class Grid : MonoBehaviour {
 
-    public LayerMask unwalkableLayer;
+    public LayerMask blockingLayer;
     public Vector2 gridWorldSize;
     // space each node covers
     public float nodeRadius;
@@ -20,10 +21,10 @@ public class Grid : MonoBehaviour {
         // gives the amount of nodes we can fit inside worldsize
         gridSizeX = (int)(gridWorldSize.x / nodeDiameter);
         gridSizeY = (int)(gridWorldSize.y / nodeDiameter);
-        CreateGrid();
+        GenerateMap();
     }
-
-    void CreateGrid()
+    // Generates the grid map, the first step
+    void GenerateMap()
     {
         nodeGrid = new Node[gridSizeX, gridSizeY];
 
@@ -32,11 +33,18 @@ public class Grid : MonoBehaviour {
             {
                 Vector3 worldPoint = new Vector3(transform.position.x, transform.position.y, 0f) + Vector3.right * (x * nodeDiameter) + Vector3.up * (y * nodeDiameter);
                 //bool walkable = !(Physics2D.CircleCast(worldPoint, nodeRadius, Vector2.one, 1, unwalkableLayer));
-                bool walkable = !(Physics2D.BoxCast(worldPoint, Vector2.one * nodeRadius, 0, Vector2.zero, 1, unwalkableLayer));
+                // if raycast did not detect the blocking layer, it remains walkable
+                bool walkable = true;
+                if (Physics2D.BoxCast(worldPoint, Vector2.one * .5f, 0, Vector2.zero, 1f, blockingLayer))
+                    walkable = false;
+
                 nodeGrid[x, y] = new Node(walkable, worldPoint, x, y);
             }
     }
-
+    /* Gets the neighbors of the given node. 
+      * Looks at all 8 neighbours for diagonal distance &
+     *  checks if the neighbour is walkable
+     * */
     public List<Node> GetNeighbours(Node node)
     {
         List<Node> neighbours = new List<Node>();
@@ -47,56 +55,27 @@ public class Grid : MonoBehaviour {
                 if (x == 0 && y == 0)
                     continue;
 
-                int checkX = node.gridX + x;
-                int checkY = node.gridY + y;
+                int checkX = node.x + x;
+                int checkY = node.y + y;
 
-                if(checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
-                {
-                    neighbours.Add(nodeGrid[checkX, checkY]);
-                }
+                // does it exist in the grid?
+                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+                    if(nodeGrid[checkX, checkY].walkable)
+                        neighbours.Add(nodeGrid[checkX, checkY]);
             }
 
         return neighbours;
     }
 
 
+    /* Converts a given world position to the corresponding node
+     * rounds off the world position to an integer
+     * */
     public Node NodeFromWorldPoint(Vector3 worldPos)
     {
-        /*float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
-        float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
-        percentX = Mathf.Clamp01(percentX);
-        percentY = Mathf.Clamp01(percentY);
-
-        int x = (int)((gridSizeX) * percentX);
-        int y = (int)((gridSizeY + 1) * percentY);
-        Debug.Log("Node has X = " + x + " & Y = " + y);
-        */
         int x = Mathf.RoundToInt(worldPos.x - transform.position.x);
         int y = Mathf.RoundToInt(worldPos.y - transform.position.y);
         //Debug.Log("x " + x + " y " + y);
         return nodeGrid[x, y];
-    }
-
-    public List<Node> path;
-    void OnDrawGizmos()
-    {
-        Vector3 center = transform.position + Vector3.right * gridWorldSize.x / 2 + Vector3.up  * gridWorldSize.y / 2 + -Vector3.one * nodeRadius;
-        Gizmos.DrawWireCube(center, new Vector3(gridWorldSize.x, gridWorldSize.y,0));
-
-        if (nodeGrid != null)
-        {
-
-            foreach (Node node in nodeGrid)
-            {
-                Gizmos.color = (node.walkable) ? Color.white : Color.red;
-                if (path != null)
-                    if (path.Contains(node))
-                        Gizmos.color = Color.black;
-
-                Gizmos.DrawCube(node.worldPosition, Vector3.one * (nodeDiameter - .1f));
-            }
-        }
-            
-                
     }
 }

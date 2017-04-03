@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+// Author: Vincent Versnel
+// tracks movement of an object and places down 'ticks'
+// used to do footfal fx
 public class MovementTracker : MonoBehaviour {
 
     public GameObject tickObject;

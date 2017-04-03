@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using System.Text;
-
+// Author Vincent Versnel
+// Handles the Jackson text file to store data for items, npcs, weapons and magic
 public class DatabaseHandler : MonoBehaviour
 {
     public string dbName;
@@ -22,6 +23,7 @@ public class DatabaseHandler : MonoBehaviour
         CreateList();
     }
 
+    // Creates a list from the data stored in the Json file
     private void CreateList()
     {
         count = itemData.Count;
@@ -53,6 +55,7 @@ public class DatabaseHandler : MonoBehaviour
         }
     }
 
+    // Changes item information in the json file, called from custom editor wizard
     public void ChangeItemInDatabase(int id, string title, string type,int value, int power, int defence, int vitality, string description, bool stackable, int rarity, string slug, int mAttSp, int mAttRan, ElementType mElem, int rAttSp, int rAttRan, double rBullSp, ElementType rElem, ProjectileType rProjType, bool lifeSteal, bool knockback, double slowAmount)
     {
         itemList[id].Title = title;
@@ -81,6 +84,7 @@ public class DatabaseHandler : MonoBehaviour
         itemList[id].SlowAmount = slowAmount;
     }
 
+    // creates empty spots in the json file
     void CreateSpots(int amountOfSpots)
     {
         for (int i = 0; i < amountOfSpots; i++)
@@ -90,6 +94,7 @@ public class DatabaseHandler : MonoBehaviour
         WriteToDatabase();
     }
 
+    // writes to the json file
     public void WriteToDatabase()
     {
         StringBuilder sb = new StringBuilder();
@@ -102,6 +107,7 @@ public class DatabaseHandler : MonoBehaviour
         File.WriteAllText(Application.dataPath + "/StreamingAssets/" + dbName + ".json", sb.ToString());
     }
 
+    // converts strings to element type
     public ElementType StringToElement(string str)
     {
         switch(str)
@@ -123,6 +129,8 @@ public class DatabaseHandler : MonoBehaviour
         }
         return ElementType.none;
     }
+
+    // converts strings to projectile types
     public ProjectileType StringToProjType(string str)
     {
         switch (str)
@@ -137,6 +145,7 @@ public class DatabaseHandler : MonoBehaviour
         return ProjectileType.bullet;
     }
 
+    // returns an item by giving the id
     public Item FetchItemByID(int id)
     {
         for (int i = 0; i < itemList.Count; i++)
@@ -145,6 +154,7 @@ public class DatabaseHandler : MonoBehaviour
         return null;
     }
 
+    // empties the database
     public void EmptyDatabase(string safetyString)
     {
         if(safetyString == "I am sure to empty the database")
@@ -153,7 +163,7 @@ public class DatabaseHandler : MonoBehaviour
             Debug.Log("Safety string was incorrect... database was not emptied");
     }
 }
-
+// Item class, used for items, npcs, magic, weapons,
 public class Item
 {
     public int ID { get; set; }

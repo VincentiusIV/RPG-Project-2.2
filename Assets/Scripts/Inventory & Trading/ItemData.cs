@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
+// Author: Vincent Versnel
+// Holds the data of each item and drags it when it is being dragged
 public class ItemData : MonoBehaviour
 {
     public Item item;
@@ -24,7 +26,7 @@ public class ItemData : MonoBehaviour
         inv = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
     }
 
-// Controller interaction
+    // Controller interaction
     public void OnControllerDrag()
     {
         if (item != null && canDrag == false)
@@ -35,7 +37,7 @@ public class ItemData : MonoBehaviour
 
     public void OnControllerDrop()
     {
-        if(item != null && canDrag == true)
+        if (item != null && canDrag == true)
         {
             canDrag = false;
             transform.SetParent(inv.slots[slotID].transform);
@@ -62,10 +64,10 @@ public class ItemData : MonoBehaviour
         }
     }
 
-// Public functions
+    // Public functions
     public void UpdateInfo()
     {
-        if(InfoPanel.activeInHierarchy == false)
+        if (InfoPanel.activeInHierarchy == false)
             InfoPanel.SetActive(true);
 
         TextPanel.GetComponent<InfoDataVisualizer>().UpdateInfo(item);

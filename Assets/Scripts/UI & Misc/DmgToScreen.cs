@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+// Author Vincent Versnel
+// visualizes damage done to enemies by showing the damage number above their heads
 public class DmgToScreen : MonoBehaviour {
 
     [SerializeField]private GameObject text;

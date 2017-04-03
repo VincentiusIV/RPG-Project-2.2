@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Author: Vincent Versnel
+// lerps the camera around to a target
+// can switch the target to have the camera focus something else on interaction
 public class CameraMovements : MonoBehaviour
 {
     [SerializeField]private GameObject minimap;

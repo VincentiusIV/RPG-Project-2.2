@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+// Author: Vincent Versnel
+// AI for birds to fly together
 public class BirdAI : MonoBehaviour {
 
     public Vector3 velocity;

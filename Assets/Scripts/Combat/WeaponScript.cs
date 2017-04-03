@@ -1,25 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Author: Vincent Versnel
+// Holds most of the functionality for the main weapon and ammunition
 public class WeaponScript : MonoBehaviour
 {
     // Public Fields
     public LayerMask LayersToHit;
     public float hitForce;
 
-    [HideInInspector]public Item thisWeapon;
+    [HideInInspector]
+    public Item thisWeapon;
     public bool hasWeaponEquipped;
 
+    // array of projectile ammunition
     public Projectile[] projectiles;
 
-    [SerializeField]private GameObject gunSmoke;
-    [SerializeField]private GameObject bulletTrail;
-    [SerializeField]private GameObject projectileGO;
-    [SerializeField]private Sprite[] projectileSprites;
+    // Private & Serialized Variables
+    [SerializeField]
+    private GameObject gunSmoke;
+    [SerializeField]
+    private GameObject bulletTrail;
+    [SerializeField]
+    private GameObject projectileGO;
+    [SerializeField]
+    private Sprite[] projectileSprites;
+
     // Private Fields
     private string wepName;
-    private SpriteRenderer sr; // change this to animator in the future
-
     private PlayerMovement playerStats; // maybe not needed if dmg is calculated beforehand
     private Transform spawnPos;
     private Transform aim;
@@ -34,7 +41,6 @@ public class WeaponScript : MonoBehaviour
      */
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
         beamLine = GetComponent<LineRenderer>();
         beamLine.enabled = false;
         aim = transform.parent.parent.FindChild("Aim");
@@ -50,27 +56,23 @@ public class WeaponScript : MonoBehaviour
         }
     }
 
+    // Ranged Attack
     public void RangedAttack(int ammo)
     {
         if (Time.time > nextShot && hasWeaponEquipped)
         {
-            weaponAudio.Play();
-
             nextShot = Time.time + (float)thisWeapon.RangeAttackSpeed / 10;
-            
             ShootFX(ammo);
 
             if (projectiles[ammo].attackSpeed > 0)
-            {
                 RangeBeamAttack(ammo);
-
-            }  
         }
     }
 
+    // Ranged Beam Attack using raycast (plan was to add flame and slow projectiles as well)
     void RangeBeamAttack(int ammo)
     {
-        Debug.Log("range beam attack with ammo "+ projectiles[ammo].element);
+        Debug.Log("range beam attack with ammo " + projectiles[ammo].element);
 
         Vector2 end = new Vector2(aim.position.x, aim.position.y);
         Vector2 start = new Vector2(spawnPos.position.x, spawnPos.position.y);
@@ -82,12 +84,14 @@ public class WeaponScript : MonoBehaviour
 
         if (hit)
         {
+            // All of the combos
+            // Very ugly written with tons of if statements and most of them are not implemented unfortunately
             if (hit.collider.CompareTag("Enemy"))
             {
                 MobScript hitEnemy = hit.collider.GetComponent<MobScript>();
 
                 // WATER + ELECTRICITY = EXTRA DMG
-                if(thisWeapon.RangeElement == ElementType.water.ToString() && projectiles[ammo].element == ElementType.electricity || thisWeapon.RangeElement == ElementType.electricity.ToString() && projectiles[ammo].element == ElementType.water)
+                if (thisWeapon.RangeElement == ElementType.water.ToString() && projectiles[ammo].element == ElementType.electricity || thisWeapon.RangeElement == ElementType.electricity.ToString() && projectiles[ammo].element == ElementType.water)
                 {
                     Debug.Log("water + electricity");
                 }
@@ -144,13 +148,14 @@ public class WeaponScript : MonoBehaviour
 
     void Update()
     {
-        if(isShotFXRunning)
+        if (isShotFXRunning)
         {
             beamLine.SetPosition(0, spawnPos.position);
             beamLine.SetPosition(1, (aim.position - spawnPos.position) * thisWeapon.RangeAttackRange);
         }
     }
 
+    // Shot effect for muzzle flash, bullet trail and audio
     private IEnumerator ShotEffect(float duration)
     {
         isShotFXRunning = true;
@@ -163,23 +168,31 @@ public class WeaponScript : MonoBehaviour
         isShotFXRunning = false;
     }
 
+    void ShootFX(int ammo)
+    {
+        Instantiate(gunSmoke, spawnPos.position, spawnPos.rotation);
+
+        bulletTrail.GetComponent<BulletScript>().ele = projectiles[ammo].element;
+        Instantiate(bulletTrail, spawnPos.position, spawnPos.rotation);
+    }
+
+    // Knockback
     void KnockBack(Collider2D col)
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, col.transform.position - transform.position, 100);
         Debug.Log("trying to cast");
-        Debug.DrawRay(transform.position, (col.transform.position - transform.position) * 100);
+        //Debug.DrawRay(transform.position, (col.transform.position - transform.position) * 100);
 
         if (hit)
         {
-
             Debug.Log("adding force");
             Rigidbody2D rbPlayer = col.gameObject.GetComponent<Rigidbody2D>();
             rbPlayer.AddForce(-hit.normal * 100, ForceMode2D.Force);
         }
-
         col.transform.FindChild("AIMovement").GetComponent<AIMovement>().speedMultiplier = (int)thisWeapon.SlowAmount;
     }
 
+    // Picks a sprite based on the element
     Sprite ChooseSprite(ElementType ele)
     {
         switch (ele)
@@ -194,14 +207,6 @@ public class WeaponScript : MonoBehaviour
                 return projectileSprites[3];
         }
         return new Sprite();
-    }
-
-    void ShootFX(int ammo)
-    {
-        Instantiate(gunSmoke, spawnPos.position, spawnPos.rotation);
-
-        bulletTrail.GetComponent<BulletScript>().ele = projectiles[ammo].element;
-        Instantiate(bulletTrail, spawnPos.position, spawnPos.rotation);
     }
 }
 

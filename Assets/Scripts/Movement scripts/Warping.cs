@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Author: Vincent Versnel
+// Warps the player from one position to another
 public class Warping : MonoBehaviour {
 
     [SerializeField]private Transform airshipWarp;
@@ -18,6 +19,8 @@ public class Warping : MonoBehaviour {
         gc = GameObject.FindWithTag("GameController").GetComponent<GameController>();
     }
 
+    // fades in on enter, sets the player still,
+    // warps the player, fades out, player can play again
     IEnumerator OnTriggerEnter2D(Collider2D col)
     {
         if(col.CompareTag("Player"))

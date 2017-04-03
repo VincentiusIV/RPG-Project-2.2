@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+// Author: Vincent Versnel
 // Movement is in this script to seperate colliders from the same GameObject
 public class AIMovement : MonoBehaviour {
 
@@ -128,7 +129,7 @@ public class AIMovement : MonoBehaviour {
         oldPosition = transform.position;
     }
 
-
+    // patrols to given patrol points
     public IEnumerator Patrol()
     {
         yield return new WaitForSeconds(1f);
@@ -157,6 +158,7 @@ public class AIMovement : MonoBehaviour {
         isPatrollingRunning = behaviour.CanMove = false;
     }
 
+    // Follows the player
     public IEnumerator FollowPlayer()
     {
         behaviour.CanMove = isFollowPlayerRunning = true;

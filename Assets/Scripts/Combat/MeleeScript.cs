@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Author: Vincent Versnel
+// Script for melee attacks that turns a trigger collider on for half
+// a second and disables it when it has detected another collider.
 public class MeleeScript : MonoBehaviour
 {
     // Public Fields

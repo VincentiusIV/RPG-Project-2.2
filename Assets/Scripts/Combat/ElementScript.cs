@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Author: Vincent Versnel
+/* Script for elements to interact with eachother
+ * unfortunately there was not enough time to implement more
+ * interesting combos.
+ * */
 public class ElementScript : MonoBehaviour
 {
     // Public & Serialized Fields
@@ -47,7 +51,8 @@ public class ElementScript : MonoBehaviour
             }
         }
     }
-
+    // Interacts with the player upon trigger
+    // can slow, or trigger a new element state
     void OnTriggerStay2D(Collider2D col)
     {
         if (col.CompareTag("Player") && canSlow && triggered)
@@ -62,7 +67,7 @@ public class ElementScript : MonoBehaviour
             col.GetComponent<ElementScript>().Triggered();
         }
     }
-
+    // resets movement speed if the on trigger exit
     void OnTriggerExit2D(Collider2D col)
     {
         if (canSlow)
@@ -83,7 +88,7 @@ public class ElementScript : MonoBehaviour
             StartCoroutine(ReturnToDefault());
         }
     }
-
+    // returns element to first state after 5 seconds
     IEnumerator ReturnToDefault()
     {
         yield return new WaitForSeconds(5f);

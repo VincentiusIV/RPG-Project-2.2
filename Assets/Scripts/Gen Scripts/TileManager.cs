@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
+// Author: Vincent Versnel
+// Used to create grids and make prefabs from tiles
+// Has not really been used, was more of an experiment that designers could use for level design
 public class TileManager : MonoBehaviour
 {
     public int columns = 8;
@@ -41,7 +44,7 @@ public class TileManager : MonoBehaviour
         {
             GameObject go = floorTiles[Random.Range(0, floorTiles.Length)];
             Instantiate(go, gridPositions[i], Quaternion.identity);
-            
+
             //go.transform.SetParent(gameObject.transform);
         }
     }

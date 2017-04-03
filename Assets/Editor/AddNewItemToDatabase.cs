@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEditor;
 
+// Author Vincent Versnel
+// scriptable wizard that allows you to add, change, and remove items in the json file
+// created so that designers could easily change items in the game
 public class AddNewItemToDatabase : ScriptableWizard
 {
     [Range(0.0f, 100.0f)] public int ID = 0;

@@ -3,17 +3,25 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
+// Author: Vincent Versnel
+// Functionality for the inventory
+// Can add items, move items, equip/unequip items and update wallet
 public class Inventory : MonoBehaviour
 {
     // Public Fields
 
 
     // Public & Hidden Fields
-    [HideInInspector]public ItemData movingItem;
-    [HideInInspector]public bool isMovingAnItem;
-    [HideInInspector]public List<Item> items = new List<Item>();
-    [HideInInspector]public List<GameObject> slots = new List<GameObject>();
-    [HideInInspector]public int money;
+    [HideInInspector]
+    public ItemData movingItem;
+    [HideInInspector]
+    public bool isMovingAnItem;
+    [HideInInspector]
+    public List<Item> items = new List<Item>();
+    [HideInInspector]
+    public List<GameObject> slots = new List<GameObject>();
+    [HideInInspector]
+    public int money;
 
     // Private & Hidden Reference Fields
     private GameObject hand;
@@ -23,28 +31,31 @@ public class Inventory : MonoBehaviour
     private EventSystem e;
 
     // Private & Serialized Fields
-    [SerializeField]private GameObject inventoryPanel;
-    [SerializeField]private GameObject slotPanel;
+    [SerializeField]
+    private GameObject inventoryPanel;
+    [SerializeField]
+    private GameObject slotPanel;
 
-    [SerializeField]private GameObject inventorySlot;
-    [SerializeField]private GameObject inventoryItem;
-    [SerializeField]private GameObject equipmentItem;
-    [SerializeField]private GameObject[] equipmentSlots;
+    [SerializeField]
+    private GameObject inventorySlot;
+    [SerializeField]
+    private GameObject inventoryItem;
+    [SerializeField]
+    private GameObject equipmentItem;
+    [SerializeField]
+    private GameObject[] equipmentSlots;
 
-    [SerializeField]private int slotAmount;
-    [SerializeField]private WeaponScript emptyHand;
+    [SerializeField]
+    private int slotAmount;
+    [SerializeField]
+    private WeaponScript emptyHand;
 
     void Start()
     {
         database = GetComponent<DatabaseHandler>();
         player = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
         hand = GameObject.FindWithTag("Hand");
-
-        //inventoryPanel = GameObject.Find("Inventory_Panel");
         inventoryPanel.SetActive(true);
-
-        //slotPanel = inventoryPanel.transform.FindChild("Slot_Panel").gameObject;
-
         UpdateWallet(1000);
 
         // Creating basic slots
@@ -64,36 +75,37 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // Adds an item to the inventory based on given ID
     public void AddItem(int id)
     {
+        // fetches item from database based on given id
         Item itemToAdd = database.FetchItemByID(id);
-
-        if(itemToAdd == null)
+        // Checks if the item exists
+        if (itemToAdd == null)
         {
             Debug.Log("Item with ID: " + id + " does not exist");
             return;
         }
 
         // Checks if item of the same type is in inventory, if it is stackable it will be stacked
-        if(itemToAdd.Stackable && CheckIfItemIsInInventory(itemToAdd))
+        if (itemToAdd.Stackable && CheckIfItemIsInInventory(itemToAdd))
         {
             for (int i = 0; i < items.Count; i++)
-            {
-                if(items[i].ID == id)
+                if (items[i].ID == id)
                 {
                     ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
                     data.amount++;
                     data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
                     break;
                 }
-            }
         }
+            
         // else it will be dropped without stacking
         else
         {
             int emptySlot = SearchForEmptySlot();
 
-            if(emptySlot == -1)
+            if (emptySlot == -1)
                 return;
 
             items[emptySlot] = itemToAdd;
@@ -109,24 +121,25 @@ public class Inventory : MonoBehaviour
             slots[emptySlot].GetComponent<Slot>().containsItem = true;
         }
     }
-
+    // Remove item from inventory (not yet implemented)
     public void RemoveItem(int id)
     {
         Item itemToRemove = database.FetchItemByID(id);
         // TO-DO write code to remove item from inventory
     }
 
+    // Equip item, called when an item is dropped on an equipment slot
     public void EquipItem(int id, int slotID)
     {
         Item itemToEquip = database.FetchItemByID(id);
         //Debug.Log("equipping... "+itemToEquip.Title + " " + itemToEquip.Slug);
-
+        // Checks if the item exists
         if (itemToEquip == null || itemToEquip.Type == "Items")
         {
             Debug.Log("Item with ID: " + id + " does not exist");
             return;
         }
-
+        // If the item is stackable, it is not equipable. 
         if (itemToEquip.Stackable == false)
         {
             int equipSlotID = slotID - slotAmount;
@@ -136,16 +149,18 @@ public class Inventory : MonoBehaviour
 
             WeaponScript wepScript = weapon.GetComponent<WeaponScript>();
 
-            if (weapon.tag == "Weapon")// equip weapon
+            // Equip weapon, the gun in the game
+            if (weapon.tag == "Weapon")
             {
-                
+
                 wepScript.thisWeapon = itemToEquip;
                 if (itemToEquip.Title != "resetweapon")
                     wepScript.hasWeaponEquipped = true;
                 else wepScript.hasWeaponEquipped = false;
                 //player.GetWeapon();
             }
-            else if (weapon.tag == "Magic")// equip ammo
+            // Equip 'Magic' (actually the ammunition in game)
+            else if (weapon.tag == "Magic")
             {
                 player.GetMagic(equipSlotID, FetchSpriteBySlug(itemToEquip.Type, itemToEquip.Slug));
 
@@ -159,6 +174,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // Called when a slot is pressed that holds an item
     public void StartMovingItem(ItemData itemToMove, bool shouldUnequip)
     {
         // Setting state & position for moving
@@ -177,6 +193,7 @@ public class Inventory : MonoBehaviour
         movingItem.OnControllerDrag();
     }
 
+    // Called when an item is held and a slot is pressed
     // Returns true if the item was dropped
     public bool EndMovingItem(int new_slotID)
     {
@@ -195,14 +212,15 @@ public class Inventory : MonoBehaviour
             MoveItem(new_slotID);
             return true;
         }
-        if(slots[new_slotID].GetComponent<Slot>().type == SlotType.regular)
+        if (slots[new_slotID].GetComponent<Slot>().type == SlotType.regular)
         {
             MoveItem(new_slotID);
             return true;
         }
-        return false; 
+        return false;
     }
 
+    // Moves the item in the list so it can be found again
     void MoveItem(int new_slotID)
     {
         // Resetting Old data
@@ -216,6 +234,7 @@ public class Inventory : MonoBehaviour
         movingItem.OnControllerDrop();
     }
 
+    // Updates the wallet with a given currency
     public void UpdateWallet(int change)
     {
         money += change;
@@ -223,32 +242,31 @@ public class Inventory : MonoBehaviour
         // Play small animation so the player sees how much 
     }
 
+    // Checks if an item is in the inventory
     bool CheckIfItemIsInInventory(Item item)
     {
         for (int i = 0; i < items.Count; i++)
-        {
             if (items[i].ID == item.ID)
                 return true;
-        }
         return false;
     }
 
+    // Returns the first empty slot' id
     public int SearchForEmptySlot()
     {
         int emptySlotID;
 
         for (int i = 0; i < items.Count; i++)
-        {
             if (slots[i].GetComponent<Slot>().containsItem == false && slots[i].GetComponent<Slot>().type == SlotType.regular)
             {
                 emptySlotID = i;
                 return emptySlotID;
             }
-        }
         Debug.LogError("Inventory is full");
         return emptySlotID = -1;
     }
 
+    // Acquires a sprite based on given type and 'slug' (actual name of the sprite)
     public Sprite FetchSpriteBySlug(string type, string slug)
     {
         Sprite spriteData = Resources.Load<Sprite>("Sprites/" + type + "/" + slug);
